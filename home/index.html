@@ -8,244 +8,142 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="light-mode">
     <!-- Navigation Bar -->
     <header class="header">
         <div class="container">
             <nav class="navbar">
-                <div class="logo">
+                <div class="nav-brand">
                     <span class="logo-text">TeamPortfolio</span>
+                
                 </div>
                 
                 <div class="nav-menu" id="navMenu">
-                    <a href="#" class="nav-link active">Home</a>
-                    <a href="#" class="nav-link">About</a>
-                    <a href="#" class="nav-link">Projects</a>
-                    <a href="#" class="nav-link">Team</a>
-                    <a href="#" class="nav-link">Contact</a>
-                    <button class="btn btn-outline" id="loginBtnNav">Login</button>
+                    <div class="nav-links">
+                        <a href="#" class="nav-link active">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Projects</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Team</span>
+                        </a>
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="theme-toggle">
+                            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="auth-buttons">
+                            <button class="btn btn-ghost" id="loginBtn">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span>Login</span>
+                            </button>
+                            <button class="btn btn-primary" id="signupBtn">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Sign Up</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 
-                <button class="btn btn-primary nav-action" id="signupBtnNav">Sign Up</button>
-                
-                <button class="mobile-toggle" id="mobileToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <div class="nav-mobile-actions">
+                    <button class="theme-btn mobile" id="mobileThemeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </nav>
         </div>
     </header>
 
-    <!-- Login Modal -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Welcome Back</h2>
-                <p>Sign in to your account to continue</p>
-                <button class="modal-close" id="closeLogin">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="modal-body">
-                <form class="auth-form" id="loginForm">
-                    <div class="form-group">
-                        <label for="loginEmail">Email Address</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" id="loginEmail" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                            <button type="button" class="toggle-password" id="toggleLoginPassword">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                        <div class="form-options">
-                            <label class="checkbox">
-                                <input type="checkbox" id="rememberMe">
-                                <span class="checkmark"></span>
-                                Remember me
-                            </label>
-                            <a href="#" class="forgot-password">Forgot password?</a>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-block">
-                        <span class="btn-text">Sign In</span>
-                        <i class="fas fa-arrow-right btn-icon"></i>
-                    </button>
-                    
-                    <div class="auth-divider">
-                        <span>Or continue with</span>
-                    </div>
-                    
-                    <div class="social-auth">
-                        <button type="button" class="social-btn google">
-                            <i class="fab fa-google"></i>
-                            <span>Google</span>
-                        </button>
-                        <button type="button" class="social-btn github">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub</span>
-                        </button>
-                    </div>
-                    
-                    <div class="auth-footer">
-                        Don't have an account? 
-                        <a href="#" class="switch-auth" id="switchToSignup">Sign up</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div class="modal-overlay" id="signupModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Create Account</h2>
-                <p>Join our platform and start collaborating</p>
-                <button class="modal-close" id="closeSignup">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="modal-body">
-                <form class="auth-form" id="signupForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-user"></i>
-                                <input type="text" id="firstName" placeholder="John" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-user"></i>
-                                <input type="text" id="lastName" placeholder="Doe" required>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="signupEmail">Email Address</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" id="signupEmail" placeholder="john@example.com" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="signupPassword">Password</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="signupPassword" placeholder="Create a strong password" required>
-                            <button type="button" class="toggle-password" id="toggleSignupPassword">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                        <div class="password-strength">
-                            <div class="strength-bar">
-                                <div class="strength-fill" id="passwordStrength"></div>
-                            </div>
-                            <span class="strength-text" id="strengthText">Password strength</span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-lock"></i>
-                            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="role">Primary Role</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-briefcase"></i>
-                            <select id="role" required>
-                                <option value="">Select your role</option>
-                                <option value="frontend">Frontend Developer</option>
-                                <option value="backend">Backend Developer</option>
-                                <option value="fullstack">Full Stack Developer</option>
-                                <option value="designer">UI/UX Designer</option>
-                                <option value="manager">Project Manager</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="checkbox">
-                            <input type="checkbox" id="terms" required>
-                            <span class="checkmark"></span>
-                            I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-block">
-                        <span class="btn-text">Create Account</span>
-                        <i class="fas fa-user-plus btn-icon"></i>
-                    </button>
-                    
-                    <div class.auth-divider>
-                        <span>Or sign up with</span>
-                    </div>
-                    
-                    <div class="social-auth">
-                        <button type="button" class="social-btn google">
-                            <i class="fab fa-google"></i>
-                            <span>Google</span>
-                        </button>
-                        <button type="button" class="social-btn github">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub</span>
-                        </button>
-                    </div>
-                    
-                    <div class="auth-footer">
-                        Already have an account? 
-                        <a href="#" class="switch-auth" id="switchToLogin">Sign in</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Professional Team Portfolio Platform</h1>
-                <p class="hero-subtitle">
-                    Streamline collaboration, showcase projects, and manage development workflows in one unified dashboard. Built for modern software teams.
-                </p>
-                <div class="hero-actions">
-                    <button class="btn btn-primary btn-large" id="exploreBtn">
-                        <i class="fas fa-rocket"></i> Explore Platform
-                    </button>
-                    <button class="btn btn-secondary btn-large" id="viewProjectsBtn">
-                        <i class="fas fa-code-branch"></i> View Projects
-                    </button>
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span><i class="fas fa-star"></i> Professional Platform</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Build, Collaborate & Showcase
+                        <span class="gradient-text">Team Projects</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        A unified dashboard for development teams to manage workflows, track progress, and showcase portfolio projects with modern collaboration tools.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-large" id="exploreBtn">
+                            <i class="fas fa-rocket"></i> 
+                            <span>Explore Platform</span>
+                        </button>
+                        <button class="btn btn-outline btn-large" id="viewProjectsBtn">
+                            <i class="fas fa-eye"></i>
+                            <span>View Demo</span>
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Teams</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2K+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">99%</span>
+                            <span class="stat-label">Satisfaction</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-visual">
-                <div class="dashboard-preview">
-                    <div class="preview-card"></div>
-                    <div class="preview-card"></div>
-                    <div class="preview-card"></div>
-                    <div class="preview-card"></div>
+                <div class="hero-visual">
+                    <div class="dashboard-preview">
+                        <div class="preview-header">
+                            <div class="preview-dot red"></div>
+                            <div class="preview-dot yellow"></div>
+                            <div class="preview-dot green"></div>
+                        </div>
+                        <div class="preview-content">
+                            <div class="preview-widget widget-1">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Analytics</span>
+                            </div>
+                            <div class="preview-widget widget-2">
+                                <i class="fas fa-code"></i>
+                                <span>Code Review</span>
+                            </div>
+                            <div class="preview-widget widget-3">
+                                <i class="fas fa-tasks"></i>
+                                <span>Tasks</span>
+                            </div>
+                            <div class="preview-widget widget-4">
+                                <i class="fas fa-comments"></i>
+                                <span>Team Chat</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -255,189 +153,273 @@
     <section class="features">
         <div class="container">
             <div class="section-header">
-                <h2>Powerful Features for Modern Teams</h2>
-                <p>Everything you need to manage projects, collaborate effectively, and showcase your team's work</p>
+                <h2>Platform <span class="gradient-text">Features</span></h2>
+                <p>Everything modern development teams need to succeed</p>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-users-cog"></i>
+                        <div class="icon-bg">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Project Collaboration</h3>
+                    <h3 class="feature-title">Team Collaboration</h3>
                     <p class="feature-description">
-                        Real-time collaboration tools with task assignment, progress tracking, and team communication channels.
+                        Real-time collaboration with integrated chat, task assignments, and progress tracking for seamless teamwork.
                     </p>
+                    <a href="#" class="feature-link">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-code-branch"></i>
+                        <div class="icon-bg">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Version Control Workflow</h3>
+                    <h3 class="feature-title">Version Control</h3>
                     <p class="feature-description">
-                        Integrated Git workflows with visual branching, merge request tracking, and code review tools.
+                        Integrated Git workflows with visual branching, code reviews, and automated deployment pipelines.
                     </p>
+                    <a href="#" class="feature-link">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-layer-group"></i>
+                        <div class="icon-bg">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Team-Based Development</h3>
+                    <h3 class="feature-title">Analytics Dashboard</h3>
                     <p class="feature-description">
-                        Role-based permissions, team dashboards, and performance metrics for optimal team coordination.
+                        Comprehensive analytics and reporting tools to track project progress and team performance.
                     </p>
+                    <a href="#" class="feature-link">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-laptop-code"></i>
+                        <div class="icon-bg">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
                     </div>
-                    <h3 class="feature-title">Modern Web Practices</h3>
+                    <h3 class="feature-title">Security & Compliance</h3>
                     <p class="feature-description">
-                        Support for modern frameworks, CI/CD integration, and best practice documentation.
+                        Enterprise-grade security with role-based access control and compliance monitoring.
                     </p>
+                    <a href="#" class="feature-link">
+                        Learn more <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Dashboard Preview Area -->
-    <section class="dashboard-preview-section">
+    <section class="dashboard">
         <div class="container">
             <div class="section-header">
-                <h2>Dashboard Overview</h2>
-                <p>Centralized view of your team's activity, projects, and progress</p>
+                <h2>Interactive <span class="gradient-text">Dashboard</span></h2>
+                <p>Real-time insights and project management tools</p>
             </div>
             
-            <div class="dashboard-content">
-                <!-- Left Panel - Activity Feed -->
-                <div class="dashboard-left">
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-history"></i> Recent Activity</h3>
-                            <button class="btn-text">View All</button>
+            <div class="dashboard-grid">
+                <!-- Activity Panel -->
+                <div class="dashboard-panel activity-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                        <div class="panel-actions">
+                            <button class="btn-icon"><i class="fas fa-filter"></i></button>
+                            <button class="btn-icon"><i class="fas fa-ellipsis-h"></i></button>
                         </div>
-                        <div class="activity-feed">
-                            <div class="activity-item">
-                                <div class="activity-icon success">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <p class="activity-text">Project "Dashboard Redesign" completed</p>
-                                    <span class="activity-time">2 hours ago</span>
-                                </div>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-avatar">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Alex">
                             </div>
-                            <div class="activity-item">
-                                <div class="activity-icon info">
-                                    <i class="fas fa-code-merge"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <p class="activity-text">Merge request approved by Alex</p>
-                                    <span class="activity-time">5 hours ago</span>
-                                </div>
+                            <div class="activity-content">
+                                <p class="activity-text"><strong>Alex Chen</strong> completed frontend deployment</p>
+                                <span class="activity-time">15 min ago</span>
                             </div>
-                            <div class="activity-item">
-                                <div class="activity-icon warning">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <p class="activity-text">New team member added to Frontend</p>
-                                    <span class="activity-time">1 day ago</span>
-                                </div>
+                            <div class="activity-badge success">
+                                <i class="fas fa-check"></i>
                             </div>
-                            <div class="activity-item">
-                                <div class="activity-icon primary">
-                                    <i class="fas fa-tasks"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <p class="activity-text">Sprint planning meeting scheduled</p>
-                                    <span class="activity-time">2 days ago</span>
-                                </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Maria" alt="Maria">
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text"><strong>Maria Garcia</strong> submitted code review</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                            <div class="activity-badge warning">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David" alt="David">
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text"><strong>David Kim</strong> created new API endpoint</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                            <div class="activity-badge info">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Sarah">
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text"><strong>Sarah Johnson</strong> updated project timeline</p>
+                                <span class="activity-time">4 hours ago</span>
+                            </div>
+                            <div class="activity-badge primary">
+                                <i class="fas fa-calendar"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Right Panel - Stats and Projects -->
-                <div class="dashboard-right">
+                <!-- Stats Panel -->
+                <div class="dashboard-panel stats-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-chart-bar"></i> Project Statistics</h3>
+                        <div class="time-filter">
+                            <select class="select-filter">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>Last quarter</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-project-diagram"></i>
+                            <div class="stat-header">
+                                <h4>Active Projects</h4>
+                                <div class="stat-change up">
+                                    <i class="fas fa-arrow-up"></i> 12%
+                                </div>
                             </div>
-                            <div class="stat-info">
-                                <h4 class="stat-value">12</h4>
-                                <p class="stat-label">Active Projects</p>
-                            </div>
-                        </div>
-                        
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-user-friends"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h4 class="stat-value">24</h4>
-                                <p class="stat-label">Team Members</p>
+                            <div class="stat-value">24</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
                             </div>
                         </div>
-                        
                         <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-code"></i>
+                            <div class="stat-header">
+                                <h4>Team Productivity</h4>
+                                <div class="stat-change up">
+                                    <i class="fas fa-arrow-up"></i> 8%
+                                </div>
                             </div>
-                            <div class="stat-info">
-                                <h4 class="stat-value">347</h4>
-                                <p class="stat-label">Commits This Month</p>
+                            <div class="stat-value">89%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 89%"></div>
                             </div>
                         </div>
-                        
                         <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-check-double"></i>
+                            <div class="stat-header">
+                                <h4>Code Quality</h4>
+                                <div class="stat-change up">
+                                    <i class="fas fa-arrow-up"></i> 5%
+                                </div>
                             </div>
-                            <div class="stat-info">
-                                <h4 class="stat-value">89%</h4>
-                                <p class="stat-label">Tasks Completed</p>
+                            <div class="stat-value">94%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 94%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h4>Deployment Speed</h4>
+                                <div class="stat-change down">
+                                    <i class="fas fa-arrow-down"></i> 3%
+                                </div>
+                            </div>
+                            <div class="stat-value">2.4s</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="dashboard-card project-highlights">
-                        <div class="card-header">
-                            <h3><i class="fas fa-star"></i> Featured Projects</h3>
+                </div>
+                
+                <!-- Projects Panel -->
+                <div class="dashboard-panel projects-panel">
+                    <div class="panel-header">
+                        <h3><i class="fas fa-rocket"></i> Active Projects</h3>
+                        <button class="btn btn-sm btn-outline">View All</button>
+                    </div>
+                    <div class="projects-list">
+                        <div class="project-item">
+                            <div class="project-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4>React Dashboard</h4>
+                                <p>Frontend Development</p>
+                            </div>
+                            <div class="project-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%"></div>
+                                </div>
+                                <span>85%</span>
+                            </div>
                         </div>
-                        <div class="projects-list">
-                            <div class="project-item">
-                                <div class="project-badge frontend">Frontend</div>
-                                <h4 class="project-name">Admin Dashboard UI</h4>
-                                <div class="project-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 85%"></div>
-                                    </div>
-                                    <span class="progress-text">85% Complete</span>
-                                </div>
+                        <div class="project-item">
+                            <div class="project-icon">
+                                <i class="fab fa-node-js"></i>
                             </div>
-                            <div class="project-item">
-                                <div class="project-badge backend">Backend</div>
-                                <h4 class="project-name">API Microservices</h4>
-                                <div class="project-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 72%"></div>
-                                    </div>
-                                    <span class="progress-text">72% Complete</span>
-                                </div>
+                            <div class="project-info">
+                                <h4>API Gateway</h4>
+                                <p>Backend Services</p>
                             </div>
-                            <div class="project-item">
-                                <div class="project-badge mobile">Mobile</div>
-                                <h4 class="project-name">Team Collaboration App</h4>
-                                <div class="project-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: 43%"></div>
-                                    </div>
-                                    <span class="progress-text">43% Complete</span>
+                            <div class="project-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 72%"></div>
                                 </div>
+                                <span>72%</span>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4>Mobile App</h4>
+                                <p>Cross-platform</p>
+                            </div>
+                            <div class="project-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 43%"></div>
+                                </div>
+                                <span>43%</span>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <div class="project-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4>Data Pipeline</h4>
+                                <p>Data Engineering</p>
+                            </div>
+                            <div class="project-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 56%"></div>
+                                </div>
+                                <span>56%</span>
                             </div>
                         </div>
                     </div>
@@ -449,13 +431,31 @@
     <!-- Call-to-Action Section -->
     <section class="cta">
         <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Elevate Your Team's Productivity?</h2>
-                <p>Join hundreds of development teams who are already using our platform to streamline their workflow and showcase their projects.</p>
-                <button class="btn btn-primary btn-large" id="joinTeamBtn">
-                    <i class="fas fa-user-plus"></i> Start Free Trial
-                </button>
-                <p class="cta-note">Free 30-day trial • No credit card required</p>
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h2>Start Building Your Team's Portfolio Today</h2>
+                    <p>Join thousands of development teams who trust our platform for project management, collaboration, and portfolio showcase.</p>
+                    <div class="cta-actions">
+                        <button class="btn btn-primary btn-large" id="startTrialBtn">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Start Free Trial</span>
+                        </button>
+                        <button class="btn btn-outline btn-large" id="scheduleDemoBtn">
+                            <i class="fas fa-calendar"></i>
+                            <span>Schedule Demo</span>
+                        </button>
+                    </div>
+                    <div class="cta-features">
+                        <span><i class="fas fa-check"></i> No credit card required</span>
+                        <span><i class="fas fa-check"></i> 14-day free trial</span>
+                        <span><i class="fas fa-check"></i> Full feature access</span>
+                    </div>
+                </div>
+                <div class="cta-visual">
+                    <div class="cta-graphic">
+                        <i class="fas fa-chart-network"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -465,42 +465,53 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <span class="logo-text">TeamPortfolio</span>
-                    <p class="footer-tagline">Professional team collaboration and portfolio platform</p>
+                    <div class="brand">
+                        <span class="logo-text">TeamPortfolio</span>
+                        <span class="logo-badge">PRO</span>
+                    </div>
+                    <p class="footer-tagline">Professional team collaboration and portfolio platform for modern development teams.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
                 </div>
                 
                 <div class="footer-links">
                     <div class="footer-column">
-                        <h4>Platform</h4>
-                        <a href="#">Home</a>
-                        <a href="#">About</a>
+                        <h4>Product</h4>
                         <a href="#">Features</a>
                         <a href="#">Pricing</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Resources</h4>
+                        <a href="#">API</a>
                         <a href="#">Documentation</a>
-                        <a href="#">API Reference</a>
-                        <a href="#">Tutorials</a>
-                        <a href="#">Help Center</a>
                     </div>
                     <div class="footer-column">
                         <h4>Company</h4>
-                        <a href="#">Team</a>
+                        <a href="#">About</a>
+                        <a href="#">Blog</a>
                         <a href="#">Careers</a>
                         <a href="#">Contact</a>
-                        <a href="#">Blog</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="#">Help Center</a>
+                        <a href="#">Community</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
                 <p class="copyright">&copy; <span id="currentYear"></span> TeamPortfolio Platform. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                <div class="footer-actions">
+                    <button class="theme-btn small" id="footerThemeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
                 </div>
             </div>
         </div>

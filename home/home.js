@@ -9,9 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize all components
     initNavigation();
+    initAuthModals();
     initButtons();
     initAnimations();
     initCurrentYear();
+    initPasswordStrength();
+    initFormValidation();
     initThemeToggle();
 });
 
@@ -71,21 +74,330 @@ function initNavigation() {
 }
 
 /**
+ * Initialize authentication modals
+ */
+function initAuthModals() {
+    const loginModal = document.getElementById('loginModal');
+    const signupModal = document.getElementById('signupModal');
+    const loginBtnNav = document.getElementById('loginBtnNav');
+    const signupBtnNav = document.getElementById('signupBtnNav');
+    const closeLogin = document.getElementById('closeLogin');
+    const closeSignup = document.getElementById('closeSignup');
+    const switchToSignup = document.getElementById('switchToSignup');
+    const switchToLogin = document.getElementById('switchToLogin');
+    
+    // Open Login Modal
+    if (loginBtnNav) {
+        loginBtnNav.addEventListener('click', () => openModal(loginModal));
+    }
+    
+    // Open Signup Modal
+    if (signupBtnNav) {
+        signupBtnNav.addEventListener('click', () => openModal(signupModal));
+    }
+    
+    // Close Modals
+    if (closeLogin) {
+        closeLogin.addEventListener('click', () => closeModal(loginModal));
+    }
+    
+    if (closeSignup) {
+        closeSignup.addEventListener('click', () => closeModal(signupModal));
+    }
+    
+    // Switch between modals
+    if (switchToSignup) {
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal(loginModal);
+            setTimeout(() => openModal(signupModal), 300);
+        });
+    }
+    
+    if (switchToLogin) {
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal(signupModal);
+            setTimeout(() => openModal(loginModal), 300);
+        });
+    }
+    
+    // Close modals when clicking outside
+    [loginModal, signupModal].forEach(modal => {
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        }
+    });
+    
+    // Close modals with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (loginModal.classList.contains('active')) closeModal(loginModal);
+            if (signupModal.classList.contains('active')) closeModal(signupModal);
+        }
+    });
+    
+    // Password toggle functionality
+    initPasswordToggles();
+}
+
+/**
+ * Open modal with animation
+ */
+function openModal(modal) {
+    if (!modal) return;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Add focus to first input
+    setTimeout(() => {
+        const firstInput = modal.querySelector('input');
+        if (firstInput) firstInput.focus();
+    }, 300);
+}
+
+/**
+ * Close modal with animation
+ */
+function closeModal(modal) {
+    if (!modal) return;
+    
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+/**
+ * Initialize password toggle buttons
+ */
+function initPasswordToggles() {
+    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+    const toggleSignupPassword = document.getElementById('toggleSignupPassword');
+    const loginPassword = document.getElementById('loginPassword');
+    const signupPassword = document.getElementById('signupPassword');
+    
+    if (toggleLoginPassword && loginPassword) {
+        toggleLoginPassword.addEventListener('click', () => {
+            togglePasswordVisibility(loginPassword, toggleLoginPassword);
+        });
+    }
+    
+    if (toggleSignupPassword && signupPassword) {
+        toggleSignupPassword.addEventListener('click', () => {
+            togglePasswordVisibility(signupPassword, toggleSignupPassword);
+        });
+    }
+}
+
+/**
+ * Toggle password visibility
+ */
+function togglePasswordVisibility(passwordInput, toggleButton) {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    
+    const icon = toggleButton.querySelector('i');
+    if (type === 'text') {
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+/**
+ * Initialize password strength indicator
+ */
+function initPasswordStrength() {
+    const passwordInput = document.getElementById('signupPassword');
+    const strengthBar = document.getElementById('passwordStrength');
+    const strengthText = document.getElementById('strengthText');
+    
+    if (!passwordInput || !strengthBar || !strengthText) return;
+    
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        const strength = calculatePasswordStrength(password);
+        
+        // Update strength bar
+        strengthBar.className = 'strength-fill';
+        strengthBar.classList.add(strength.class);
+        
+        // Update strength text
+        strengthText.textContent = strength.text;
+        strengthText.style.color = strength.color;
+    });
+}
+
+/**
+ * Calculate password strength
+ */
+function calculatePasswordStrength(password) {
+    let score = 0;
+    
+    // Length check
+    if (password.length >= 8) score += 1;
+    if (password.length >= 12) score += 1;
+    
+    // Complexity checks
+    if (/[a-z]/.test(password)) score += 1;
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/[0-9]/.test(password)) score += 1;
+    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+    
+    // Determine strength
+    if (password.length === 0) {
+        return { class: '', text: 'Password strength', color: '#6b7280' };
+    } else if (score <= 2) {
+        return { class: 'weak', text: 'Weak password', color: '#ef4444' };
+    } else if (score <= 4) {
+        return { class: 'medium', text: 'Medium strength', color: '#f59e0b' };
+    } else {
+        return { class: 'strong', text: 'Strong password', color: '#10b981' };
+    }
+}
+
+/**
+ * Initialize form validation
+ */
+function initFormValidation() {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLoginSubmit);
+    }
+    
+    if (signupForm) {
+        signupForm.addEventListener('submit', handleSignupSubmit);
+    }
+}
+
+/**
+ * Handle login form submission
+ */
+function handleLoginSubmit(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const rememberMe = document.getElementById('rememberMe').checked;
+    const submitBtn = this.querySelector('button[type="submit"]');
+    
+    // Basic validation
+    if (!email || !password) {
+        showNotification('Please fill in all required fields', 'error');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showNotification('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    // Show loading state
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        // Mock successful login
+        showNotification('Welcome back! Login successful.', 'success');
+        closeModal(document.getElementById('loginModal'));
+        
+        // In a real app, you would:
+        // 1. Send login request to server
+        // 2. Store authentication token
+        // 3. Redirect to dashboard
+    }, 1500);
+}
+
+/**
+ * Handle signup form submission
+ */
+function handleSignupSubmit(e) {
+    e.preventDefault();
+    
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const role = document.getElementById('role').value;
+    const terms = document.getElementById('terms').checked;
+    const submitBtn = this.querySelector('button[type="submit"]');
+    
+    // Validation
+    if (!firstName || !lastName || !email || !password || !confirmPassword || !role) {
+        showNotification('Please fill in all required fields', 'error');
+        return;
+    }
+    
+    if (!isValidEmail(email)) {
+        showNotification('Please enter a valid email address', 'error');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        showNotification('Passwords do not match', 'error');
+        return;
+    }
+    
+    if (password.length < 8) {
+        showNotification('Password must be at least 8 characters', 'error');
+        return;
+    }
+    
+    if (!terms) {
+        showNotification('Please agree to the terms and conditions', 'error');
+        return;
+    }
+    
+    // Show loading state
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        // Mock successful signup
+        showNotification(`Welcome ${firstName}! Your account has been created.`, 'success');
+        closeModal(document.getElementById('signupModal'));
+        
+        // In a real app, you would:
+        // 1. Send signup request to server
+        // 2. Send verification email
+        // 3. Redirect to verification or dashboard page
+    }, 2000);
+}
+
+/**
+ * Validate email format
+ */
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+/**
  * Initialize button interactions
  */
 function initButtons() {
-    // Get Started button
-    const getStartedBtn = document.getElementById('getStartedBtn');
+    // Get Started button (now signup)
+    const getStartedBtn = document.getElementById('signupBtnNav');
     if (getStartedBtn) {
         getStartedBtn.addEventListener('click', function() {
-            showNotification('Welcome to TeamPortfolio! Let\'s get you started.', 'success');
-            
-            // Simulate redirect to signup
-            setTimeout(() => {
-                console.log('Redirecting to signup page...');
-                // In a real app, this would redirect to signup page
-                // window.location.href = '/signup';
-            }, 1000);
+            createRippleEffect(event, this);
         });
     }
     
@@ -103,6 +415,8 @@ function initButtons() {
                     behavior: 'smooth'
                 });
             }
+            
+            createRippleEffect(event, this);
         });
     }
     
@@ -120,6 +434,8 @@ function initButtons() {
                     projectSection.style.boxShadow = '';
                 }, 1500);
             }
+            
+            createRippleEffect(event, this);
         });
     }
     
@@ -127,17 +443,31 @@ function initButtons() {
     const joinTeamBtn = document.getElementById('joinTeamBtn');
     if (joinTeamBtn) {
         joinTeamBtn.addEventListener('click', function() {
-            // Create a mock signup form
-            showSignupModal();
+            openModal(document.getElementById('signupModal'));
+            createRippleEffect(event, this);
         });
     }
     
+    // Social auth buttons
+    document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const provider = this.classList.contains('google') ? 'Google' : 'GitHub';
+            showNotification(`Connecting with ${provider}...`, 'info');
+            
+            // In a real app, this would trigger OAuth flow
+            setTimeout(() => {
+                showNotification(`${provider} authentication successful!`, 'success');
+            }, 1000);
+        });
+    });
+    
     // All other buttons with ripple effect
-    const buttons = document.querySelectorAll('.btn');
+    const buttons = document.querySelectorAll('.btn:not(.social-btn)');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
-            // Create ripple effect
-            createRippleEffect(e, this);
+            if (!this.classList.contains('loading')) {
+                createRippleEffect(e, this);
+            }
         });
     });
 }
@@ -198,16 +528,17 @@ function initThemeToggle() {
         document.body.classList.add('dark-mode');
     }
     
-    // Create theme toggle button (optional - could be added to UI)
+    // Theme toggle could be added as a button in the navbar
     // This is a basic implementation that can be expanded
 }
 
 /**
  * Create ripple effect on button click
- * @param {Event} event - Click event
- * @param {HTMLElement} button - Button element
  */
 function createRippleEffect(event, button) {
+    // Only create ripple if button is not loading
+    if (button.classList.contains('loading')) return;
+    
     const ripple = document.createElement('span');
     const rect = button.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
@@ -233,14 +564,14 @@ function createRippleEffect(event, button) {
     
     // Remove ripple element after animation completes
     setTimeout(() => {
-        ripple.remove();
+        if (ripple.parentNode === button) {
+            ripple.remove();
+        }
     }, 600);
 }
 
 /**
  * Show notification message
- * @param {string} message - Notification message
- * @param {string} type - Notification type (success, error, info)
  */
 function showNotification(message, type = 'info') {
     // Remove existing notification
@@ -257,73 +588,87 @@ function showNotification(message, type = 'info') {
         <button class="notification-close">&times;</button>
     `;
     
-    // Add styles for notification
-    const style = document.createElement('style');
-    style.textContent = `
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            color: white;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            z-index: 1000;
-            animation: slideInRight 0.3s ease;
-            max-width: 350px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        
-        .notification-success {
-            background-color: #10b981;
-        }
-        
-        .notification-info {
-            background-color: #3b82f6;
-        }
-        
-        .notification-error {
-            background-color: #ef4444;
-        }
-        
-        .notification-warning {
-            background-color: #f59e0b;
-        }
-        
-        .notification-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-        }
-        
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
+    // Add styles for notification if not already present
+    if (!document.querySelector('#notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            .notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                z-index: 3000;
+                animation: slideInRight 0.3s ease;
+                max-width: 350px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+            
+            .notification-success {
+                background-color: #10b981;
             }
-        }
-        
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
+            
+            .notification-info {
+                background-color: #3b82f6;
             }
-        }
-    `;
+            
+            .notification-error {
+                background-color: #ef4444;
+            }
+            
+            .notification-warning {
+                background-color: #f59e0b;
+            }
+            
+            .notification-close {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                padding: 0;
+                line-height: 1;
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
     
-    document.head.appendChild(style);
     document.body.appendChild(notification);
     
     // Close notification on button click
@@ -346,200 +691,6 @@ function showNotification(message, type = 'info') {
             }, 300);
         }
     }, 5000);
-    
-    // Add slideOutRight animation
-    const slideOutStyle = document.createElement('style');
-    slideOutStyle.textContent = `
-        @keyframes slideOutRight {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(slideOutStyle);
-}
-
-/**
- * Show mock signup modal
- */
-function showSignupModal() {
-    // Create modal overlay
-    const modalOverlay = document.createElement('div');
-    modalOverlay.className = 'modal-overlay';
-    modalOverlay.innerHTML = `
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Join Our Team</h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Enter your details to request access to the team portfolio platform.</p>
-                <form id="signupForm">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="role">Primary Role</label>
-                        <select id="role" required>
-                            <option value="">Select your role</option>
-                            <option value="frontend">Frontend Developer</option>
-                            <option value="backend">Backend Developer</option>
-                            <option value="fullstack">Full Stack Developer</option>
-                            <option value="designer">UI/UX Designer</option>
-                            <option value="manager">Project Manager</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Submit Request</button>
-                </form>
-            </div>
-        </div>
-    `;
-    
-    // Add modal styles
-    const modalStyle = document.createElement('style');
-    modalStyle.textContent = `
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal {
-            background: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            overflow: hidden;
-            animation: slideUp 0.3s ease;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .modal-header h3 {
-            margin: 0;
-        }
-        
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #6b7280;
-        }
-        
-        .modal-body {
-            padding: 1.5rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-family: inherit;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-    `;
-    
-    document.head.appendChild(modalStyle);
-    document.body.appendChild(modalOverlay);
-    
-    // Close modal functionality
-    const closeBtn = modalOverlay.querySelector('.modal-close');
-    closeBtn.addEventListener('click', function() {
-        modalOverlay.style.animation = 'fadeOut 0.3s ease';
-        setTimeout(() => {
-            modalOverlay.remove();
-        }, 300);
-    });
-    
-    // Close when clicking outside modal
-    modalOverlay.addEventListener('click', function(e) {
-        if (e.target === modalOverlay) {
-            modalOverlay.style.animation = 'fadeOut 0.3s ease';
-            setTimeout(() => {
-                modalOverlay.remove();
-            }, 300);
-        }
-    });
-    
-    // Form submission
-    const signupForm = document.getElementById('signupForm');
-    signupForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const role = document.getElementById('role').value;
-        
-        // Simulate form submission
-        showNotification(`Request submitted! Welcome ${name}. We'll contact you at ${email}`, 'success');
-        
-        // Close modal after submission
-        setTimeout(() => {
-            modalOverlay.remove();
-        }, 1000);
-    });
-    
-    // Add fadeOut animation
-    const fadeOutStyle = document.createElement('style');
-    fadeOutStyle.textContent = `
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-    `;
-    document.head.appendChild(fadeOutStyle);
 }
 
 /**
@@ -565,10 +716,6 @@ function simulateLiveUpdates() {
 
 /**
  * Animate value change in an element
- * @param {HTMLElement} element - Element containing the value
- * @param {number} start - Starting value
- * @param {number} end - Ending value
- * @param {number} duration - Animation duration in ms
  */
 function animateValueChange(element, start, end, duration = 500) {
     const startTime = performance.now();
