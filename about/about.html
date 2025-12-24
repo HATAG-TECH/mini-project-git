@@ -3,9 +3,508 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>About Us | TeamPortfolio - Professional Development Platform</title>
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    
+<body class="light-mode">
+    <!-- Navigation Bar -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <span class="logo-text">TeamPortfolio</span>
+                    <span class="logo-badge">PRO</span>
+                </div>
+                
+                <div class="nav-menu" id="navMenu">
+                    <div class="nav-links">
+                        <a href="../home/index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                        <a href="#" class="nav-link active">
+                            <i class="fas fa-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                        <a href="../projects/projects.html" class="nav-link">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Projects</span>
+                        </a>
+                        <a href="../team/team.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Team</span>
+                        </a>
+                        <a href="../contact/contact.html" class="nav-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="theme-toggle">
+                            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="auth-buttons">
+                            <button class="btn btn-ghost" id="loginBtn">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span>Login</span>
+                            </button>
+                            <button class="btn btn-primary" id="signupBtn">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Sign Up</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-mobile-actions">
+                    <button class="theme-btn mobile" id="mobileThemeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span><i class="fas fa-star"></i> Our Story</span>
+                </div>
+                <h1 class="hero-title">
+                    Empowering Teams to Build
+                    <span class="gradient-text">Amazing Things</span>
+                </h1>
+                <p class="hero-subtitle">
+                    We're on a mission to revolutionize how development teams collaborate, manage projects, and showcase their work. Join thousands of teams who trust TeamPortfolio to bring their ideas to life.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Active Users</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Countries</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number">99%</span>
+                            <span class="stat-label">Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="mission-vision">
+        <div class="container">
+            <div class="mv-grid">
+                <div class="mv-card mission-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h2>Our Mission</h2>
+                    <p>To provide development teams with powerful, intuitive tools that streamline collaboration, enhance productivity, and enable them to create exceptional digital experiences.</p>
+                    <div class="mv-features">
+                        <div class="mv-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Seamless Collaboration</span>
+                        </div>
+                        <div class="mv-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Enhanced Productivity</span>
+                        </div>
+                        <div class="mv-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Innovation First</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mv-card vision-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h2>Our Vision</h2>
+                    <p>To become the world's most trusted platform for development teams, fostering innovation and enabling creators to build the future of technology together.</p>
+                    <div class="mv-features">
+                        <div class="mv-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Global Impact</span>
+                        </div>
+                        <div class="mv-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Continuous Innovation</span>
+                        </div>
+                        <div class="mv-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Community Driven</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Core <span class="gradient-text">Values</span></h2>
+                <p>The principles that guide everything we do</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We constantly push boundaries and embrace new technologies to deliver cutting-edge solutions.</p>
+                </div>
+                
+                <div class="value-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Collaboration</h3>
+                    <p>We believe in the power of teamwork and create tools that bring people together.</p>
+                </div>
+                
+                <div class="value-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Trust</h3>
+                    <p>Security and privacy are paramount. We protect your data with enterprise-grade security.</p>
+                </div>
+                
+                <div class="value-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>We strive for perfection in every detail, delivering quality that exceeds expectations.</p>
+                </div>
+                
+                <div class="value-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Passion</h3>
+                    <p>We love what we do and are committed to helping teams achieve their goals.</p>
+                </div>
+                
+                <div class="value-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="value-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h3>User-Centric</h3>
+                    <p>Our users are at the heart of everything we build and every decision we make.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our <span class="gradient-text">Journey</span></h2>
+                <p>Milestones that shaped our story</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <h3>The Beginning</h3>
+                        <p>TeamPortfolio was founded with a vision to transform team collaboration in the digital age.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2021</div>
+                        <h3>First 1K Users</h3>
+                        <p>Reached our first thousand active users and launched our mobile application.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <h3>Global Expansion</h3>
+                        <p>Expanded to 30+ countries and introduced multi-language support.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <h3>AI Integration</h3>
+                        <p>Launched AI-powered features for smart project management and code review.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <h3>10K+ Teams</h3>
+                        <p>Celebrating over 10,000 teams building amazing projects on our platform.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="leadership">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our <span class="gradient-text">Leadership</span></h2>
+                <p>The visionaries behind TeamPortfolio</p>
+            </div>
+            
+            <div class="leadership-grid">
+                <div class="leader-card">
+                    <div class="leader-image">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Sarah Johnson">
+                        <div class="leader-overlay">
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leader-info">
+                        <h3>Sarah Johnson</h3>
+                        <p class="leader-role">CEO & Co-Founder</p>
+                        <p class="leader-bio">15+ years in tech leadership, passionate about building tools that empower teams.</p>
+                    </div>
+                </div>
+                
+                <div class="leader-card">
+                    <div class="leader-image">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Michael" alt="Michael Chen">
+                        <div class="leader-overlay">
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leader-info">
+                        <h3>Michael Chen</h3>
+                        <p class="leader-role">CTO & Co-Founder</p>
+                        <p class="leader-bio">Former Google engineer with expertise in distributed systems and AI.</p>
+                    </div>
+                </div>
+                
+                <div class="leader-card">
+                    <div class="leader-image">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emily" alt="Emily Rodriguez">
+                        <div class="leader-overlay">
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leader-info">
+                        <h3>Emily Rodriguez</h3>
+                        <p class="leader-role">Head of Product</p>
+                        <p class="leader-bio">Product visionary focused on creating delightful user experiences.</p>
+                    </div>
+                </div>
+                
+                <div class="leader-card">
+                    <div class="leader-image">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David" alt="David Kim">
+                        <div class="leader-overlay">
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leader-info">
+                        <h3>David Kim</h3>
+                        <p class="leader-role">Head of Engineering</p>
+                        <p class="leader-bio">Scaling expert who built infrastructure for millions of users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="achievements">
+        <div class="container">
+            <div class="section-header">
+                <h2>Awards & <span class="gradient-text">Recognition</span></h2>
+                <p>Honored to be recognized by industry leaders</p>
+            </div>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Best SaaS Product 2024</h3>
+                    <p>TechCrunch Awards</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Innovation Leader</h3>
+                    <p>Forbes Technology Council</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Top 10 Collaboration Tools</h3>
+                    <p>G2 Crowd</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Customer Choice Award</h3>
+                    <p>Gartner Peer Insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h2>Ready to Transform Your Team's Workflow?</h2>
+                    <p>Join thousands of teams who trust TeamPortfolio for their project management and collaboration needs.</p>
+                    <div class="cta-actions">
+                        <button class="btn btn-primary btn-large">
+                            <i class="fas fa-rocket"></i>
+                            <span>Get Started Free</span>
+                        </button>
+                        <button class="btn btn-outline btn-large">
+                            <i class="fas fa-calendar"></i>
+                            <span>Schedule Demo</span>
+                        </button>
+                    </div>
+                    <div class="cta-features">
+                        <span><i class="fas fa-check"></i> No credit card required</span>
+                        <span><i class="fas fa-check"></i> 14-day free trial</span>
+                        <span><i class="fas fa-check"></i> Full feature access</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="brand">
+                        <span class="logo-text">TeamPortfolio</span>
+                        <span class="logo-badge">PRO</span>
+                    </div>
+                    <p class="footer-tagline">Professional team collaboration and portfolio platform for modern development teams.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="#">Features</a>
+                        <a href="#">Pricing</a>
+                        <a href="#">API</a>
+                        <a href="#">Documentation</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="#">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="#">Help Center</a>
+                        <a href="#">Community</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; <span id="currentYear"></span> TeamPortfolio Platform. All rights reserved.</p>
+                <div class="footer-actions">
+                    <button class="theme-btn small" id="footerThemeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="about.js"></script>
 </body>
 </html>
