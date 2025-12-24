@@ -3,26 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Dashboard | Intelligent Data Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>TeamPortfolio | Professional Development Platform</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Top Navigation Bar -->
+    <!-- Navigation Bar -->
     <header class="header">
         <div class="container">
             <nav class="navbar">
-                <div class="brand">TechDash</div>
-                <div class="nav-links">
-                    <a href="#" class="active">Home</a>
-                    <a href="#">Features</a>
-                    <a href="#">Projects</a>
-                    <a href="#">Team</a>
-                    <a href="#">Contact</a>
+                <div class="logo">
+                    <span class="logo-text">TeamPortfolio</span>
                 </div>
-                <button class="nav-btn">Get Started</button>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                
+                <div class="nav-menu" id="navMenu">
+                    <a href="#" class="nav-link active">Home</a>
+                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link">Projects</a>
+                    <a href="#" class="nav-link">Team</a>
+                    <a href="#" class="nav-link">Contact</a>
+                    <a href="#" class="nav-link">Login</a>
+                </div>
+                
+                <button class="btn btn-primary nav-action" id="getStartedBtn">Get Started</button>
+                
+                <button class="mobile-toggle" id="mobileToggle">
                     <i class="fas fa-bars"></i>
                 </button>
             </nav>
@@ -32,303 +40,220 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Intelligent Data Exploration & Collaboration</h1>
-            <p>Discover insights faster with our AI-powered platform. Streamline workflows, enhance productivity, and collaborate seamlessly with your team in real-time.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary">Explore Platform</button>
-                <button class="btn btn-secondary">View Features</button>
+            <div class="hero-content">
+                <h1 class="hero-title">Professional Team Portfolio Platform</h1>
+                <p class="hero-subtitle">
+                    Streamline collaboration, showcase projects, and manage development workflows in one unified dashboard. Built for modern software teams.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-large" id="exploreBtn">
+                        <i class="fas fa-rocket"></i> Explore Platform
+                    </button>
+                    <button class="btn btn-secondary btn-large" id="viewProjectsBtn">
+                        <i class="fas fa-code-branch"></i> View Projects
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="dashboard-preview">
+                    <div class="preview-card"></div>
+                    <div class="preview-card"></div>
+                    <div class="preview-card"></div>
+                    <div class="preview-card"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Main Dashboard Area -->
-    <main class="dashboard">
+    <!-- Feature Overview Section -->
+    <section class="features">
         <div class="container">
-            <div class="dashboard-grid">
-                <!-- Left Sidebar -->
-                <aside class="sidebar" id="sidebar">
-                    <div class="sidebar-item active">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Overview</span>
+            <div class="section-header">
+                <h2>Powerful Features for Modern Teams</h2>
+                <p>Everything you need to manage projects, collaborate effectively, and showcase your team's work</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
                     </div>
-                    <div class="sidebar-item">
-                        <i class="fas fa-search"></i>
-                        <span>Search</span>
-                    </div>
-                    <div class="sidebar-item">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Analytics</span>
-                    </div>
-                    <div class="sidebar-item">
-                        <i class="fas fa-users"></i>
-                        <span>Collaboration</span>
-                    </div>
-                    <div class="sidebar-item">
-                        <i class="fas fa-cog"></i>
-                        <span>Settings</span>
-                    </div>
-                    <div class="sidebar-item">
-                        <i class="fas fa-download"></i>
-                        <span>Exports</span>
-                    </div>
-                </aside>
-
-                <!-- Central Content -->
-                <div class="main-content">
-                    <!-- Search Box -->
-                    <div class="search-box">
-                        <div class="search-container">
-                            <input type="text" class="search-input" placeholder="Search datasets, queries, or team members...">
-                            <button class="search-btn">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                        <div class="search-tags">
-                            <span class="search-tag">Quick: Recent Projects</span>
-                            <span class="search-tag">Quick: Team Activity</span>
-                            <span class="search-tag">Quick: Data Insights</span>
-                        </div>
-                    </div>
-
-                    <!-- Information Cards -->
-                    <div class="cards-container">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Data Queries</h3>
-                                <div class="card-icon blue">
-                                    <i class="fas fa-database"></i>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <p class="card-stat">1,247</p>
-                                <p class="card-desc">Active queries this week</p>
-                            </div>
-                            <div class="card-footer">
-                                <span class="trend up"><i class="fas fa-arrow-up"></i> 12% from last week</span>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Team Activity</h3>
-                                <div class="card-icon purple">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <p class="card-stat">48</p>
-                                <p class="card-desc">Active collaborators</p>
-                            </div>
-                            <div class="card-footer">
-                                <span class="trend up"><i class="fas fa-arrow-up"></i> 8% from last week</span>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Insights Generated</h3>
-                                <div class="card-icon green">
-                                    <i class="fas fa-lightbulb"></i>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <p class="card-stat">3,892</p>
-                                <p class="card-desc">AI-generated insights</p>
-                            </div>
-                            <div class="card-footer">
-                                <span class="trend up"><i class="fas fa-arrow-up"></i> 24% from last week</span>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Processing Speed</h3>
-                                <div class="card-icon orange">
-                                    <i class="fas fa-bolt"></i>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <p class="card-stat">2.4s</p>
-                                <p class="card-desc">Average query response</p>
-                            </div>
-                            <div class="card-footer">
-                                <span class="trend down"><i class="fas fa-arrow-down"></i> 0.3s improvement</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Insight Highlights -->
-                    <div class="insight-highlight">
-                        <h3><i class="fas fa-star"></i> Today's Insight Highlight</h3>
-                        <p>Your team's query patterns show a 34% increase in data visualization requests. Consider setting up automated dashboard updates for frequently accessed metrics.</p>
-                        <button class="btn-text">View detailed analysis <i class="fas fa-arrow-right"></i></button>
-                    </div>
+                    <h3 class="feature-title">Project Collaboration</h3>
+                    <p class="feature-description">
+                        Real-time collaboration tools with task assignment, progress tracking, and team communication channels.
+                    </p>
                 </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="feature-title">Version Control Workflow</h3>
+                    <p class="feature-description">
+                        Integrated Git workflows with visual branching, merge request tracking, and code review tools.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="feature-title">Team-Based Development</h3>
+                    <p class="feature-description">
+                        Role-based permissions, team dashboards, and performance metrics for optimal team coordination.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="feature-title">Modern Web Practices</h3>
+                    <p class="feature-description">
+                        Support for modern frameworks, CI/CD integration, and best practice documentation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Right Side Panel -->
-                <div class="right-panel">
-                    <div class="panel-section">
-                        <h3 class="section-title"><i class="fas fa-history"></i> Recent Activity</h3>
-                        <div class="activity-list">
+    <!-- Dashboard Preview Area -->
+    <section class="dashboard-preview-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Dashboard Overview</h2>
+                <p>Centralized view of your team's activity, projects, and progress</p>
+            </div>
+            
+            <div class="dashboard-content">
+                <!-- Left Panel - Activity Feed -->
+                <div class="dashboard-left">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                            <button class="btn-text">View All</button>
+                        </div>
+                        <div class="activity-feed">
                             <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fas fa-user"></i>
+                                <div class="activity-icon success">
+                                    <i class="fas fa-check-circle"></i>
                                 </div>
                                 <div class="activity-details">
-                                    <p class="activity-text">Alex Chen updated project dashboard</p>
-                                    <span class="activity-time">15 minutes ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <p class="activity-text">Data pipeline completed successfully</p>
-                                    <span class="activity-time">1 hour ago</span>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fas fa-share-alt"></i>
-                                </div>
-                                <div class="activity-details">
-                                    <p class="activity-text">New dataset shared with team</p>
+                                    <p class="activity-text">Project "Dashboard Redesign" completed</p>
                                     <span class="activity-time">2 hours ago</span>
                                 </div>
                             </div>
                             <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fas fa-bell"></i>
+                                <div class="activity-icon info">
+                                    <i class="fas fa-code-merge"></i>
                                 </div>
                                 <div class="activity-details">
-                                    <p class="activity-text">Weekly report generated</p>
+                                    <p class="activity-text">Merge request approved by Alex</p>
                                     <span class="activity-time">5 hours ago</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="panel-section">
-                        <h3 class="section-title"><i class="fas fa-bell"></i> Notifications</h3>
-                        <div class="notification-list">
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-exclamation"></i>
+                            <div class="activity-item">
+                                <div class="activity-icon warning">
+                                    <i class="fas fa-exclamation-circle"></i>
                                 </div>
-                                <div class="notification-details">
-                                    <p class="notification-text">System maintenance scheduled</p>
-                                    <span class="notification-time">Tomorrow, 2:00 AM</span>
+                                <div class="activity-details">
+                                    <p class="activity-text">New team member added to Frontend</p>
+                                    <span class="activity-time">1 day ago</span>
                                 </div>
                             </div>
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-check-circle"></i>
+                            <div class="activity-item">
+                                <div class="activity-icon primary">
+                                    <i class="fas fa-tasks"></i>
                                 </div>
-                                <div class="notification-details">
-                                    <p class="notification-text">New team member added</p>
-                                    <span class="notification-time">Today, 10:30 AM</span>
+                                <div class="activity-details">
+                                    <p class="activity-text">Sprint planning meeting scheduled</p>
+                                    <span class="activity-time">2 days ago</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="panel-section">
-                        <h3 class="section-title"><i class="fas fa-lightbulb"></i> Suggestions</h3>
-                        <div class="suggestion-list">
-                            <div class="suggestion-item">
-                                <i class="fas fa-rocket"></i>
-                                <p>Try the new AI query assistant</p>
+                </div>
+                
+                <!-- Right Panel - Stats and Projects -->
+                <div class="dashboard-right">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-project-diagram"></i>
                             </div>
-                            <div class="suggestion-item">
-                                <i class="fas fa-shield-alt"></i>
-                                <p>Review your data access permissions</p>
+                            <div class="stat-info">
+                                <h4 class="stat-value">12</h4>
+                                <p class="stat-label">Active Projects</p>
                             </div>
-                            <div class="suggestion-item">
-                                <i class="fas fa-chart-pie"></i>
-                                <p>Optimize your most used queries</p>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4 class="stat-value">24</h4>
+                                <p class="stat-label">Team Members</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4 class="stat-value">347</h4>
+                                <p class="stat-label">Commits This Month</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-double"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4 class="stat-value">89%</h4>
+                                <p class="stat-label">Tasks Completed</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Feature Highlights -->
-    <section class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>Platform Features</h2>
-                <p>Powerful tools designed for modern data exploration and team collaboration</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon blue">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Intelligent Search</h3>
-                    <p>Natural language queries with AI-powered results and contextual understanding.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon purple">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Structured Analysis</h3>
-                    <p>Automated data structuring and pattern recognition for deeper insights.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon green">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3>Team Collaboration</h3>
-                    <p>Real-time editing, commenting, and sharing within a secure environment.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon orange">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </div>
-                    <h3>Scalable Infrastructure</h3>
-                    <p>Enterprise-grade architecture that grows with your data needs.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Statistics Section -->
-    <section class="statistics">
-        <div class="container">
-            <div class="section-header">
-                <h2>Platform Metrics</h2>
-                <p>Real-time performance and usage statistics</p>
-            </div>
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-number">98.7%</div>
-                    <div class="stat-label">Uptime</div>
-                    <div class="stat-bar">
-                        <div class="stat-progress" style="width: 98.7%"></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">5.2M</div>
-                    <div class="stat-label">Queries Processed</div>
-                    <div class="stat-bar">
-                        <div class="stat-progress" style="width: 92%"></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Support Response</div>
-                    <div class="stat-bar">
-                        <div class="stat-progress" style="width: 100%"></div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">1.2s</div>
-                    <div class="stat-label">Avg. Response Time</div>
-                    <div class="stat-bar">
-                        <div class="stat-progress" style="width: 95%"></div>
+                    
+                    <div class="dashboard-card project-highlights">
+                        <div class="card-header">
+                            <h3><i class="fas fa-star"></i> Featured Projects</h3>
+                        </div>
+                        <div class="projects-list">
+                            <div class="project-item">
+                                <div class="project-badge frontend">Frontend</div>
+                                <h4 class="project-name">Admin Dashboard UI</h4>
+                                <div class="project-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%"></div>
+                                    </div>
+                                    <span class="progress-text">85% Complete</span>
+                                </div>
+                            </div>
+                            <div class="project-item">
+                                <div class="project-badge backend">Backend</div>
+                                <h4 class="project-name">API Microservices</h4>
+                                <div class="project-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 72%"></div>
+                                    </div>
+                                    <span class="progress-text">72% Complete</span>
+                                </div>
+                            </div>
+                            <div class="project-item">
+                                <div class="project-badge mobile">Mobile</div>
+                                <h4 class="project-name">Team Collaboration App</h4>
+                                <div class="project-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 43%"></div>
+                                    </div>
+                                    <span class="progress-text">43% Complete</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -339,10 +264,12 @@
     <section class="cta">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to transform your data workflow?</h2>
-                <p>Join thousands of teams who have streamlined their data exploration and collaboration processes.</p>
-                <button class="btn btn-primary btn-large">Start Free Trial</button>
-                <p class="cta-note">No credit card required • Full access for 14 days</p>
+                <h2>Ready to Elevate Your Team's Productivity?</h2>
+                <p>Join hundreds of development teams who are already using our platform to streamline their workflow and showcase their projects.</p>
+                <button class="btn btn-primary btn-large" id="joinTeamBtn">
+                    <i class="fas fa-user-plus"></i> Join the Team
+                </button>
+                <p class="cta-note">Free 30-day trial • No credit card required</p>
             </div>
         </div>
     </section>
@@ -352,40 +279,42 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <div class="brand">TechDash</div>
-                    <p class="footer-tagline">Intelligent data exploration platform</p>
+                    <span class="logo-text">TeamPortfolio</span>
+                    <p class="footer-tagline">Professional team collaboration and portfolio platform</p>
                 </div>
+                
                 <div class="footer-links">
                     <div class="footer-column">
-                        <h4>Product</h4>
+                        <h4>Platform</h4>
+                        <a href="#">Home</a>
+                        <a href="#">About</a>
                         <a href="#">Features</a>
                         <a href="#">Pricing</a>
-                        <a href="#">API</a>
-                        <a href="#">Documentation</a>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Company</h4>
-                        <a href="#">About</a>
-                        <a href="#">Blog</a>
-                        <a href="#">Careers</a>
-                        <a href="#">Contact</a>
                     </div>
                     <div class="footer-column">
                         <h4>Resources</h4>
+                        <a href="#">Documentation</a>
+                        <a href="#">API Reference</a>
+                        <a href="#">Tutorials</a>
                         <a href="#">Help Center</a>
-                        <a href="#">Community</a>
-                        <a href="#">Privacy</a>
-                        <a href="#">Terms</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="#">Team</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+                        <a href="#">Blog</a>
                     </div>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p class="copyright">&copy; 2023 Tech Dashboard Platform. All rights reserved.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-discord"></i></a>
+                <p class="copyright">&copy; <span id="currentYear"></span> TeamPortfolio Platform. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
                 </div>
             </div>
         </div>
