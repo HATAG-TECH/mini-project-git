@@ -68,4 +68,12 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(135deg, #185a9d, #43
+    background: linear-gradient(135deg, #185a9d, #43cea2);
+    transform: translateY(-2px);
+}
+
+#response {
+    text-align: center;
+    margin-top: 12px;
+    font-weight: bold;
+}
