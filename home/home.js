@@ -1,43 +1,38 @@
 /**
- * TeamPortfolio Dashboard - Home Page JavaScript
- * Contains interactive functionality for the dashboard
+ * TeamPortfolio Dashboard - Professional Dark Mode
  */
 
-// DOM Ready Event
 document.addEventListener('DOMContentLoaded', function() {
     console.log('TeamPortfolio Dashboard initialized');
     
     // Initialize all components
     initNavigation();
-    initAuthModals();
+    initThemeToggle();
     initButtons();
     initAnimations();
     initCurrentYear();
-    initPasswordStrength();
-    initFormValidation();
-    initThemeToggle();
 });
 
 /**
  * Initialize navigation functionality
  */
 function initNavigation() {
-    // Mobile menu toggle
     const mobileToggle = document.getElementById('mobileToggle');
     const navMenu = document.getElementById('navMenu');
     
     if (mobileToggle && navMenu) {
         mobileToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
-            
-            // Change icon based on menu state
             const icon = this.querySelector('i');
+            
             if (navMenu.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
                 icon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
             } else {
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
+                document.body.style.overflow = '';
             }
         });
         
@@ -49,363 +44,128 @@ function initNavigation() {
                     navMenu.classList.remove('active');
                     mobileToggle.querySelector('i').classList.remove('fa-times');
                     mobileToggle.querySelector('i').classList.add('fa-bars');
+                    document.body.style.overflow = '';
                 }
             });
         });
-    }
-    
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navMenu.classList.contains('active') && 
+                !navMenu.contains(e.target) && 
+                !mobileToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileToggle.querySelector('i').classList.remove('fa-times');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+                document.body.style.overflow = '';
             }
         });
+    }
+    
+    // Set active nav link
+    const currentPage = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
     });
+    
+    // Set home as active by default
+    document.querySelector('.nav-link[href="#"]').classList.add('active');
 }
 
 /**
- * Initialize authentication modals
+ * Initialize theme toggle functionality
  */
-function initAuthModals() {
-    const loginModal = document.getElementById('loginModal');
-    const signupModal = document.getElementById('signupModal');
-    const loginBtnNav = document.getElementById('loginBtnNav');
-    const signupBtnNav = document.getElementById('signupBtnNav');
-    const closeLogin = document.getElementById('closeLogin');
-    const closeSignup = document.getElementById('closeSignup');
-    const switchToSignup = document.getElementById('switchToSignup');
-    const switchToLogin = document.getElementById('switchToLogin');
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+    const footerThemeToggle = document.getElementById('footerThemeToggle');
+    const body = document.body;
     
-    // Open Login Modal
-    if (loginBtnNav) {
-        loginBtnNav.addEventListener('click', () => openModal(loginModal));
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-mode');
+    } else {
+        body.classList.remove('dark-mode');
     }
     
-    // Open Signup Modal
-    if (signupBtnNav) {
-        signupBtnNav.addEventListener('click', () => openModal(signupModal));
-    }
+    // Theme toggle function
+    const toggleTheme = () => {
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        
+        // Dispatch custom event for theme change
+        document.dispatchEvent(new CustomEvent('themeChange', {
+            detail: { theme: isDark ? 'dark' : 'light' }
+        }));
+    };
     
-    // Close Modals
-    if (closeLogin) {
-        closeLogin.addEventListener('click', () => closeModal(loginModal));
-    }
-    
-    if (closeSignup) {
-        closeSignup.addEventListener('click', () => closeModal(signupModal));
-    }
-    
-    // Switch between modals
-    if (switchToSignup) {
-        switchToSignup.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeModal(loginModal);
-            setTimeout(() => openModal(signupModal), 300);
-        });
-    }
-    
-    if (switchToLogin) {
-        switchToLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeModal(signupModal);
-            setTimeout(() => openModal(loginModal), 300);
-        });
-    }
-    
-    // Close modals when clicking outside
-    [loginModal, signupModal].forEach(modal => {
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal(modal);
-                }
-            });
+    // Add event listeners to all theme buttons
+    [themeToggle, mobileThemeToggle, footerThemeToggle].forEach(button => {
+        if (button) {
+            button.addEventListener('click', toggleTheme);
         }
     });
     
-    // Close modals with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (loginModal.classList.contains('active')) closeModal(loginModal);
-            if (signupModal.classList.contains('active')) closeModal(signupModal);
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
         }
     });
-    
-    // Password toggle functionality
-    initPasswordToggles();
-}
-
-/**
- * Open modal with animation
- */
-function openModal(modal) {
-    if (!modal) return;
-    
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    
-    // Add focus to first input
-    setTimeout(() => {
-        const firstInput = modal.querySelector('input');
-        if (firstInput) firstInput.focus();
-    }, 300);
-}
-
-/**
- * Close modal with animation
- */
-function closeModal(modal) {
-    if (!modal) return;
-    
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-/**
- * Initialize password toggle buttons
- */
-function initPasswordToggles() {
-    const toggleLoginPassword = document.getElementById('toggleLoginPassword');
-    const toggleSignupPassword = document.getElementById('toggleSignupPassword');
-    const loginPassword = document.getElementById('loginPassword');
-    const signupPassword = document.getElementById('signupPassword');
-    
-    if (toggleLoginPassword && loginPassword) {
-        toggleLoginPassword.addEventListener('click', () => {
-            togglePasswordVisibility(loginPassword, toggleLoginPassword);
-        });
-    }
-    
-    if (toggleSignupPassword && signupPassword) {
-        toggleSignupPassword.addEventListener('click', () => {
-            togglePasswordVisibility(signupPassword, toggleSignupPassword);
-        });
-    }
-}
-
-/**
- * Toggle password visibility
- */
-function togglePasswordVisibility(passwordInput, toggleButton) {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    
-    const icon = toggleButton.querySelector('i');
-    if (type === 'text') {
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-    } else {
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-    }
-}
-
-/**
- * Initialize password strength indicator
- */
-function initPasswordStrength() {
-    const passwordInput = document.getElementById('signupPassword');
-    const strengthBar = document.getElementById('passwordStrength');
-    const strengthText = document.getElementById('strengthText');
-    
-    if (!passwordInput || !strengthBar || !strengthText) return;
-    
-    passwordInput.addEventListener('input', function() {
-        const password = this.value;
-        const strength = calculatePasswordStrength(password);
-        
-        // Update strength bar
-        strengthBar.className = 'strength-fill';
-        strengthBar.classList.add(strength.class);
-        
-        // Update strength text
-        strengthText.textContent = strength.text;
-        strengthText.style.color = strength.color;
-    });
-}
-
-/**
- * Calculate password strength
- */
-function calculatePasswordStrength(password) {
-    let score = 0;
-    
-    // Length check
-    if (password.length >= 8) score += 1;
-    if (password.length >= 12) score += 1;
-    
-    // Complexity checks
-    if (/[a-z]/.test(password)) score += 1;
-    if (/[A-Z]/.test(password)) score += 1;
-    if (/[0-9]/.test(password)) score += 1;
-    if (/[^A-Za-z0-9]/.test(password)) score += 1;
-    
-    // Determine strength
-    if (password.length === 0) {
-        return { class: '', text: 'Password strength', color: '#6b7280' };
-    } else if (score <= 2) {
-        return { class: 'weak', text: 'Weak password', color: '#ef4444' };
-    } else if (score <= 4) {
-        return { class: 'medium', text: 'Medium strength', color: '#f59e0b' };
-    } else {
-        return { class: 'strong', text: 'Strong password', color: '#10b981' };
-    }
-}
-
-/**
- * Initialize form validation
- */
-function initFormValidation() {
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLoginSubmit);
-    }
-    
-    if (signupForm) {
-        signupForm.addEventListener('submit', handleSignupSubmit);
-    }
-}
-
-/**
- * Handle login form submission
- */
-function handleLoginSubmit(e) {
-    e.preventDefault();
-    
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    const rememberMe = document.getElementById('rememberMe').checked;
-    const submitBtn = this.querySelector('button[type="submit"]');
-    
-    // Basic validation
-    if (!email || !password) {
-        showNotification('Please fill in all required fields', 'error');
-        return;
-    }
-    
-    if (!isValidEmail(email)) {
-        showNotification('Please enter a valid email address', 'error');
-        return;
-    }
-    
-    // Show loading state
-    submitBtn.classList.add('loading');
-    submitBtn.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-        
-        // Mock successful login
-        showNotification('Welcome back! Login successful.', 'success');
-        closeModal(document.getElementById('loginModal'));
-        
-        // In a real app, you would:
-        // 1. Send login request to server
-        // 2. Store authentication token
-        // 3. Redirect to dashboard
-    }, 1500);
-}
-
-/**
- * Handle signup form submission
- */
-function handleSignupSubmit(e) {
-    e.preventDefault();
-    
-    const firstName = document.getElementById('firstName').value;
-    const lastName = document.getElementById('lastName').value;
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    const role = document.getElementById('role').value;
-    const terms = document.getElementById('terms').checked;
-    const submitBtn = this.querySelector('button[type="submit"]');
-    
-    // Validation
-    if (!firstName || !lastName || !email || !password || !confirmPassword || !role) {
-        showNotification('Please fill in all required fields', 'error');
-        return;
-    }
-    
-    if (!isValidEmail(email)) {
-        showNotification('Please enter a valid email address', 'error');
-        return;
-    }
-    
-    if (password !== confirmPassword) {
-        showNotification('Passwords do not match', 'error');
-        return;
-    }
-    
-    if (password.length < 8) {
-        showNotification('Password must be at least 8 characters', 'error');
-        return;
-    }
-    
-    if (!terms) {
-        showNotification('Please agree to the terms and conditions', 'error');
-        return;
-    }
-    
-    // Show loading state
-    submitBtn.classList.add('loading');
-    submitBtn.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-        
-        // Mock successful signup
-        showNotification(`Welcome ${firstName}! Your account has been created.`, 'success');
-        closeModal(document.getElementById('signupModal'));
-        
-        // In a real app, you would:
-        // 1. Send signup request to server
-        // 2. Send verification email
-        // 3. Redirect to verification or dashboard page
-    }, 2000);
-}
-
-/**
- * Validate email format
- */
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
 }
 
 /**
  * Initialize button interactions
  */
 function initButtons() {
-    // Get Started button (now signup)
-    const getStartedBtn = document.getElementById('signupBtnNav');
-    if (getStartedBtn) {
-        getStartedBtn.addEventListener('click', function() {
-            createRippleEffect(event, this);
+    // Login button
+    const loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showNotification('Redirecting to login page...', 'info');
+            createRippleEffect(e, this);
+            
+            // Simulate navigation delay
+            setTimeout(() => {
+                console.log('Navigate to login page');
+                // window.location.href = '/login';
+            }, 500);
+        });
+    }
+    
+    // Sign Up button
+    const signupBtn = document.getElementById('signupBtn');
+    if (signupBtn) {
+        signupBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showNotification('Redirecting to sign up page...', 'info');
+            createRippleEffect(e, this);
+            
+            // Simulate navigation delay
+            setTimeout(() => {
+                console.log('Navigate to signup page');
+                // window.location.href = '/signup';
+            }, 500);
         });
     }
     
     // Explore Platform button
     const exploreBtn = document.getElementById('exploreBtn');
     if (exploreBtn) {
-        exploreBtn.addEventListener('click', function() {
-            showNotification('Opening platform explorer...', 'info');
+        exploreBtn.addEventListener('click', function(e) {
+            showNotification('Exploring platform features...', 'success');
+            createRippleEffect(e, this);
             
             // Scroll to features section
             const featuresSection = document.querySelector('.features');
@@ -415,59 +175,56 @@ function initButtons() {
                     behavior: 'smooth'
                 });
             }
-            
-            createRippleEffect(event, this);
         });
     }
     
-    // View Projects button
+    // View Demo button
     const viewProjectsBtn = document.getElementById('viewProjectsBtn');
     if (viewProjectsBtn) {
-        viewProjectsBtn.addEventListener('click', function() {
-            showNotification('Loading project gallery...', 'info');
+        viewProjectsBtn.addEventListener('click', function(e) {
+            showNotification('Loading demo dashboard...', 'info');
+            createRippleEffect(e, this);
             
-            // Highlight project section
-            const projectSection = document.querySelector('.dashboard-preview-section');
-            if (projectSection) {
-                projectSection.style.boxShadow = '0 0 0 4px rgba(67, 97, 238, 0.3)';
-                setTimeout(() => {
-                    projectSection.style.boxShadow = '';
-                }, 1500);
+            // Scroll to dashboard section
+            const dashboardSection = document.querySelector('.dashboard');
+            if (dashboardSection) {
+                window.scrollTo({
+                    top: dashboardSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
             }
-            
-            createRippleEffect(event, this);
         });
     }
     
-    // Join Team button
-    const joinTeamBtn = document.getElementById('joinTeamBtn');
-    if (joinTeamBtn) {
-        joinTeamBtn.addEventListener('click', function() {
-            openModal(document.getElementById('signupModal'));
-            createRippleEffect(event, this);
-        });
-    }
-    
-    // Social auth buttons
-    document.querySelectorAll('.social-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const provider = this.classList.contains('google') ? 'Google' : 'GitHub';
-            showNotification(`Connecting with ${provider}...`, 'info');
+    // Start Trial button
+    const startTrialBtn = document.getElementById('startTrialBtn');
+    if (startTrialBtn) {
+        startTrialBtn.addEventListener('click', function(e) {
+            showNotification('Starting your free trial...', 'success');
+            createRippleEffect(e, this);
             
-            // In a real app, this would trigger OAuth flow
+            // Simulate trial start
             setTimeout(() => {
-                showNotification(`${provider} authentication successful!`, 'success');
-            }, 1000);
+                console.log('Free trial started');
+                // Redirect to signup with trial parameter
+            }, 500);
         });
-    });
+    }
     
-    // All other buttons with ripple effect
-    const buttons = document.querySelectorAll('.btn:not(.social-btn)');
+    // Schedule Demo button
+    const scheduleDemoBtn = document.getElementById('scheduleDemoBtn');
+    if (scheduleDemoBtn) {
+        scheduleDemoBtn.addEventListener('click', function(e) {
+            showNotification('Opening demo scheduler...', 'info');
+            createRippleEffect(e, this);
+        });
+    }
+    
+    // Add ripple effect to all buttons
+    const buttons = document.querySelectorAll('.btn');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
-            if (!this.classList.contains('loading')) {
-                createRippleEffect(e, this);
-            }
+            createRippleEffect(e, this);
         });
     });
 }
@@ -477,7 +234,9 @@ function initButtons() {
  */
 function initAnimations() {
     // Animate elements on scroll
-    const animatedElements = document.querySelectorAll('.feature-card, .dashboard-card, .stat-card');
+    const animatedElements = document.querySelectorAll(
+        '.feature-card, .dashboard-panel, .stat-card, .project-item'
+    );
     
     const observerOptions = {
         threshold: 0.1,
@@ -487,22 +246,27 @@ function initAnimations() {
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
     
     animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
     
-    // Add hover animations to cards
-    const cards = document.querySelectorAll('.card, .feature-card, .stat-card');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
-        });
+    // Parallax effect for hero section
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const heroVisual = document.querySelector('.hero-visual');
+        if (heroVisual) {
+            heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
+        }
     });
 }
 
@@ -517,28 +281,9 @@ function initCurrentYear() {
 }
 
 /**
- * Initialize theme toggle (light/dark mode)
- */
-function initThemeToggle() {
-    // Check for saved theme preference or default to light
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    
-    // Apply saved theme
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-    }
-    
-    // Theme toggle could be added as a button in the navbar
-    // This is a basic implementation that can be expanded
-}
-
-/**
  * Create ripple effect on button click
  */
 function createRippleEffect(event, button) {
-    // Only create ripple if button is not loading
-    if (button.classList.contains('loading')) return;
-    
     const ripple = document.createElement('span');
     const rect = button.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
@@ -548,9 +293,9 @@ function createRippleEffect(event, button) {
     ripple.style.cssText = `
         position: absolute;
         border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.7);
         transform: scale(0);
-        animation: ripple 0.6s linear;
+        animation: ripple-animation 0.6s linear;
         width: ${size}px;
         height: ${size}px;
         top: ${y}px;
@@ -562,11 +307,9 @@ function createRippleEffect(event, button) {
     button.style.overflow = 'hidden';
     button.appendChild(ripple);
     
-    // Remove ripple element after animation completes
+    // Remove ripple after animation
     setTimeout(() => {
-        if (ripple.parentNode === button) {
-            ripple.remove();
-        }
+        ripple.remove();
     }, 600);
 }
 
@@ -584,11 +327,14 @@ function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
-        <span>${message}</span>
+        <div class="notification-content">
+            <i class="fas fa-${getNotificationIcon(type)}"></i>
+            <span>${message}</span>
+        </div>
         <button class="notification-close">&times;</button>
     `;
     
-    // Add styles for notification if not already present
+    // Add notification styles if not already present
     if (!document.querySelector('#notification-styles')) {
         const style = document.createElement('style');
         style.id = 'notification-styles';
@@ -597,44 +343,58 @@ function showNotification(message, type = 'info') {
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
+                padding: 16px 20px;
+                border-radius: 12px;
                 color: white;
                 font-weight: 500;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                gap: 1rem;
-                z-index: 3000;
-                animation: slideInRight 0.3s ease;
-                max-width: 350px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            }
-            
-            .notification-success {
-                background-color: #10b981;
+                gap: 16px;
+                z-index: 9999;
+                animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                max-width: 400px;
+                box-shadow: var(--shadow-xl);
+                backdrop-filter: blur(10px);
+                background: rgba(var(--notification-bg), 0.95);
+                border: 1px solid rgba(255, 255, 255, 0.1);
             }
             
             .notification-info {
-                background-color: #3b82f6;
+                --notification-bg: 59, 130, 246;
+            }
+            
+            .notification-success {
+                --notification-bg: 16, 185, 129;
             }
             
             .notification-error {
-                background-color: #ef4444;
+                --notification-bg: 239, 68, 68;
             }
             
             .notification-warning {
-                background-color: #f59e0b;
+                --notification-bg: 245, 158, 11;
+            }
+            
+            .notification-content {
+                display: flex;
+                align-items: center;
+                gap: 12px;
             }
             
             .notification-close {
                 background: none;
                 border: none;
-                color: white;
-                font-size: 1.5rem;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 20px;
                 cursor: pointer;
                 padding: 0;
                 line-height: 1;
+                transition: color 0.2s ease;
+            }
+            
+            .notification-close:hover {
+                color: white;
             }
             
             @keyframes slideInRight {
@@ -659,7 +419,7 @@ function showNotification(message, type = 'info') {
                 }
             }
             
-            @keyframes ripple {
+            @keyframes ripple-animation {
                 to {
                     transform: scale(4);
                     opacity: 0;
@@ -685,58 +445,80 @@ function showNotification(message, type = 'info') {
         if (notification.parentNode) {
             notification.style.animation = 'slideOutRight 0.3s ease';
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                }
+                notification.remove();
             }, 300);
         }
     }, 5000);
 }
 
 /**
- * Simulate live data updates for dashboard
+ * Get appropriate icon for notification type
  */
-function simulateLiveUpdates() {
-    // Update stats periodically (every 30 seconds)
+function getNotificationIcon(type) {
+    switch(type) {
+        case 'success': return 'check-circle';
+        case 'error': return 'exclamation-circle';
+        case 'warning': return 'exclamation-triangle';
+        default: return 'info-circle';
+    }
+}
+
+/**
+ * Simulate live data updates
+ */
+function simulateLiveData() {
+    // Update stats every 30 seconds
     setInterval(() => {
-        const statCards = document.querySelectorAll('.stat-card');
-        statCards.forEach(card => {
-            const valueElement = card.querySelector('.stat-value');
-            if (valueElement) {
-                const currentValue = parseInt(valueElement.textContent);
-                const change = Math.floor(Math.random() * 5) - 2; // Random change -2 to +2
-                const newValue = Math.max(1, currentValue + change);
-                
-                // Animate the number change
-                animateValueChange(valueElement, currentValue, newValue);
+        const statValues = document.querySelectorAll('.stat-value');
+        statValues.forEach(stat => {
+            const currentValue = parseFloat(stat.textContent.replace(/[^0-9.]/g, ''));
+            const isPercentage = stat.textContent.includes('%');
+            const change = Math.random() * 0.02 - 0.01; // -1% to +1%
+            
+            let newValue;
+            if (isPercentage) {
+                newValue = Math.min(100, Math.max(0, currentValue + (currentValue * change)));
+                stat.textContent = `${newValue.toFixed(0)}%`;
+            } else if (stat.textContent.includes('s')) {
+                newValue = Math.max(0.5, currentValue + (Math.random() * 0.2 - 0.1));
+                stat.textContent = `${newValue.toFixed(1)}s`;
+            } else {
+                newValue = Math.max(1, Math.round(currentValue + (currentValue * change)));
+                stat.textContent = newValue.toLocaleString();
+            }
+        });
+        
+        // Update activity times
+        const activityTimes = document.querySelectorAll('.activity-time');
+        activityTimes.forEach((time, index) => {
+            const hoursAgo = index + 1;
+            if (hoursAgo === 1) {
+                time.textContent = '15 min ago';
+            } else {
+                time.textContent = `${hoursAgo} hours ago`;
             }
         });
     }, 30000);
 }
 
-/**
- * Animate value change in an element
- */
-function animateValueChange(element, start, end, duration = 500) {
-    const startTime = performance.now();
-    
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        
-        // Ease out function
-        const easeProgress = 1 - Math.pow(1 - progress, 3);
-        
-        const currentValue = Math.floor(start + (end - start) * easeProgress);
-        element.textContent = currentValue;
-        
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
+// Initialize live data updates after page load
+setTimeout(simulateLiveData, 5000);
+
+// Add keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    // Toggle theme with Ctrl/Cmd + T
+    if ((e.ctrlKey || e.metaKey) && e.key === 't') {
+        e.preventDefault();
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) themeToggle.click();
     }
     
-    requestAnimationFrame(update);
-}
-
-// Start live updates simulation
-setTimeout(simulateLiveUpdates, 5000);
+    // Escape to close mobile menu
+    if (e.key === 'Escape') {
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+        if (navMenu && navMenu.classList.contains('active')) {
+            mobileToggle.click();
+        }
+    }
+});
