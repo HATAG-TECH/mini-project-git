@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fullDescription: "With over 5 years of experience in frontend development, Alex excels at creating intuitive user interfaces using React, Vue.js, and modern CSS frameworks. As Project Lead, they coordinate team efforts, manage timelines, and ensure seamless communication between all team members.",
             skills: ["React", "Vue.js", "TypeScript", "UI/UX", "Project Management"],
             experience: "5+ years",
-            email: "alex.morgan@example.com",
+            email: "habtamushewamen12gmail.com",
             avatarColor: "#3498db",
             avatarInitials: "AM"
         },
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fullDescription: "Samantha is a passionate UI/UX designer with a background in psychology and design. She creates user-centered designs that are both beautiful and functional. Her process includes user research, wireframing, prototyping, and usability testing to ensure optimal user experiences.",
             skills: ["Figma", "Adobe XD", "Prototyping", "User Research", "Wireframing"],
             experience: "4 years",
-            email: "samantha.chen@example.com",
+            email: "estifanosshambel295gmail.com",
             avatarColor: "#2ecc71",
             avatarInitials: "SC"
         },
@@ -53,19 +53,19 @@ document.addEventListener('DOMContentLoaded', function() {
             fullDescription: "David is a backend specialist with expertise in Node.js, Python, and database design. He builds secure, scalable APIs and ensures system reliability. His focus is on creating efficient server-side logic that can handle high loads while maintaining data integrity.",
             skills: ["Node.js", "Python", "Database Design", "API Development", "Security"],
             experience: "6 years",
-            email: "david.rodriguez@example.com",
+            email: "habtamubefekadu19gamil.com",
             avatarColor: "#9b59b6",
             avatarInitials: "DR"
         },
         {
             id: 4,
-            name: "biniam agegnewu",
+            name: "biniyam agegnewu",
             role: "Full Stack Developer",
             description: "Works across both frontend and backend development. Implements features end-to-end and ensures seamless integration between components.",
             fullDescription: "Jessica is a versatile full stack developer who enjoys working on both client-side and server-side code. She has experience with the MERN stack and enjoys solving complex problems that span the entire application stack.",
             skills: ["JavaScript", "Express.js", "MongoDB", "React", "Full Stack"],
             experience: "4 years",
-            email: "jessica.williams@example.com",
+            email: "biniyamagegnehu2gmail.com",
             avatarColor: "#e74c3c",
             avatarInitials: "JW"
         },
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fullDescription: "Michael is a meticulous QA engineer who ensures our software meets the highest quality standards. He develops comprehensive test plans, implements automated testing, and works closely with developers to identify and resolve issues early in the development cycle.",
             skills: ["Testing", "Automation", "Debugging", "Performance", "CI/CD"],
             experience: "5 years",
-            email: "michael.thompson@example.com",
+            email: "henokkebede410@gmail.com",
             avatarColor: "#f39c12",
             avatarInitials: "MT"
         },
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fullDescription: "Emily is a DevOps specialist who manages our cloud infrastructure and CI/CD pipelines. She ensures smooth deployments, monitors system performance, and optimizes development workflows for maximum efficiency.",
             skills: ["Docker", "AWS", "CI/CD", "Infrastructure", "Kubernetes"],
             experience: "4 years",
-            email: "emily.zhang@example.com",
+            email: "kassamelat234.gmail.com",
             avatarColor: "#1abc9c",
             avatarInitials: "EZ"
         },
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fullDescription: "Ryan is responsible for creating clear, comprehensive technical documentation and providing support to both the team and end-users. He ensures knowledge is properly documented and transferred, and assists with project communication and coordination.",
             skills: ["Documentation", "Technical Writing", "Support", "Communication", "Training"],
             experience: "3 years",
-            email: "ryan.carter@example.com",
+            email: "icongirma129gmail.com",
             avatarColor: "#34495e",
             avatarInitials: "RC"
         }
