@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const teamMembers = [
         {
             id: 1,
-            name: "Alex Morgan",
+            name: "habtamu shewamen",
             role: "Frontend Developer & Project Lead",
             description: "Specializes in creating responsive, user-friendly interfaces with modern JavaScript frameworks. Leads team coordination and ensures project milestones are met.",
             fullDescription: "With over 5 years of experience in frontend development, Alex excels at creating intuitive user interfaces using React, Vue.js, and modern CSS frameworks. As Project Lead, they coordinate team efforts, manage timelines, and ensure seamless communication between all team members.",
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             id: 2,
-            name: "Samantha Chen",
+            name: "estifanos shambel ",
             role: "UI/UX Designer",
             description: "Creates intuitive and aesthetically pleasing user interfaces. Focuses on user research, wireframing, and prototyping to optimize user experience.",
             fullDescription: "Samantha is a passionate UI/UX designer with a background in psychology and design. She creates user-centered designs that are both beautiful and functional. Her process includes user research, wireframing, prototyping, and usability testing to ensure optimal user experiences.",
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             id: 3,
-            name: "David Rodriguez",
+            name: "habtamu befikadu",
             role: "Backend Developer",
             description: "Builds robust server-side logic and database architecture. Ensures system security, performance, and scalability of applications.",
             fullDescription: "David is a backend specialist with expertise in Node.js, Python, and database design. He builds secure, scalable APIs and ensures system reliability. His focus is on creating efficient server-side logic that can handle high loads while maintaining data integrity.",
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             id: 4,
-            name: "Jessica Williams",
+            name: "biniam agegnewu",
             role: "Full Stack Developer",
             description: "Works across both frontend and backend development. Implements features end-to-end and ensures seamless integration between components.",
             fullDescription: "Jessica is a versatile full stack developer who enjoys working on both client-side and server-side code. She has experience with the MERN stack and enjoys solving complex problems that span the entire application stack.",
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             id: 5,
-            name: "Michael Thompson",
+            name: "henok kebede",
             role: "Quality Assurance Engineer",
             description: "Designs and executes test plans to ensure software quality. Implements automated testing and monitors for bugs and performance issues.",
             fullDescription: "Michael is a meticulous QA engineer who ensures our software meets the highest quality standards. He develops comprehensive test plans, implements automated testing, and works closely with developers to identify and resolve issues early in the development cycle.",
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             id: 6,
-            name: "Emily Zhang",
+            name: "melat kassa",
             role: "DevOps Specialist",
             description: "Manages deployment pipelines, cloud infrastructure, and CI/CD processes. Ensures reliable and efficient development workflows.",
             fullDescription: "Emily is a DevOps specialist who manages our cloud infrastructure and CI/CD pipelines. She ensures smooth deployments, monitors system performance, and optimizes development workflows for maximum efficiency.",
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             id: 7,
-            name: "Ryan Carter",
+            name: "icon girma",
             role: "Technical Documentation & Support",
             description: "Creates comprehensive documentation and provides technical support. Ensures knowledge transfer and assists with project communication.",
             fullDescription: "Ryan is responsible for creating clear, comprehensive technical documentation and providing support to both the team and end-users. He ensures knowledge is properly documented and transferred, and assists with project communication and coordination.",
