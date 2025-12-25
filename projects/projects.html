@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeamPortfolio | Projects</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../home/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="light-mode">
-    <!-- Navigation Bar (Same as main page) -->
+    <!-- Navigation Bar (Exact same as home page) -->
     <header class="header">
         <div class="container">
             <nav class="navbar">
@@ -318,6 +319,12 @@
     </footer>
 
     <script src="projects.js"></script>
-    <script src="../home.js"></script>
+    <script>
+        // Include CSS variables from main style.css
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '../home/style.css';
+        document.head.appendChild(link);
+    </script>
 </body>
 </html>
