@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamPortfolio | Projects</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode">
+    <!-- Navigation Bar (Exact same as home page) -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <span class="logo-text">TeamPortfolio</span>
+                    <span class="logo-badge">PRO</span>
+                </div>
+                
+                <div class="nav-menu" id="navMenu">
+                    <div class="nav-links">
+                        <a href="../home/index.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                        <a href="../about/about.html" class="nav-link">
+                            <i class="fas fa-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                        <a href="projects.html" class="nav-link active">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Projects</span>
+                        </a>
+                        <a href="../team/team.html" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Team</span>
+                        </a>
+                        <a href="../contact/contact.html" class="nav-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a>
+                    </div>
+                    
+                    <div class="nav-actions">
+                        <div class="theme-toggle">
+                            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="auth-buttons">
+                            <button class="btn btn-ghost" id="loginBtn">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span>Login</span>
+                            </button>
+                            <button class="btn btn-primary" id="signupBtn">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Sign Up</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-mobile-actions">
+                    <button class="theme-btn mobile" id="mobileThemeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Projects Hero Section -->
+    <section class="projects-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span><i class="fas fa-code-branch"></i> Our Work</span>
+                </div>
+                <h1 class="hero-title">
+                    Showcasing <span class="gradient-text">Innovation</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Explore our portfolio of cutting-edge projects built with modern technologies and collaborative expertise.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="totalProjects">24</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="activeProjects">18</span>
+                        <span class="stat-label">Active</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="techStack">12</span>
+                        <span class="stat-label">Technologies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-tags">
+                    <button class="filter-tag active" data-filter="all">
+                        <i class="fas fa-layer-group"></i> All Projects
+                    </button>
+                    <button class="filter-tag" data-filter="web">
+                        <i class="fas fa-globe"></i> Web Apps
+                    </button>
+                    <button class="filter-tag" data-filter="mobile">
+                        <i class="fas fa-mobile-alt"></i> Mobile Apps
+                    </button>
+                    <button class="filter-tag" data-filter="api">
+                        <i class="fas fa-server"></i> API & Backend
+                    </button>
+                    <button class="filter-tag" data-filter="design">
+                        <i class="fas fa-palette"></i> UI/UX Design
+                    </button>
+                    <button class="filter-tag" data-filter="ai">
+                        <i class="fas fa-robot"></i> AI/ML
+                    </button>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="projectSearch" placeholder="Search projects...">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-grid-section">
+        <div class="container">
+            <div class="projects-container">
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Projects will be loaded here by JavaScript -->
+                </div>
+                
+                <div class="load-more">
+                    <button class="btn btn-outline" id="loadMoreBtn">
+                        <i class="fas fa-sync-alt"></i> Load More Projects
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Project Highlight -->
+    <section class="featured-project">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured <span class="gradient-text">Project</span></h2>
+                <p>Our latest and most innovative work</p>
+            </div>
+            
+            <div class="featured-card" id="featuredProject">
+                <!-- Featured project will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Used -->
+    <section class="tech-stack">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technology <span class="gradient-text">Stack</span></h2>
+                <p>Modern tools and frameworks we excel in</p>
+            </div>
+            
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <span class="tech-name">React</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-node-js"></i>
+                    </div>
+                    <span class="tech-name">Node.js</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <span class="tech-name">Python</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <span class="tech-name">MongoDB</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <span class="tech-name">AWS</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <span class="tech-name">Docker</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-vuejs"></i>
+                    </div>
+                    <span class="tech-name">Vue.js</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <span class="tech-name">Git</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h2>Have a Project in Mind?</h2>
+                    <p>Let's collaborate and bring your ideas to life with our expertise and innovative solutions.</p>
+                    <div class="cta-actions">
+                        <button class="btn btn-primary btn-large" id="contactBtn">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact Us</span>
+                        </button>
+                        <button class="btn btn-outline btn-large" id="viewDemoBtn">
+                            <i class="fas fa-play-circle"></i>
+                            <span>View Case Studies</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="cta-visual">
+                    <div class="cta-graphic">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="brand">
+                        <span class="logo-text">TeamPortfolio</span>
+                        <span class="logo-badge">PRO</span>
+                    </div>
+                    <p class="footer-tagline">Professional team collaboration and portfolio platform for modern development teams.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Projects</h4>
+                        <a href="#">Web Applications</a>
+                        <a href="#">Mobile Apps</a>
+                        <a href="#">APIs</a>
+                        <a href="#">UI/UX Design</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="../about/about.html">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                        <a href="../contact/contact.html">Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <a href="#">Documentation</a>
+                        <a href="#">Case Studies</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; <span id="currentYear"></span> TeamPortfolio Platform. All rights reserved.</p>
+                <div class="footer-actions">
+                    <button class="theme-btn small" id="footerThemeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="projects.js"></script>
+    <script>
+        // Include CSS variables from main style.css
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = '../home/style.css';
+        document.head.appendChild(link);
+    </script>
+</body>
+</html>
