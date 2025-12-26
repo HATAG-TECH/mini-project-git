@@ -3,28 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamPortfolio | Professional Development Platform</title>
+    <title>TeamPortfolio | Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    <style>
+        /* Temporary inline styles to ensure page loads properly */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8fafc;
+            color: #121826;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        body.dark-mode {
+            background: #121826;
+            color: #f9fafb;
+        }
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Ensure basic styling before main CSS loads */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+        
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body class="light-mode">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h2>Loading Dashboard...</h2>
+            <p>Preparing your workspace</p>
+        </div>
+    </div>
+
+    <!-- Authentication Check Script -->
+    <script>
+        // Check if user is logged in
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        if (!isLoggedIn || isLoggedIn !== 'true') {
+            // Redirect to login page
+            window.location.href = '../login/login.html';
+        }
+        
+        // Hide loading screen once page is ready
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 300);
+            }, 500);
+        });
+    </script>
+
     <!-- Navigation Bar -->
     <header class="header">
         <div class="container">
             <nav class="navbar">
                 <div class="nav-brand">
-                    <span class="logo-text">TeamPortfolio</span>
-                    <span class="logo-badge">PRO</span>
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-text">TeamPortfolio</span>
+                        <span class="logo-badge">PRO</span>
+                    </a>
                 </div>
                 
                 <div class="nav-menu" id="navMenu">
                     <div class="nav-links">
-                        <a href="#" class="nav-link active">
+                        <a href="index.html" class="nav-link active">
                             <i class="fas fa-home"></i>
-                            <span>Home</span>
+                            <span>Dashboard</span>
                         </a>
                         <a href="../about/about.html" class="nav-link">
                             <i class="fas fa-info-circle"></i>
@@ -52,15 +140,19 @@
                             </button>
                         </div>
                         
-                        <div class="auth-buttons">
-                            <button class="btn btn-ghost" id="loginBtn">
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>Login</span>
-                            </button>
-                            <button class="btn btn-primary" id="signupBtn">
-                                <i class="fas fa-user-plus"></i>
-                                <span>Sign Up</span>
-                            </button>
+                        <div class="user-menu">
+                            <div class="user-info">
+                                <div class="user-avatar" id="userAvatar">
+                                    <!-- Avatar will be set by JS -->
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-name" id="userName">Loading...</span>
+                                    <span class="user-email" id="userEmail">Loading...</span>
+                                </div>
+                                <button class="logout-btn" id="logoutBtn" title="Logout">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,37 +176,37 @@
             <div class="hero-grid">
                 <div class="hero-content">
                     <div class="hero-badge">
-                        <span><i class="fas fa-star"></i> Professional Platform</span>
+                        <span><i class="fas fa-rocket"></i> Welcome back!</span>
                     </div>
                     <h1 class="hero-title">
-                        Build, Collaborate & Showcase
-                        <span class="gradient-text">Team Projects</span>
+                        Team Dashboard
+                        <span class="gradient-text">Overview</span>
                     </h1>
                     <p class="hero-subtitle">
-                        A unified dashboard for development teams to manage workflows, track progress, and showcase portfolio projects with modern collaboration tools.
+                        Monitor your team's progress, track projects, and collaborate effectively in one unified workspace.
                     </p>
                     <div class="hero-actions">
                         <button class="btn btn-primary btn-large" id="exploreBtn">
-                            <i class="fas fa-rocket"></i> 
-                            <span>Explore Platform</span>
+                            <i class="fas fa-chart-line"></i> 
+                            <span>View Analytics</span>
                         </button>
-                        <button class="btn btn-outline btn-large" id="viewProjectsBtn">
-                            <i class="fas fa-eye"></i>
-                            <span>View Demo</span>
-                        </button>
+                        <a href="../projects/projects.html" class="btn btn-outline btn-large">
+                            <i class="fas fa-plus"></i>
+                            <span>New Project</span>
+                        </a>
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
-                            <span class="stat-number">500+</span>
-                            <span class="stat-label">Teams</span>
+                            <span class="stat-number" id="activeProjects">12</span>
+                            <span class="stat-label">Active Projects</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number">2K+</span>
-                            <span class="stat-label">Projects</span>
+                            <span class="stat-number" id="teamMembers">8</span>
+                            <span class="stat-label">Team Members</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number">99%</span>
-                            <span class="stat-label">Satisfaction</span>
+                            <span class="stat-number" id="completionRate">87%</span>
+                            <span class="stat-label">Completion Rate</span>
                         </div>
                     </div>
                 </div>
@@ -124,23 +216,28 @@
                             <div class="preview-dot red"></div>
                             <div class="preview-dot yellow"></div>
                             <div class="preview-dot green"></div>
+                            <span class="preview-title">Live Dashboard</span>
                         </div>
                         <div class="preview-content">
                             <div class="preview-widget widget-1">
                                 <i class="fas fa-chart-line"></i>
                                 <span>Analytics</span>
+                                <div class="widget-value">+12%</div>
                             </div>
                             <div class="preview-widget widget-2">
                                 <i class="fas fa-code"></i>
                                 <span>Code Review</span>
+                                <div class="widget-value">4 pending</div>
                             </div>
                             <div class="preview-widget widget-3">
                                 <i class="fas fa-tasks"></i>
                                 <span>Tasks</span>
+                                <div class="widget-value">24/36</div>
                             </div>
                             <div class="preview-widget widget-4">
                                 <i class="fas fa-comments"></i>
                                 <span>Team Chat</span>
+                                <div class="widget-value">3 unread</div>
                             </div>
                         </div>
                     </div>
@@ -149,72 +246,72 @@
         </div>
     </section>
 
-    <!-- Feature Overview Section -->
+    <!-- Features Section -->
     <section class="features">
         <div class="container">
             <div class="section-header">
-                <h2>Platform <span class="gradient-text">Features</span></h2>
-                <p>Everything modern development teams need to succeed</p>
+                <h2>Quick <span class="gradient-text">Actions</span></h2>
+                <p>Access frequently used features and tools</p>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <div class="icon-bg">
-                            <i class="fas fa-users-cog"></i>
+                            <i class="fas fa-plus-circle"></i>
                         </div>
                     </div>
-                    <h3 class="feature-title">Team Collaboration</h3>
+                    <h3 class="feature-title">Create Project</h3>
                     <p class="feature-description">
-                        Real-time collaboration with integrated chat, task assignments, and progress tracking for seamless teamwork.
+                        Start a new project with templates or from scratch
                     </p>
-                    <a href="#" class="feature-link">
-                        Learn more <i class="fas fa-arrow-right"></i>
+                    <a href="../projects/projects.html" class="feature-link">
+                        Get started <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <div class="icon-bg">
-                            <i class="fas fa-code-branch"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                     </div>
-                    <h3 class="feature-title">Version Control</h3>
+                    <h3 class="feature-title">Invite Team</h3>
                     <p class="feature-description">
-                        Integrated Git workflows with visual branching, code reviews, and automated deployment pipelines.
+                        Add new members to collaborate on projects
                     </p>
-                    <a href="#" class="feature-link">
-                        Learn more <i class="fas fa-arrow-right"></i>
+                    <a href="../team/team.html" class="feature-link">
+                        Invite members <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <div class="icon-bg">
-                            <i class="fas fa-chart-pie"></i>
+                            <i class="fas fa-chart-bar"></i>
                         </div>
                     </div>
-                    <h3 class="feature-title">Analytics Dashboard</h3>
+                    <h3 class="feature-title">View Reports</h3>
                     <p class="feature-description">
-                        Comprehensive analytics and reporting tools to track project progress and team performance.
+                        Generate performance and progress reports
                     </p>
                     <a href="#" class="feature-link">
-                        Learn more <i class="fas fa-arrow-right"></i>
+                        View analytics <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <div class="icon-bg">
-                            <i class="fas fa-shield-alt"></i>
+                            <i class="fas fa-cog"></i>
                         </div>
                     </div>
-                    <h3 class="feature-title">Security & Compliance</h3>
+                    <h3 class="feature-title">Settings</h3>
                     <p class="feature-description">
-                        Enterprise-grade security with role-based access control and compliance monitoring.
+                        Configure team preferences and permissions
                     </p>
                     <a href="#" class="feature-link">
-                        Learn more <i class="fas fa-arrow-right"></i>
+                        Configure <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -225,7 +322,7 @@
     <section class="dashboard">
         <div class="container">
             <div class="section-header">
-                <h2>Interactive <span class="gradient-text">Dashboard</span></h2>
+                <h2>Project <span class="gradient-text">Overview</span></h2>
                 <p>Real-time insights and project management tools</p>
             </div>
             
@@ -242,10 +339,22 @@
                     <div class="activity-list">
                         <div class="activity-item">
                             <div class="activity-avatar">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Alex">
+                                <i class="fas fa-user-circle"></i>
                             </div>
                             <div class="activity-content">
-                                <p class="activity-text"><strong>Alex Chen</strong> completed frontend deployment</p>
+                                <p class="activity-text"><strong>You</strong> created new project "Mobile App"</p>
+                                <span class="activity-time">Just now</span>
+                            </div>
+                            <div class="activity-badge primary">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text"><strong>Sarah</strong> completed frontend deployment</p>
                                 <span class="activity-time">15 min ago</span>
                             </div>
                             <div class="activity-badge success">
@@ -254,10 +363,10 @@
                         </div>
                         <div class="activity-item">
                             <div class="activity-avatar">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Maria" alt="Maria">
+                                <i class="fas fa-user-circle"></i>
                             </div>
                             <div class="activity-content">
-                                <p class="activity-text"><strong>Maria Garcia</strong> submitted code review</p>
+                                <p class="activity-text"><strong>Mike</strong> submitted code review</p>
                                 <span class="activity-time">1 hour ago</span>
                             </div>
                             <div class="activity-badge warning">
@@ -266,25 +375,13 @@
                         </div>
                         <div class="activity-item">
                             <div class="activity-avatar">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David" alt="David">
+                                <i class="fas fa-user-circle"></i>
                             </div>
                             <div class="activity-content">
-                                <p class="activity-text"><strong>David Kim</strong> created new API endpoint</p>
+                                <p class="activity-text"><strong>Team</strong> meeting scheduled for tomorrow</p>
                                 <span class="activity-time">2 hours ago</span>
                             </div>
                             <div class="activity-badge info">
-                                <i class="fas fa-plus"></i>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-avatar">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Sarah">
-                            </div>
-                            <div class="activity-content">
-                                <p class="activity-text"><strong>Sarah Johnson</strong> updated project timeline</p>
-                                <span class="activity-time">4 hours ago</span>
-                            </div>
-                            <div class="activity-badge primary">
                                 <i class="fas fa-calendar"></i>
                             </div>
                         </div>
@@ -294,38 +391,26 @@
                 <!-- Stats Panel -->
                 <div class="dashboard-panel stats-panel">
                     <div class="panel-header">
-                        <h3><i class="fas fa-chart-bar"></i> Project Statistics</h3>
+                        <h3><i class="fas fa-chart-bar"></i> Performance Metrics</h3>
                         <div class="time-filter">
                             <select class="select-filter">
-                                <option>Last 7 days</option>
-                                <option>Last 30 days</option>
-                                <option>Last quarter</option>
+                                <option>This Week</option>
+                                <option>This Month</option>
+                                <option>This Quarter</option>
                             </select>
                         </div>
                     </div>
                     <div class="stats-grid">
                         <div class="stat-card">
                             <div class="stat-header">
-                                <h4>Active Projects</h4>
-                                <div class="stat-change up">
-                                    <i class="fas fa-arrow-up"></i> 12%
-                                </div>
-                            </div>
-                            <div class="stat-value">24</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <h4>Team Productivity</h4>
+                                <h4>Productivity</h4>
                                 <div class="stat-change up">
                                     <i class="fas fa-arrow-up"></i> 8%
                                 </div>
                             </div>
-                            <div class="stat-value">89%</div>
+                            <div class="stat-value">87%</div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 89%"></div>
+                                <div class="progress-fill" style="width: 87%"></div>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -342,14 +427,26 @@
                         </div>
                         <div class="stat-card">
                             <div class="stat-header">
-                                <h4>Deployment Speed</h4>
-                                <div class="stat-change down">
-                                    <i class="fas fa-arrow-down"></i> 3%
+                                <h4>Team Satisfaction</h4>
+                                <div class="stat-change up">
+                                    <i class="fas fa-arrow-up"></i> 12%
                                 </div>
                             </div>
-                            <div class="stat-value">2.4s</div>
+                            <div class="stat-value">92%</div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 60%"></div>
+                                <div class="progress-fill" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <h4>Project Delivery</h4>
+                                <div class="stat-change up">
+                                    <i class="fas fa-arrow-up"></i> 15%
+                                </div>
+                            </div>
+                            <div class="stat-value">85%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
                     </div>
@@ -359,7 +456,7 @@
                 <div class="dashboard-panel projects-panel">
                     <div class="panel-header">
                         <h3><i class="fas fa-rocket"></i> Active Projects</h3>
-                        <button class="btn btn-sm btn-outline">View All</button>
+                        <a href="../projects/projects.html" class="btn btn-sm btn-outline">View All</a>
                     </div>
                     <div class="projects-list">
                         <div class="project-item">
@@ -367,8 +464,8 @@
                                 <i class="fab fa-react"></i>
                             </div>
                             <div class="project-info">
-                                <h4>React Dashboard</h4>
-                                <p>Frontend Development</p>
+                                <h4>Admin Dashboard</h4>
+                                <p>React + TypeScript</p>
                             </div>
                             <div class="project-progress">
                                 <div class="progress-bar">
@@ -382,8 +479,8 @@
                                 <i class="fab fa-node-js"></i>
                             </div>
                             <div class="project-info">
-                                <h4>API Gateway</h4>
-                                <p>Backend Services</p>
+                                <h4>Backend API</h4>
+                                <p>Node.js + Express</p>
                             </div>
                             <div class="project-progress">
                                 <div class="progress-bar">
@@ -398,13 +495,13 @@
                             </div>
                             <div class="project-info">
                                 <h4>Mobile App</h4>
-                                <p>Cross-platform</p>
+                                <p>React Native</p>
                             </div>
                             <div class="project-progress">
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 43%"></div>
+                                    <div class="progress-fill" style="width: 45%"></div>
                                 </div>
-                                <span>43%</span>
+                                <span>45%</span>
                             </div>
                         </div>
                         <div class="project-item">
@@ -412,14 +509,14 @@
                                 <i class="fas fa-database"></i>
                             </div>
                             <div class="project-info">
-                                <h4>Data Pipeline</h4>
-                                <p>Data Engineering</p>
+                                <h4>Data Migration</h4>
+                                <p>PostgreSQL</p>
                             </div>
                             <div class="project-progress">
                                 <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 56%"></div>
+                                    <div class="progress-fill" style="width: 60%"></div>
                                 </div>
-                                <span>56%</span>
+                                <span>60%</span>
                             </div>
                         </div>
                     </div>
@@ -428,32 +525,46 @@
         </div>
     </section>
 
-    <!-- Call-to-Action Section -->
-    <section class="cta">
+    <!-- Upcoming Deadlines -->
+    <section class="deadlines">
         <div class="container">
-            <div class="cta-card">
-                <div class="cta-content">
-                    <h2>Start Building Your Team's Portfolio Today</h2>
-                    <p>Join thousands of development teams who trust our platform for project management, collaboration, and portfolio showcase.</p>
-                    <div class="cta-actions">
-                        <button class="btn btn-primary btn-large" id="startTrialBtn">
-                            <i class="fas fa-play-circle"></i>
-                            <span>Start Free Trial</span>
-                        </button>
-                        <button class="btn btn-outline btn-large" id="scheduleDemoBtn">
-                            <i class="fas fa-calendar"></i>
-                            <span>Schedule Demo</span>
-                        </button>
+            <div class="section-header">
+                <h2>Upcoming <span class="gradient-text">Deadlines</span></h2>
+                <p>Important dates and milestones</p>
+            </div>
+            
+            <div class="deadlines-grid">
+                <div class="deadline-card">
+                    <div class="deadline-date">
+                        <span class="date-day">15</span>
+                        <span class="date-month">NOV</span>
                     </div>
-                    <div class="cta-features">
-                        <span><i class="fas fa-check"></i> No credit card required</span>
-                        <span><i class="fas fa-check"></i> 14-day free trial</span>
-                        <span><i class="fas fa-check"></i> Full feature access</span>
+                    <div class="deadline-content">
+                        <h4>Admin Dashboard v1.0</h4>
+                        <p>Final testing and deployment</p>
+                        <div class="deadline-tag">High Priority</div>
                     </div>
                 </div>
-                <div class="cta-visual">
-                    <div class="cta-graphic">
-                        <i class="fas fa-chart-network"></i>
+                <div class="deadline-card">
+                    <div class="deadline-date">
+                        <span class="date-day">22</span>
+                        <span class="date-month">NOV</span>
+                    </div>
+                    <div class="deadline-content">
+                        <h4>Team Quarterly Review</h4>
+                        <p>Performance evaluation meeting</p>
+                        <div class="deadline-tag">Medium Priority</div>
+                    </div>
+                </div>
+                <div class="deadline-card">
+                    <div class="deadline-date">
+                        <span class="date-day">30</span>
+                        <span class="date-month">NOV</span>
+                    </div>
+                    <div class="deadline-content">
+                        <h4>Mobile App Beta</h4>
+                        <p>Beta release for testing</p>
+                        <div class="deadline-tag">High Priority</div>
                     </div>
                 </div>
             </div>
@@ -466,39 +577,41 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="brand">
-                        <span class="logo-text">TeamPortfolio</span>
-                        <span class="logo-badge">PRO</span>
+                        <a href="index.html" class="logo-link">
+                            <span class="logo-text">TeamPortfolio</span>
+                            <span class="logo-badge">PRO</span>
+                        </a>
                     </div>
                     <p class="footer-tagline">Professional team collaboration and portfolio platform for modern development teams.</p>
                     <div class="footer-social">
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-slack"></i></a>
                     </div>
                 </div>
                 
                 <div class="footer-links">
                     <div class="footer-column">
-                        <h4>Product</h4>
-                        <a href="#">Features</a>
-                        <a href="#">Pricing</a>
-                        <a href="#">API</a>
-                        <a href="#">Documentation</a>
+                        <h4>Platform</h4>
+                        <a href="index.html">Dashboard</a>
+                        <a href="../projects/projects.html">Projects</a>
+                        <a href="../team/team.html">Team</a>
+                        <a href="#">Analytics</a>
                     </div>
                     <div class="footer-column">
                         <h4>Company</h4>
-                        <a href="#">About</a>
+                        <a href="../about/about.html">About</a>
                         <a href="#">Blog</a>
                         <a href="#">Careers</a>
-                        <a href="#">Contact</a>
+                        <a href="../contact/contact.html">Contact</a>
                     </div>
                     <div class="footer-column">
                         <h4>Resources</h4>
-                        <a href="#">Help Center</a>
-                        <a href="#">Community</a>
+                        <a href="#">Documentation</a>
+                        <a href="#">API</a>
+                        <a href="#">Support</a>
                         <a href="#">Privacy</a>
-                        <a href="#">Terms</a>
                     </div>
                 </div>
             </div>
@@ -517,6 +630,6 @@
         </div>
     </footer>
 
-    <script src="home.js"></script>
+    <script src="JS/home.js"></script>
 </body>
 </html>
