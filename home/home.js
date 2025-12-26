@@ -62,15 +62,17 @@ function initNavigation() {
         });
     }
     
-    // Set active nav link
-    const currentPage = window.location.pathname;
+    // Set active nav link based on current page
+    const currentPage = window.location.pathname.split('/').pop();
     const navLinks = document.querySelectorAll('.nav-link');
+    
     navLinks.forEach(link => {
         link.classList.remove('active');
+        const href = link.getAttribute('href');
+        if (href === currentPage || (href === 'index.html' && currentPage === '')) {
+            link.classList.add('active');
+        }
     });
-    
-    // Set home as active by default
-    document.querySelector('.nav-link[href="#"]').classList.add('active');
 }
 
 /**
@@ -128,38 +130,6 @@ function initThemeToggle() {
  * Initialize button interactions
  */
 function initButtons() {
-    // Login button
-    const loginBtn = document.getElementById('loginBtn');
-    if (loginBtn) {
-        loginBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            showNotification('Redirecting to login page...', 'info');
-            createRippleEffect(e, this);
-            
-            // Simulate navigation delay
-            setTimeout(() => {
-                console.log('Navigate to login page');
-                // window.location.href = '/login';
-            }, 500);
-        });
-    }
-    
-    // Sign Up button
-    const signupBtn = document.getElementById('signupBtn');
-    if (signupBtn) {
-        signupBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            showNotification('Redirecting to sign up page...', 'info');
-            createRippleEffect(e, this);
-            
-            // Simulate navigation delay
-            setTimeout(() => {
-                console.log('Navigate to signup page');
-                // window.location.href = '/signup';
-            }, 500);
-        });
-    }
-    
     // Explore Platform button
     const exploreBtn = document.getElementById('exploreBtn');
     if (exploreBtn) {
@@ -178,50 +148,24 @@ function initButtons() {
         });
     }
     
-    // View Demo button
-    const viewProjectsBtn = document.getElementById('viewProjectsBtn');
-    if (viewProjectsBtn) {
-        viewProjectsBtn.addEventListener('click', function(e) {
-            showNotification('Loading demo dashboard...', 'info');
-            createRippleEffect(e, this);
-            
-            // Scroll to dashboard section
-            const dashboardSection = document.querySelector('.dashboard');
-            if (dashboardSection) {
-                window.scrollTo({
-                    top: dashboardSection.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    }
-    
-    // Start Trial button
-    const startTrialBtn = document.getElementById('startTrialBtn');
-    if (startTrialBtn) {
-        startTrialBtn.addEventListener('click', function(e) {
-            showNotification('Starting your free trial...', 'success');
-            createRippleEffect(e, this);
-            
-            // Simulate trial start
-            setTimeout(() => {
-                console.log('Free trial started');
-                // Redirect to signup with trial parameter
-            }, 500);
-        });
-    }
-    
     // Schedule Demo button
     const scheduleDemoBtn = document.getElementById('scheduleDemoBtn');
     if (scheduleDemoBtn) {
         scheduleDemoBtn.addEventListener('click', function(e) {
+            e.preventDefault();
             showNotification('Opening demo scheduler...', 'info');
             createRippleEffect(e, this);
+            
+            // You can implement demo scheduling here
+            // For now, just show a notification
+            setTimeout(() => {
+                showNotification('Demo scheduler will be available soon!', 'info');
+            }, 1000);
         });
     }
     
     // Add ripple effect to all buttons
-    const buttons = document.querySelectorAll('.btn');
+    const buttons = document.querySelectorAll('.btn:not(.btn-icon)');
     buttons.forEach(button => {
         button.addEventListener('click', function(e) {
             createRippleEffect(e, this);
@@ -235,7 +179,7 @@ function initButtons() {
 function initAnimations() {
     // Animate elements on scroll
     const animatedElements = document.querySelectorAll(
-        '.feature-card, .dashboard-panel, .stat-card, .project-item'
+        '.feature-card, .dashboard-panel, .stat-card, .project-item, .testimonial-card'
     );
     
     const observerOptions = {
@@ -265,7 +209,7 @@ function initAnimations() {
         const scrolled = window.pageYOffset;
         const heroVisual = document.querySelector('.hero-visual');
         if (heroVisual) {
-            heroVisual.style.transform = `translateY(${scrolled * 0.1}px)`;
+            heroVisual.style.transform = `translateY(${scrolled * 0.05}px)`;
         }
     });
 }
@@ -284,6 +228,11 @@ function initCurrentYear() {
  * Create ripple effect on button click
  */
 function createRippleEffect(event, button) {
+    // Only create ripple for clickable buttons (not links that will navigate)
+    if (button.tagName === 'A' && button.getAttribute('href')) {
+        return;
+    }
+    
     const ripple = document.createElement('span');
     const rect = button.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
