@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamPortfolio | Professional Development Platform</title>
+    <title>TeamPortfolio | Professional Team Collaboration Platform</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
 </head>
 <body class="light-mode">
     <!-- Navigation Bar -->
@@ -16,13 +17,15 @@
         <div class="container">
             <nav class="navbar">
                 <div class="nav-brand">
-                    <span class="logo-text">TeamPortfolio</span>
-                    <span class="logo-badge">PRO</span>
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-text">TeamPortfolio</span>
+                        <span class="logo-badge">PRO</span>
+                    </a>
                 </div>
                 
                 <div class="nav-menu" id="navMenu">
                     <div class="nav-links">
-                        <a href="#" class="nav-link active">
+                        <a href="index.html" class="nav-link active">
                             <i class="fas fa-home"></i>
                             <span>Home</span>
                         </a>
@@ -53,14 +56,14 @@
                         </div>
                         
                         <div class="auth-buttons">
-                            <button class="btn btn-ghost" id="loginBtn">
+                            <a href="../login/login.html" class="btn btn-ghost" id="loginBtn">
                                 <i class="fas fa-sign-in-alt"></i>
                                 <span>Login</span>
-                            </button>
-                            <button class="btn btn-primary" id="signupBtn">
+                            </a>
+                            <a href="../register/register.html" class="btn btn-primary" id="signupBtn">
                                 <i class="fas fa-user-plus"></i>
                                 <span>Sign Up</span>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -98,10 +101,10 @@
                             <i class="fas fa-rocket"></i> 
                             <span>Explore Platform</span>
                         </button>
-                        <button class="btn btn-outline btn-large" id="viewProjectsBtn">
+                        <a href="../projects/projects.html" class="btn btn-outline btn-large" id="viewProjectsBtn">
                             <i class="fas fa-eye"></i>
-                            <span>View Demo</span>
-                        </button>
+                            <span>View Projects</span>
+                        </a>
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
@@ -168,7 +171,7 @@
                     <p class="feature-description">
                         Real-time collaboration with integrated chat, task assignments, and progress tracking for seamless teamwork.
                     </p>
-                    <a href="#" class="feature-link">
+                    <a href="../team/team.html" class="feature-link">
                         Learn more <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -183,7 +186,7 @@
                     <p class="feature-description">
                         Integrated Git workflows with visual branching, code reviews, and automated deployment pipelines.
                     </p>
-                    <a href="#" class="feature-link">
+                    <a href="../projects/projects.html" class="feature-link">
                         Learn more <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -213,7 +216,7 @@
                     <p class="feature-description">
                         Enterprise-grade security with role-based access control and compliance monitoring.
                     </p>
-                    <a href="#" class="feature-link">
+                    <a href="../about/about.html" class="feature-link">
                         Learn more <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -359,7 +362,7 @@
                 <div class="dashboard-panel projects-panel">
                     <div class="panel-header">
                         <h3><i class="fas fa-rocket"></i> Active Projects</h3>
-                        <button class="btn btn-sm btn-outline">View All</button>
+                        <a href="../projects/projects.html" class="btn btn-sm btn-outline">View All</a>
                     </div>
                     <div class="projects-list">
                         <div class="project-item">
@@ -428,6 +431,66 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our <span class="gradient-text">Teams Say</span></h2>
+                <p>Trusted by development teams worldwide</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p>TeamPortfolio transformed how our remote team collaborates. Our project completion rate increased by 40%!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Michael" alt="Michael">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Rodriguez</h4>
+                            <p>Lead Developer, TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p>The analytics dashboard gave us insights we never had before. Making data-driven decisions is now effortless.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sophia" alt="Sophia">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sophia Williams</h4>
+                            <p>Project Manager, InnovateLabs</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p>From version control to deployment, everything is integrated. Our workflow has never been smoother.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=James" alt="James">
+                        </div>
+                        <div class="author-info">
+                            <h4>James Wilson</h4>
+                            <p>CTO, StartupXYZ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Call-to-Action Section -->
     <section class="cta">
         <div class="container">
@@ -436,10 +499,10 @@
                     <h2>Start Building Your Team's Portfolio Today</h2>
                     <p>Join thousands of development teams who trust our platform for project management, collaboration, and portfolio showcase.</p>
                     <div class="cta-actions">
-                        <button class="btn btn-primary btn-large" id="startTrialBtn">
+                        <a href="../register/register.html" class="btn btn-primary btn-large" id="startTrialBtn">
                             <i class="fas fa-play-circle"></i>
                             <span>Start Free Trial</span>
-                        </button>
+                        </a>
                         <button class="btn btn-outline btn-large" id="scheduleDemoBtn">
                             <i class="fas fa-calendar"></i>
                             <span>Schedule Demo</span>
@@ -466,8 +529,10 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <div class="brand">
-                        <span class="logo-text">TeamPortfolio</span>
-                        <span class="logo-badge">PRO</span>
+                        <a href="index.html" class="logo-link">
+                            <span class="logo-text">TeamPortfolio</span>
+                            <span class="logo-badge">PRO</span>
+                        </a>
                     </div>
                     <p class="footer-tagline">Professional team collaboration and portfolio platform for modern development teams.</p>
                     <div class="footer-social">
@@ -481,17 +546,17 @@
                 <div class="footer-links">
                     <div class="footer-column">
                         <h4>Product</h4>
-                        <a href="#">Features</a>
+                        <a href="../home/index.html#features">Features</a>
                         <a href="#">Pricing</a>
                         <a href="#">API</a>
                         <a href="#">Documentation</a>
                     </div>
                     <div class="footer-column">
                         <h4>Company</h4>
-                        <a href="#">About</a>
+                        <a href="../about/about.html">About</a>
                         <a href="#">Blog</a>
                         <a href="#">Careers</a>
-                        <a href="#">Contact</a>
+                        <a href="../contact/contact.html">Contact</a>
                     </div>
                     <div class="footer-column">
                         <h4>Resources</h4>
@@ -517,6 +582,6 @@
         </div>
     </footer>
 
-    <script src="home.js"></script>
+    <script src="JS/home.js"></script>
 </body>
 </html>
