@@ -2,8 +2,12 @@
  * TeamPortfolio Dashboard - Professional Dark Mode
  */
 
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('TeamPortfolio Dashboard initialized');
+    
+    // Check authentication
+    checkAuthentication();
     
     // Initialize all components
     initNavigation();
@@ -11,7 +15,63 @@ document.addEventListener('DOMContentLoaded', function() {
     initButtons();
     initAnimations();
     initCurrentYear();
+    initUserInfo();
 });
+
+/**
+ * Check if user is authenticated
+ */
+function checkAuthentication() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (!isLoggedIn || isLoggedIn !== 'true') {
+        // Redirect to login page
+        window.location.href = '../login/login.html';
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Initialize user information display
+ */
+function initUserInfo() {
+    const userName = sessionStorage.getItem('userName') || 'Demo User';
+    const userEmail = sessionStorage.getItem('userEmail') || 'demo@teamportfolio.com';
+    
+    document.getElementById('userName').textContent = userName;
+    document.getElementById('userEmail').textContent = userEmail;
+    
+    // Generate random avatar color based on user name
+    const colors = ['#4361ee', '#7209b7', '#10b981', '#f72585', '#f59e0b'];
+    const colorIndex = userName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
+    document.getElementById('userAvatar').style.backgroundColor = colors[colorIndex];
+}
+
+/**
+ * Initialize logout functionality
+ */
+function initLogout() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            // Clear session storage
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('userName');
+            sessionStorage.removeItem('userEmail');
+            
+            // Show logout notification
+            showNotification('You have been logged out successfully', 'info');
+            
+            // Redirect to login page after delay
+            setTimeout(() => {
+                window.location.href = '../login/login.html';
+            }, 1000);
+        });
+    }
+}
+
+// Call initLogout after the rest of the initialization
+setTimeout(initLogout, 500);
 
 /**
  * Initialize navigation functionality

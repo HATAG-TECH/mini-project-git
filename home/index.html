@@ -12,6 +12,16 @@
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
 </head>
 <body class="light-mode">
+    <!-- Authentication Check Script -->
+    <script>
+        // Check if user is logged in
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        if (!isLoggedIn || isLoggedIn !== 'true') {
+            // Redirect to login page
+            window.location.href = '../login/login.html';
+        }
+    </script>
+
     <!-- Navigation Bar -->
     <header class="header">
         <div class="container">
@@ -27,7 +37,7 @@
                     <div class="nav-links">
                         <a href="index.html" class="nav-link active">
                             <i class="fas fa-home"></i>
-                            <span>Home</span>
+                            <span>Dashboard</span>
                         </a>
                         <a href="../about/about.html" class="nav-link">
                             <i class="fas fa-info-circle"></i>
@@ -55,15 +65,19 @@
                             </button>
                         </div>
                         
-                        <div class="auth-buttons">
-                            <a href="../login/login.html" class="btn btn-ghost" id="loginBtn">
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>Login</span>
-                            </a>
-                            <a href="../register/register.html" class="btn btn-primary" id="signupBtn">
-                                <i class="fas fa-user-plus"></i>
-                                <span>Sign Up</span>
-                            </a>
+                        <div class="user-menu">
+                            <div class="user-info">
+                                <div class="user-avatar" id="userAvatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-details">
+                                    <span class="user-name" id="userName">Demo User</span>
+                                    <span class="user-email" id="userEmail">demo@teamportfolio.com</span>
+                                </div>
+                                <button class="logout-btn" id="logoutBtn" title="Logout">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
