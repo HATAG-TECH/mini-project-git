@@ -1,4 +1,3 @@
-> Habtamu:
 /* ===========================================
    Professional Login Page Styles
    =========================================== */
@@ -113,6 +112,53 @@ html, body {
     opacity: 0.1;
 }
 
+.back-home-mobile {
+    position: absolute;
+    top: var(--space-xl);
+    left: var(--space-xl);
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color var(--transition);
+    z-index: 2;
+}
+
+.back-home-mobile:hover {
+    color: white;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+}
+
+.logo-text {
+    font-family: var(--font-secondary);
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ffffff, #e0e7ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.logo-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    margin-left: 4px;
+    backdrop-filter: blur(4px);
+}
+
 .welcome-content {
     position: relative;
     z-index: 1;
@@ -162,7 +208,6 @@ html, body {
     animation-delay: 0.2s;
 }
 
-> Habtamu:
 .feature-item i {
     font-size: 1.5rem;
     color: rgba(255, 255, 255, 0.9);
@@ -295,6 +340,10 @@ html, body {
     color: var(--gray);
 }
 
+.form-input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: var(--error);
+}
+
 .input-icon {
     position: absolute;
     left: var(--space-lg);
@@ -364,7 +413,6 @@ html, body {
     border-color: var(--primary);
 }
 
-> Habtamu:
 .checkmark::after {
     content: '';
     position: absolute;
@@ -451,6 +499,17 @@ html, body {
     transform: translateX(0);
 }
 
+.login-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.login-button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
 /* Demo Credentials */
 .demo-credentials {
     background: var(--info-light);
@@ -479,6 +538,7 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
+    margin-bottom: var(--space-md);
 }
 
 .credential-item {
@@ -487,6 +547,36 @@ html, body {
     padding: var(--space-xs) var(--space-sm);
     background: rgba(255, 255, 255, 0.5);
     border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.credential-item:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-fill-demo {
+    width: 100%;
+    background: var(--info);
+    color: white;
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-fill-demo:hover {
+    background: var(--info-dark);
+    transform: translateY(-1px);
+}
+
+.btn-fill-demo:active {
+    transform: translateY(0);
 }
 
 /* Divider */
@@ -532,11 +622,17 @@ html, body {
     font-size: 0.95rem;
     cursor: pointer;
     transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
 }
 
 .social-button:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow);
+}
+
+.social-button:active {
+    transform: translateY(0);
 }
 
 .social-button.google-button:hover {
@@ -547,6 +643,19 @@ html, body {
 .social-button.github-button:hover {
     border-color: #333;
     color: #333;
+}
+
+.social-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.social-button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--gray-light);
+    color: var(--gray-dark);
 }
 
 /* Sign Up Link */
@@ -579,7 +688,6 @@ html, body {
     text-align: center;
 }
 
-> Habtamu:
 .back-to-home a {
     display: inline-flex;
     align-items: center;
@@ -603,6 +711,8 @@ html, body {
     display: flex;
     align-items: center;
     gap: var(--space-xs);
+    opacity: 0;
+    transition: opacity var(--transition);
 }
 
 .error-message::before {
@@ -652,18 +762,6 @@ html, body {
     font-weight: 500;
 }
 
-/* Notification Container */
-.notification-container {
-    position: fixed;
-    top: var(--space-xl);
-    right: var(--space-xl);
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    max-width: 350px;
-}
-
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -701,6 +799,7 @@ html, body {
     .login-left-panel {
         padding: var(--space-2xl);
         text-align: center;
+        min-height: 50vh;
     }
     
     .welcome-content {
@@ -715,11 +814,17 @@ html, body {
         max-width: 600px;
         margin: var(--space-2xl) auto 0;
     }
+    
+    .back-home-mobile {
+        top: var(--space-lg);
+        left: var(--space-lg);
+    }
 }
 
 @media (max-width: 768px) {
     .login-left-panel {
         padding: var(--space-xl);
+        min-height: 40vh;
     }
     
     .login-right-panel {
@@ -746,6 +851,10 @@ html, body {
         flex-direction: column;
         text-align: center;
         align-items: center;
+    }
+    
+    .back-home-mobile {
+        display: none;
     }
 }
 
