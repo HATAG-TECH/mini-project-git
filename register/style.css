@@ -261,3 +261,17 @@ html, body {
     .register-container { flex-direction: column; }
     .welcome-title { font-size: 2rem; }
 }
+
+/* Simple visual overrides to keep registration layout clear and minimal */
+.register-container {
+    background: var(--light);
+}
+.register-left-panel {
+    background: var(--primary);
+    padding: 2rem;
+}
+.register-card {
+    padding: 1.5rem;
+    max-width: 420px;
+}
+.features-list { display: none; }

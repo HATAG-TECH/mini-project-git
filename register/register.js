@@ -153,22 +153,38 @@ function initFormValidation() {
         const originalButtonContent = registerButton.innerHTML;
         registerButton.innerHTML = '<span class="button-text">Creating Account...</span>';
         loadingOverlay.classList.add('active');
-        
+
         // Simulate API call delay
         setTimeout(() => {
-            // Successful "registration"
-            showNotification('Account created successfully! Redirecting to login...', 'success');
-            
-            // Store registration info (optional, for demo)
+            // Persist user to localStorage (simple demo storage)
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Check for existing email or username
+            const exists = users.find(u => u.email === email || u.username === username);
+            if (exists) {
+                showNotification('An account with that email or username already exists', 'error');
+                registerButton.disabled = false;
+                registerButton.innerHTML = originalButtonContent;
+                loadingOverlay.classList.remove('active');
+                return;
+            }
+
+            users.push({ username, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Optional: store last registered values to prefill login
             localStorage.setItem('lastRegisteredEmail', email);
             localStorage.setItem('lastRegisteredUser', username);
-            
+
+            // Successful "registration"
+            showNotification('Account created successfully! Redirecting to login...', 'success');
+
             // Redirect to login page after delay
             setTimeout(() => {
                 window.location.href = '../login/login.html';
-            }, 2000);
-            
-        }, 1500); // Simulate network delay
+            }, 1200);
+
+        }, 900); // Simulate network delay
     }
 }
 

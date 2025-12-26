@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Debug | TeamPortfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div style="max-width: 600px; margin: 50px auto; padding: 20px;">
+        <h1>Login Debug</h1>
+        
+        <div id="debug-info" style="background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 8px;">
+            <h3>Debug Information:</h3>
+            <div id="info"></div>
+        </div>
+        
+        <form id="simpleLoginForm">
+            <div style="margin: 10px 0;">
+                <label>Email:</label>
+                <input type="email" id="debugEmail" value="demo@teamportfolio.com" style="width: 100%; padding: 10px; margin: 5px 0;">
+            </div>
+            
+            <div style="margin: 10px 0;">
+                <label>Password:</label>
+                <input type="password" id="debugPassword" value="demo123" style="width: 100%; padding: 10px; margin: 5px 0;">
+            </div>
+            
+            <button type="submit" style="background: #4361ee; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Login and Redirect
+            </button>
+        </form>
+        
+        <div style="margin-top: 20px;">
+            <button onclick="manualRedirect()" style="background: #10b981; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">
+                Manual Redirect to Home
+            </button>
+            
+            <button onclick="clearStorage()" style="background: #ef4444; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Clear Storage
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Update debug info
+        function updateDebugInfo() {
+            document.getElementById('info').innerHTML = `
+                <p><strong>Session Storage:</strong></p>
+                <pre>${JSON.stringify({
+                    isLoggedIn: sessionStorage.getItem('isLoggedIn'),
+                    userEmail: sessionStorage.getItem('userEmail'),
+                    userName: sessionStorage.getItem('userName')
+                }, null, 2)}</pre>
+                
+                <p><strong>Local Storage:</strong></p>
+                <pre>${JSON.stringify({
+                    theme: localStorage.getItem('theme'),
+                    rememberedUser: localStorage.getItem('rememberedUser')
+                }, null, 2)}</pre>
+                
+                <p><strong>Current URL:</strong> ${window.location.href}</p>
+                <p><strong>Path to Home:</strong> ../home/index.html</p>
+            `;
+        }
+        
+        // Simple login form
+        document.getElementById('simpleLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('debugEmail').value;
+            const password = document.getElementById('debugPassword').value;
+            
+            if (email === 'demo@teamportfolio.com' && password === 'demo123') {
+                // Set session storage
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userEmail', email);
+                sessionStorage.setItem('userName', 'Demo User');
+                
+                updateDebugInfo();
+                
+                // Try redirect after 1 second
+                setTimeout(() => {
+                    console.log('Attempting redirect to home...');
+                    window.location.href = '../home/index.html';
+                }, 1000);
+            } else {
+                alert('Invalid credentials. Use: demo@teamportfolio.com / demo123');
+            }
+        });
+        
+        // Manual redirect
+        function manualRedirect() {
+            console.log('Manual redirect attempt...');
+            window.location.href = '../home/index.html';
+        }
+        
+        // Clear storage
+        function clearStorage() {
+            sessionStorage.clear();
+            localStorage.clear();
+            updateDebugInfo();
+            alert('Storage cleared!');
+        }
+        
+        // Initial update
+        updateDebugInfo();
+    </script>
+</body>
+</html>

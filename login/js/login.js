@@ -7,47 +7,82 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Login page initialized');
     
+    // Check if already logged in
+    checkIfAlreadyLoggedIn();
+    
     // Initialize all components
     initFormValidation();
     initPasswordToggle();
     initSocialButtons();
-    initDemoCredentials();
     initNavigation();
-    initAnimations();
+    initThemeToggle();
+    checkRememberedUser();
 });
+
+/**
+ * Check if user is already logged in
+ */
+function checkIfAlreadyLoggedIn() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+        // Already logged in, redirect to home page
+        console.log('Already logged in, redirecting to home...');
+        window.location.href = '../home/index.html';
+    }
+}
+
+/**
+ * Check for remembered user
+ */
+function checkRememberedUser() {
+    const emailEl = document.getElementById('email');
+    const rememberedUser = localStorage.getItem('rememberedUser');
+    if (rememberedUser && emailEl) {
+        emailEl.value = rememberedUser;
+        document.getElementById('rememberMe').checked = true;
+        return;
+    }
+
+    // If no remembered user, prefill with last registered email (helpful right after signup)
+    const lastRegistered = localStorage.getItem('lastRegisteredEmail');
+    if (lastRegistered && emailEl) {
+        emailEl.value = lastRegistered;
+    }
+}
 
 /**
  * Initialize form validation and submission
  */
 function initFormValidation() {
     const loginForm = document.getElementById('loginForm');
-    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
-    const usernameError = document.getElementById('usernameError');
+    const emailError = document.getElementById('emailError');
     const passwordError = document.getElementById('passwordError');
     const loginButton = document.getElementById('loginButton');
     const loadingOverlay = document.getElementById('loadingOverlay');
     
     // Demo credentials for simulation
     const DEMO_CREDENTIALS = {
-        username: 'demo@teamportfolio.com',
+        email: 'demo@teamportfolio.com',
         password: 'demo123'
     };
     
     if (!loginForm) return;
     
     // Real-time validation
-    usernameInput.addEventListener('input', function() {
-        validateField(this, usernameError, 'Username is required');
+    emailInput.addEventListener('input', function() {
+        validateEmail(this, emailError);
     });
     
     passwordInput.addEventListener('input', function() {
-        validateField(this, passwordError, 'Password is required');
+        validatePassword(this, passwordError);
     });
     
     // Form submission
     loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        console.log('Form submitted');
         
         // Reset errors
         clearErrors();
@@ -55,33 +90,58 @@ function initFormValidation() {
         // Validate inputs
         let isValid = true;
         
-        if (!validateField(usernameInput, usernameError, 'Username is required')) {
+        if (!validateEmail(emailInput, emailError)) {
             isValid = false;
         }
         
-        if (!validateField(passwordInput, passwordError, 'Password is required')) {
+        if (!validatePassword(passwordInput, passwordError)) {
             isValid = false;
         }
         
         if (!isValid) {
-            showNotification('Please fill in all required fields', 'error');
+            showNotification('Please correct the errors in the form', 'error');
             return;
         }
         
+        console.log('Form is valid, starting authentication...');
+        
         // Simulate authentication
         simulateAuthentication(
-            usernameInput.value.trim(),
+            emailInput.value.trim(),
             passwordInput.value,
             DEMO_CREDENTIALS
         );
     });
     
-    // Validate a single field
-    function validateField(input, errorElement, message) {
+    // Validate email
+    function validateEmail(input, errorElement) {
         const value = input.value.trim();
         
         if (!value) {
-            showError(input, errorElement, message);
+            showError(input, errorElement, 'Email is required');
+            return false;
+        }
+        
+        if (!isValidEmail(value)) {
+            showError(input, errorElement, 'Please enter a valid email address');
+            return false;
+        }
+        
+        clearError(input, errorElement);
+        return true;
+    }
+    
+    // Validate password
+    function validatePassword(input, errorElement) {
+        const value = input.value;
+        
+        if (!value) {
+            showError(input, errorElement, 'Password is required');
+            return false;
+        }
+        
+        if (value.length < 6) {
+            showError(input, errorElement, 'Password must be at least 6 characters');
             return false;
         }
         
@@ -92,6 +152,7 @@ function initFormValidation() {
     // Show error state
     function showError(input, errorElement, message) {
         input.style.borderColor = 'var(--error)';
+        input.parentElement.classList.add('error');
         errorElement.textContent = message;
         errorElement.style.opacity = '1';
     }
@@ -99,77 +160,104 @@ function initFormValidation() {
     // Clear error state
     function clearError(input, errorElement) {
         input.style.borderColor = '';
+        input.parentElement.classList.remove('error');
         errorElement.textContent = '';
         errorElement.style.opacity = '0';
     }
     
     // Clear all errors
     function clearErrors() {
-        clearError(usernameInput, usernameError);
+        clearError(emailInput, emailError);
         clearError(passwordInput, passwordError);
     }
     
     /**
-     * Simulate authentication process
+     * Simulate authentication process - FIXED REDIRECT
      */
-    function simulateAuthentication(username, password, demoCredentials) {
+    function simulateAuthentication(email, password, demoCredentials) {
+        console.log('Simulating authentication for:', email);
+        
         // Show loading state
         loginButton.disabled = true;
-        loginButton.innerHTML = '<span class="button-text">Signing in...</span><i class="fas fa-spinner fa-spin button-icon"></i>';
+        loginButton.innerHTML = '<span class="button-text">Authenticating...</span><i class="fas fa-spinner fa-spin button-icon"></i>';
         loadingOverlay.classList.add('active');
         
         // Simulate API call delay
         setTimeout(() => {
-            // Check against demo credentials
-            if (username === demoCredentials.username && password === demoCredentials.password) {
-                // Successful login
+            const identifier = email.trim();
+
+            // Check stored users first (allow login by email or username)
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const matchedUser = users.find(u => (u.email === identifier || u.username === identifier) && u.password === password);
+
+            if (matchedUser) {
+                console.log('Authentication successful (registered user)!');
+
                 showNotification('Login successful! Redirecting to dashboard...', 'success');
-                
-                // Store login state in session storage for demonstration
+
+                // Store login state in session storage
                 sessionStorage.setItem('isLoggedIn', 'true');
-                sessionStorage.setItem('userEmail', username);
-                sessionStorage.setItem('userName', 'Demo User');
-                
+                sessionStorage.setItem('userEmail', matchedUser.email);
+                sessionStorage.setItem('userName', matchedUser.username);
+
                 // Check remember me
                 const rememberMe = document.getElementById('rememberMe').checked;
                 if (rememberMe) {
-                    localStorage.setItem('rememberedUser', username);
+                    localStorage.setItem('rememberedUser', identifier);
                 } else {
                     localStorage.removeItem('rememberedUser');
                 }
-                
-                // Redirect to home page after delay
+
                 setTimeout(() => {
                     window.location.href = '../home/index.html';
-                }, 1500);
-                
-            } else {
-                // Invalid credentials
-                showNotification('Invalid username or password. Try: demo@teamportfolio.com / demo123', 'error');
-                
-                // Reset form state
-                loginButton.disabled = false;
-                loginButton.innerHTML = '<span class="button-text">Sign In</span><i class="fas fa-arrow-right button-icon"></i>';
-                loadingOverlay.classList.remove('active');
-                
-                // Add error effects
-                usernameInput.style.borderColor = 'var(--error)';
-                passwordInput.style.borderColor = 'var(--error)';
-                
-                // Shake animation for error state
-                loginForm.classList.add('shake');
-                setTimeout(() => {
-                    loginForm.classList.remove('shake');
-                }, 500);
+                }, 800);
+
+                return;
             }
-        }, 1200); // Simulate network delay
-    }
-    
-    // Check for remembered user
-    const rememberedUser = localStorage.getItem('rememberedUser');
-    if (rememberedUser) {
-        usernameInput.value = rememberedUser;
-        document.getElementById('rememberMe').checked = true;
+
+            // Fallback to demo credentials
+            if (identifier === demoCredentials.email && password === demoCredentials.password) {
+                console.log('Authentication successful (demo)!');
+
+                showNotification('Login successful! Redirecting to dashboard...', 'success');
+
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userEmail', demoCredentials.email);
+                sessionStorage.setItem('userName', 'Demo User');
+
+                const rememberMe = document.getElementById('rememberMe').checked;
+                if (rememberMe) {
+                    localStorage.setItem('rememberedUser', demoCredentials.email);
+                } else {
+                    localStorage.removeItem('rememberedUser');
+                }
+
+                setTimeout(() => {
+                    window.location.href = '../home/index.html';
+                }, 800);
+
+                return;
+            }
+
+            // Invalid credentials
+            console.log('Authentication failed');
+            showNotification('Invalid email/username or password.', 'error');
+
+            // Reset form state
+            loginButton.disabled = false;
+            loginButton.innerHTML = '<span class="button-text">Sign In to Dashboard</span><i class="fas fa-arrow-right button-icon"></i>';
+            loadingOverlay.classList.remove('active');
+
+            // Add error effects
+            emailInput.style.borderColor = 'var(--error)';
+            passwordInput.style.borderColor = 'var(--error)';
+
+            // Shake animation for error state
+            loginForm.classList.add('shake');
+            setTimeout(() => {
+                loginForm.classList.remove('shake');
+            }, 500);
+        }, 900); // Simulate network delay
     }
 }
 
@@ -205,11 +293,7 @@ function initSocialButtons() {
     if (googleButton) {
         googleButton.addEventListener('click', function(e) {
             showNotification('Google authentication would open here', 'info');
-            
-            // Add ripple effect
             createRippleEffect(e, this);
-            
-            // Simulate loading state
             simulateSocialLogin(this, 'Google');
         });
     }
@@ -217,11 +301,7 @@ function initSocialButtons() {
     if (githubButton) {
         githubButton.addEventListener('click', function(e) {
             showNotification('GitHub authentication would open here', 'info');
-            
-            // Add ripple effect
             createRippleEffect(e, this);
-            
-            // Simulate loading state
             simulateSocialLogin(this, 'GitHub');
         });
     }
@@ -240,51 +320,6 @@ function initSocialButtons() {
 }
 
 /**
- * Initialize demo credentials auto-fill
- */
-function initDemoCredentials() {
-    const fillDemoBtn = document.getElementById('fillDemoBtn');
-    const demoCredentials = document.querySelector('.demo-credentials');
-    
-    if (fillDemoBtn) {
-        fillDemoBtn.addEventListener('click', function(e) {
-            const usernameInput = document.getElementById('username');
-            const passwordInput = document.getElementById('password');
-            
-            if (usernameInput && passwordInput) {
-                usernameInput.value = 'demo@teamportfolio.com';
-                passwordInput.value = 'demo123';
-                
-                // Trigger input events for validation
-                usernameInput.dispatchEvent(new Event('input'));
-                passwordInput.dispatchEvent(new Event('input'));
-                
-                // Show confirmation
-                showNotification('Demo credentials filled! Click "Sign In" to continue.', 'success');
-                
-                // Focus on login button
-                const loginButton = document.getElementById('loginButton');
-                if (loginButton) {
-                    setTimeout(() => loginButton.focus(), 100);
-                }
-                
-                createRippleEffect(e, this);
-            }
-        });
-    }
-    
-    // Auto-fill on clicking credentials text
-    if (demoCredentials) {
-        const credentialItems = demoCredentials.querySelectorAll('.credential-item');
-        credentialItems.forEach(item => {
-            item.addEventListener('click', function() {
-                fillDemoBtn.click();
-            });
-        });
-    }
-}
-
-/**
  * Initialize navigation links
  */
 function initNavigation() {
@@ -294,143 +329,184 @@ function initNavigation() {
     if (forgotPasswordLink) {
         forgotPasswordLink.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Create password reset modal
-            const modal = document.createElement('div');
-            modal.className = 'password-reset-modal';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <button class="modal-close">&times;</button>
-                    <h3><i class="fas fa-key"></i> Reset Password</h3>
-                    <p>Enter your email address and we'll send you a link to reset your password.</p>
-                    <div class="form-group">
-                        <label for="resetEmail">Email Address</label>
-                        <input type="email" id="resetEmail" placeholder="you@example.com" class="form-input">
-                        <div class="error-message" id="resetEmailError"></div>
-                    </div>
-                    <button class="btn btn-primary" id="resetPasswordBtn">Send Reset Link</button>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            document.body.style.overflow = 'hidden';
-            
-            // Add modal styles
-            if (!document.querySelector('#modal-styles')) {
-                const style = document.createElement('style');
-                style.id = 'modal-styles';
-                style.textContent = `
-                    .password-reset-modal {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        background: rgba(0, 0, 0, 0.5);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        z-index: 1001;
-                        backdrop-filter: blur(4px);
-                    }
-                    
-                    .modal-content {
-                        background: white;
-                        padding: var(--space-2xl);
-                        border-radius: var(--radius-xl);
-                        max-width: 400px;
-                        width: 90%;
-                        position: relative;
-                        box-shadow: var(--shadow-xl);
-                        animation: fadeInUp 0.3s ease;
-                    }
-                    
-                    .modal-close {
-                        position: absolute;
-                        top: var(--space-md);
-                        right: var(--space-md);
-                        background: none;
-                        border: none;
-                        font-size: 1.5rem;
-                        color: var(--gray);
-                        cursor: pointer;
-                        line-height: 1;
-                    }
-                    
-                    .modal-close:hover {
-                        color: var(--dark);
-                    }
-                    
-                    .modal-content h3 {
-                        display: flex;
-                        align-items: center;
-                        gap: var(--space-sm);
-                        margin-bottom: var(--space-md);
-                        color: var(--dark);
-                    }
-                    
-                    .modal-content p {
-                        color: var(--gray);
-                        margin-bottom: var(--space-xl);
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-            
-            // Close modal
-            const closeBtn = modal.querySelector('.modal-close');
-            closeBtn.addEventListener('click', () => {
-                modal.remove();
-                document.body.style.overflow = '';
-            });
-            
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.remove();
-                    document.body.style.overflow = '';
-                }
-            });
-            
-            // Handle password reset
-            const resetBtn = modal.querySelector('#resetPasswordBtn');
-            const resetEmail = modal.querySelector('#resetEmail');
-            const resetError = modal.querySelector('#resetEmailError');
-            
-            resetBtn.addEventListener('click', () => {
-                const email = resetEmail.value.trim();
-                if (!email) {
-                    resetError.textContent = 'Please enter your email address';
-                    resetError.style.opacity = '1';
-                    return;
-                }
-                
-                if (!isValidEmail(email)) {
-                    resetError.textContent = 'Please enter a valid email address';
-                    resetError.style.opacity = '1';
-                    return;
-                }
-                
-                resetBtn.disabled = true;
-                resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                
-                setTimeout(() => {
-                    showNotification(`Password reset link sent to ${email}`, 'success');
-                    modal.remove();
-                    document.body.style.overflow = '';
-                }, 1500);
-            });
+            showPasswordResetModal();
         });
     }
 }
 
 /**
- * Initialize animations
+ * Show password reset modal
  */
-function initAnimations() {
-    // Animate feature items
-    const featureItems = document.querySelectorAll('.feature-item');
-    featureItems.forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.1}s`;
+function showPasswordResetModal() {
+    // Create password reset modal
+    const modal = document.createElement('div');
+    modal.className = 'password-reset-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3><i class="fas fa-key"></i> Reset Password</h3>
+            <p>Enter your email address and we'll send you a link to reset your password.</p>
+            <div class="form-group">
+                <label for="resetEmail">Email Address</label>
+                <input type="email" id="resetEmail" placeholder="you@example.com" class="form-input">
+                <div class="error-message" id="resetEmailError"></div>
+            </div>
+            <button class="btn btn-primary" id="resetPasswordBtn">Send Reset Link</button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    // Add modal styles
+    if (!document.querySelector('#modal-styles')) {
+        const style = document.createElement('style');
+        style.id = 'modal-styles';
+        style.textContent = `
+            .password-reset-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1001;
+                backdrop-filter: blur(4px);
+            }
+            
+            .modal-content {
+                background: var(--white);
+                padding: var(--space-2xl);
+                border-radius: var(--radius-xl);
+                max-width: 400px;
+                width: 90%;
+                position: relative;
+                box-shadow: var(--shadow-xl);
+                animation: fadeInUp 0.3s ease;
+            }
+            
+            .modal-close {
+                position: absolute;
+                top: var(--space-md);
+                right: var(--space-md);
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--gray);
+                cursor: pointer;
+                line-height: 1;
+            }
+            
+            .modal-close:hover {
+                color: var(--dark);
+            }
+            
+            .modal-content h3 {
+                display: flex;
+                align-items: center;
+                gap: var(--space-sm);
+                margin-bottom: var(--space-md);
+                color: var(--dark);
+            }
+            
+            .modal-content p {
+                color: var(--gray);
+                margin-bottom: var(--space-xl);
+            }
+            
+            .btn-primary {
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: var(--space-md) var(--space-xl);
+                border-radius: var(--radius);
+                font-weight: 600;
+                cursor: pointer;
+                width: 100%;
+                transition: all var(--transition);
+            }
+            
+            .btn-primary:hover {
+                background: var(--primary-dark);
+                transform: translateY(-2px);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Close modal
+    const closeBtn = modal.querySelector('.modal-close');
+    closeBtn.addEventListener('click', () => {
+        modal.remove();
+        document.body.style.overflow = '';
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Handle password reset
+    const resetBtn = modal.querySelector('#resetPasswordBtn');
+    const resetEmail = modal.querySelector('#resetEmail');
+    const resetError = modal.querySelector('#resetEmailError');
+    
+    resetBtn.addEventListener('click', () => {
+        const email = resetEmail.value.trim();
+        if (!email) {
+            resetError.textContent = 'Please enter your email address';
+            resetError.style.opacity = '1';
+            return;
+        }
+        
+        if (!isValidEmail(email)) {
+            resetError.textContent = 'Please enter a valid email address';
+            resetError.style.opacity = '1';
+            return;
+        }
+        
+        resetBtn.disabled = true;
+        resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        
+        setTimeout(() => {
+            showNotification(`Password reset link sent to ${email}`, 'success');
+            modal.remove();
+            document.body.style.overflow = '';
+        }, 1500);
+    });
+}
+
+/**
+ * Initialize theme toggle functionality
+ */
+function initThemeToggle() {
+    const body = document.body;
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-mode');
+    } else {
+        body.classList.remove('dark-mode');
+    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
+        }
     });
 }
 
@@ -650,7 +726,7 @@ document.addEventListener('keydown', function(e) {
     // Submit form with Enter key
     if (e.key === 'Enter') {
         const focused = document.activeElement;
-        if (focused && (focused.type === 'text' || focused.type === 'password')) {
+        if (focused && (focused.type === 'text' || focused.type === 'password' || focused.type === 'email')) {
             e.preventDefault();
             document.getElementById('loginButton')?.click();
         }

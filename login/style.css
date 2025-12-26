@@ -798,6 +798,21 @@ html, body {
     
     .login-left-panel {
         padding: var(--space-2xl);
+    }
+
+/* Small overrides to simplify the login visuals for clarity */
+.login-container {
+    background: var(--light);
+}
+.login-left-panel {
+    background: var(--primary);
+    padding: 1.5rem;
+}
+.login-card {
+    padding: 1.5rem;
+    max-width: 420px;
+}
+.features-list { display: none; }
         text-align: center;
         min-height: 50vh;
     }
