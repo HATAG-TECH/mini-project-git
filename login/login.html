@@ -1,13 +1,13 @@
-> Habtamu:
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Team Portfolio</title>
+    <title>Login | TeamPortfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
 </head>
 <body>
     <!-- Main Container -->
@@ -15,6 +15,15 @@
         <!-- Left Panel - Welcome Section -->
         <div class="login-left-panel">
             <div class="welcome-content">
+                <a href="../home/index.html" class="back-home-mobile">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                
+                <div class="brand-logo">
+                    <span class="logo-text">TeamPortfolio</span>
+                    <span class="logo-badge">PRO</span>
+                </div>
+                
                 <h1 class="welcome-title">Welcome Back</h1>
                 <p class="welcome-subtitle">Sign in to access your team's portfolio dashboard</p>
                 
@@ -67,6 +76,7 @@
                                 class="form-input"
                                 placeholder="Enter your username or email"
                                 autocomplete="username"
+                                required
                             >
                             <div class="input-icon">
                                 <i class="fas fa-user-circle"></i>
@@ -75,14 +85,13 @@
                         <div class="error-message" id="usernameError"></div>
                     </div>
 
-> Habtamu:
-<!-- Password Field -->
+                    <!-- Password Field -->
                     <div class="form-group">
                         <div class="form-label-wrapper">
                             <label for="password" class="form-label">
                                 <i class="fas fa-lock"></i> Password
                             </label>
-                            <a href="#" class="forgot-password">Forgot Password?</a>
+                            <a href="#" class="forgot-password" id="forgotPasswordLink">Forgot Password?</a>
                         </div>
                         <div class="input-wrapper">
                             <input 
@@ -91,6 +100,7 @@
                                 class="form-input"
                                 placeholder="Enter your password"
                                 autocomplete="current-password"
+                                required
                             >
                             <div class="input-icon">
                                 <i class="fas fa-key"></i>
@@ -129,6 +139,7 @@
                                 <strong>Password:</strong> demo123
                             </div>
                         </div>
+                        <button type="button" class="btn-fill-demo" id="fillDemoBtn">Auto-fill Demo Credentials</button>
                     </div>
 
                     <!-- Divider -->
@@ -136,13 +147,13 @@
                         <span>or continue with</span>
                     </div>
 
-                    <!-- Social Login (Placeholder) -->
+                    <!-- Social Login -->
                     <div class="social-login">
-                        <button type="button" class="social-button google-button">
+                        <button type="button" class="social-button google-button" id="googleLoginBtn">
                             <i class="fab fa-google"></i>
                             <span>Google</span>
                         </button>
-                        <button type="button" class="social-button github-button">
+                        <button type="button" class="social-button github-button" id="githubLoginBtn">
                             <i class="fab fa-github"></i>
                             <span>GitHub</span>
                         </button>
@@ -150,7 +161,7 @@
 
                     <!-- Sign Up Link -->
                     <div class="signup-link">
-                        <p>Don't have an account? <a href="#" id="createAccountLink">Create an account</a></p>
+                        <p>Don't have an account? <a href="../register/register.html" id="createAccountLink">Create an account</a></p>
                     </div>
                 </form>
 
@@ -165,8 +176,7 @@
         </div>
     </div>
 
-> Habtamu:
-<!-- Loading Overlay -->
+    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner">
             <div class="spinner"></div>
@@ -177,6 +187,6 @@
     <!-- Notification Container -->
     <div class="notification-container" id="notificationContainer"></div>
 
-    <script src="login.js"></script>
+    <script src="JS/login.js"></script>
 </body>
 </html>
