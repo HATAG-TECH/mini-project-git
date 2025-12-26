@@ -183,6 +183,18 @@ p {
     color: transparent;
 }
 
+/* Links */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
 /* Buttons */
 .btn {
     display: inline-flex;
@@ -284,7 +296,6 @@ p {
 .nav-brand {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
 }
 
 .logo-text {
@@ -961,6 +972,81 @@ p {
     text-align: right;
 }
 
+/* Testimonials Section */
+.testimonials {
+    padding: var(--space-4xl) 0;
+    background: var(--bg-secondary);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+}
+
+.testimonial-card {
+    background: var(--bg-primary);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    border: 1px solid var(--border-light);
+    transition: all var(--transition);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.testimonial-content {
+    position: relative;
+    margin-bottom: var(--space-xl);
+}
+
+.quote-icon {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: var(--space-md);
+    opacity: 0.7;
+}
+
+.testimonial-content p {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.author-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+}
+
+.author-info p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+}
+
 /* CTA Section */
 .cta {
     padding: var(--space-4xl) 0;
@@ -1249,6 +1335,10 @@ p {
     }
     
     .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonials-grid {
         grid-template-columns: 1fr;
     }
     
