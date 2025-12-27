@@ -371,7 +371,7 @@ html, body {
     color: var(--primary);
 }
 
-/* Checkbox Styles */
+
 .remember-group {
     margin-top: calc(var(--space-sm) * -1);
 }
