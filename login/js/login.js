@@ -1,13 +1,8 @@
-/**
- * Professional Login Page JavaScript
- * Frontend-only authentication simulation for demonstration purposes
- */
 
-// DOM Ready Event
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Login page initialized');
 
-    // Check if already logged in
+    
     checkIfAlreadyLoggedIn();
 
     // Initialize all components
