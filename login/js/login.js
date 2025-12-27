@@ -4,12 +4,12 @@
  */
 
 // DOM Ready Event
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Login page initialized');
-    
+
     // Check if already logged in
     checkIfAlreadyLoggedIn();
-    
+
     // Initialize all components
     initFormValidation();
     initPasswordToggle();
@@ -61,94 +61,90 @@ function initFormValidation() {
     const passwordError = document.getElementById('passwordError');
     const loginButton = document.getElementById('loginButton');
     const loadingOverlay = document.getElementById('loadingOverlay');
-    
-    // Demo credentials for simulation
-    const DEMO_CREDENTIALS = {
-        email: 'demo@teamportfolio.com',
-        password: 'demo123'
-    };
-    
+
+    // Demo credentials removed for production security
+
+
     if (!loginForm) return;
-    
+
     // Real-time validation
-    emailInput.addEventListener('input', function() {
+    emailInput.addEventListener('input', function () {
         validateEmail(this, emailError);
     });
-    
-    passwordInput.addEventListener('input', function() {
+
+    passwordInput.addEventListener('input', function () {
         validatePassword(this, passwordError);
     });
-    
+
     // Form submission
-    loginForm.addEventListener('submit', function(e) {
+    loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
         console.log('Form submitted');
-        
+
         // Reset errors
         clearErrors();
-        
+
         // Validate inputs
         let isValid = true;
-        
+
         if (!validateEmail(emailInput, emailError)) {
             isValid = false;
         }
-        
+
         if (!validatePassword(passwordInput, passwordError)) {
             isValid = false;
         }
-        
+
         if (!isValid) {
             showNotification('Please correct the errors in the form', 'error');
             return;
         }
-        
+
         console.log('Form is valid, starting authentication...');
-        
+
         // Simulate authentication
         simulateAuthentication(
             emailInput.value.trim(),
-            passwordInput.value,
-            DEMO_CREDENTIALS
+            passwordInput.value
         );
     });
-    
+
     // Validate email
     function validateEmail(input, errorElement) {
         const value = input.value.trim();
-        
+
         if (!value) {
             showError(input, errorElement, 'Email is required');
             return false;
         }
-        
+
         if (!isValidEmail(value)) {
             showError(input, errorElement, 'Please enter a valid email address');
             return false;
         }
-        
+
         clearError(input, errorElement);
         return true;
     }
-    
+
     // Validate password
     function validatePassword(input, errorElement) {
         const value = input.value;
-        
+
         if (!value) {
             showError(input, errorElement, 'Password is required');
             return false;
         }
-        
+
         if (value.length < 6) {
             showError(input, errorElement, 'Password must be at least 6 characters');
             return false;
         }
-        
+
         clearError(input, errorElement);
         return true;
     }
-    
+
     // Show error state
     function showError(input, errorElement, message) {
         input.style.borderColor = 'var(--error)';
@@ -156,7 +152,7 @@ function initFormValidation() {
         errorElement.textContent = message;
         errorElement.style.opacity = '1';
     }
-    
+
     // Clear error state
     function clearError(input, errorElement) {
         input.style.borderColor = '';
@@ -164,24 +160,24 @@ function initFormValidation() {
         errorElement.textContent = '';
         errorElement.style.opacity = '0';
     }
-    
+
     // Clear all errors
     function clearErrors() {
         clearError(emailInput, emailError);
         clearError(passwordInput, passwordError);
     }
-    
+
     /**
      * Simulate authentication process - FIXED REDIRECT
      */
-    function simulateAuthentication(email, password, demoCredentials) {
-        console.log('Simulating authentication for:', email);
-        
+    function simulateAuthentication(email, password) {
+        console.log('Authenticating user:', email);
+
         // Show loading state
         loginButton.disabled = true;
         loginButton.innerHTML = '<span class="button-text">Authenticating...</span><i class="fas fa-spinner fa-spin button-icon"></i>';
         loadingOverlay.classList.add('active');
-        
+
         // Simulate API call delay
         setTimeout(() => {
             const identifier = email.trim();
@@ -215,33 +211,9 @@ function initFormValidation() {
                 return;
             }
 
-            // Fallback to demo credentials
-            if (identifier === demoCredentials.email && password === demoCredentials.password) {
-                console.log('Authentication successful (demo)!');
-
-                showNotification('Login successful! Redirecting to dashboard...', 'success');
-
-                sessionStorage.setItem('isLoggedIn', 'true');
-                sessionStorage.setItem('userEmail', demoCredentials.email);
-                sessionStorage.setItem('userName', 'Demo User');
-
-                const rememberMe = document.getElementById('rememberMe').checked;
-                if (rememberMe) {
-                    localStorage.setItem('rememberedUser', demoCredentials.email);
-                } else {
-                    localStorage.removeItem('rememberedUser');
-                }
-
-                setTimeout(() => {
-                    window.location.href = '../home/index.html';
-                }, 800);
-
-                return;
-            }
-
-            // Invalid credentials
+            // Invalid credentials (No demo fallback)
             console.log('Authentication failed');
-            showNotification('Invalid email/username or password.', 'error');
+            showNotification('Invalid email/username or password. Please register if you don\'t have an account.', 'error');
 
             // Reset form state
             loginButton.disabled = false;
@@ -267,17 +239,17 @@ function initFormValidation() {
 function initPasswordToggle() {
     const passwordToggle = document.getElementById('passwordToggle');
     const passwordInput = document.getElementById('password');
-    
+
     if (!passwordToggle || !passwordInput) return;
-    
-    passwordToggle.addEventListener('click', function() {
+
+    passwordToggle.addEventListener('click', function () {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-        
+
         const icon = this.querySelector('i');
         icon.classList.toggle('fa-eye');
         icon.classList.toggle('fa-eye-slash');
-        
+
         // Add focus back to input
         passwordInput.focus();
     });
@@ -289,28 +261,28 @@ function initPasswordToggle() {
 function initSocialButtons() {
     const googleButton = document.getElementById('googleLoginBtn');
     const githubButton = document.getElementById('githubLoginBtn');
-    
+
     if (googleButton) {
-        googleButton.addEventListener('click', function(e) {
+        googleButton.addEventListener('click', function (e) {
             showNotification('Google authentication would open here', 'info');
             createRippleEffect(e, this);
             simulateSocialLogin(this, 'Google');
         });
     }
-    
+
     if (githubButton) {
-        githubButton.addEventListener('click', function(e) {
+        githubButton.addEventListener('click', function (e) {
             showNotification('GitHub authentication would open here', 'info');
             createRippleEffect(e, this);
             simulateSocialLogin(this, 'GitHub');
         });
     }
-    
+
     function simulateSocialLogin(button, provider) {
         const originalText = button.innerHTML;
         button.innerHTML = `<i class="fas fa-spinner fa-spin"></i><span>Connecting...</span>`;
         button.disabled = true;
-        
+
         setTimeout(() => {
             button.innerHTML = originalText;
             button.disabled = false;
@@ -324,10 +296,10 @@ function initSocialButtons() {
  */
 function initNavigation() {
     const forgotPasswordLink = document.getElementById('forgotPasswordLink');
-    
+
     // Forgot Password link
     if (forgotPasswordLink) {
-        forgotPasswordLink.addEventListener('click', function(e) {
+        forgotPasswordLink.addEventListener('click', function (e) {
             e.preventDefault();
             showPasswordResetModal();
         });
@@ -348,16 +320,16 @@ function showPasswordResetModal() {
             <p>Enter your email address and we'll send you a link to reset your password.</p>
             <div class="form-group">
                 <label for="resetEmail">Email Address</label>
-                <input type="email" id="resetEmail" placeholder="you@example.com" class="form-input">
+                <input type="email" id="resetEmail" placeholder="abebe.kebede@example.com" class="form-input">
                 <div class="error-message" id="resetEmailError"></div>
             </div>
             <button class="btn btn-primary" id="resetPasswordBtn">Send Reset Link</button>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
-    
+
     // Add modal styles
     if (!document.querySelector('#modal-styles')) {
         const style = document.createElement('style');
@@ -436,26 +408,26 @@ function showPasswordResetModal() {
         `;
         document.head.appendChild(style);
     }
-    
+
     // Close modal
     const closeBtn = modal.querySelector('.modal-close');
     closeBtn.addEventListener('click', () => {
         modal.remove();
         document.body.style.overflow = '';
     });
-    
+
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.remove();
             document.body.style.overflow = '';
         }
     });
-    
+
     // Handle password reset
     const resetBtn = modal.querySelector('#resetPasswordBtn');
     const resetEmail = modal.querySelector('#resetEmail');
     const resetError = modal.querySelector('#resetEmailError');
-    
+
     resetBtn.addEventListener('click', () => {
         const email = resetEmail.value.trim();
         if (!email) {
@@ -463,16 +435,16 @@ function showPasswordResetModal() {
             resetError.style.opacity = '1';
             return;
         }
-        
+
         if (!isValidEmail(email)) {
             resetError.textContent = 'Please enter a valid email address';
             resetError.style.opacity = '1';
             return;
         }
-        
+
         resetBtn.disabled = true;
         resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        
+
         setTimeout(() => {
             showNotification(`Password reset link sent to ${email}`, 'success');
             modal.remove();
@@ -486,18 +458,21 @@ function showPasswordResetModal() {
  */
 function initThemeToggle() {
     const body = document.body;
-    
+
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Set initial theme
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        body.classList.add('dark-mode');
-    } else {
+
+    // Set initial theme - DEFAULT TO DARK
+    if (savedTheme === 'light') {
         body.classList.remove('dark-mode');
+    } else {
+        body.classList.add('dark-mode');
+        // We will default to dark, but no need to forcibly save it immediately if we want to respect "system default" later, 
+        // but for now let's be explicit as requested.
+        if (!savedTheme) localStorage.setItem('theme', 'dark');
     }
-    
+
     // Listen for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
         if (!localStorage.getItem('theme')) {
@@ -519,7 +494,7 @@ function createRippleEffect(event, element) {
     const size = Math.max(rect.width, rect.height);
     const x = event.clientX - rect.left - size / 2;
     const y = event.clientY - rect.top - size / 2;
-    
+
     ripple.style.cssText = `
         position: absolute;
         border-radius: 50%;
@@ -532,11 +507,11 @@ function createRippleEffect(event, element) {
         left: ${x}px;
         pointer-events: none;
     `;
-    
+
     element.style.position = 'relative';
     element.style.overflow = 'hidden';
     element.appendChild(ripple);
-    
+
     // Remove ripple after animation
     setTimeout(() => {
         ripple.remove();
@@ -552,7 +527,7 @@ function showNotification(message, type = 'info') {
     if (existingNotification) {
         existingNotification.remove();
     }
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -563,7 +538,7 @@ function showNotification(message, type = 'info') {
         </div>
         <button class="notification-close">&times;</button>
     `;
-    
+
     // Add notification styles if not already present
     if (!document.querySelector('#notification-styles')) {
         const style = document.createElement('style');
@@ -678,18 +653,18 @@ function showNotification(message, type = 'info') {
         `;
         document.head.appendChild(style);
     }
-    
+
     document.body.appendChild(notification);
-    
+
     // Close notification on button click
     const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', function() {
+    closeBtn.addEventListener('click', function () {
         notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => {
             notification.remove();
         }, 300);
     });
-    
+
     // Auto-remove notification after 5 seconds
     setTimeout(() => {
         if (notification.parentNode) {
@@ -705,7 +680,7 @@ function showNotification(message, type = 'info') {
  * Get appropriate icon for notification type
  */
 function getNotificationIcon(type) {
-    switch(type) {
+    switch (type) {
         case 'success': return 'check-circle';
         case 'error': return 'exclamation-circle';
         case 'warning': return 'exclamation-triangle';
@@ -722,7 +697,7 @@ function isValidEmail(email) {
 }
 
 // Add keyboard shortcuts
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     // Submit form with Enter key
     if (e.key === 'Enter') {
         const focused = document.activeElement;
@@ -731,7 +706,7 @@ document.addEventListener('keydown', function(e) {
             document.getElementById('loginButton')?.click();
         }
     }
-    
+
     // Escape to close modals
     if (e.key === 'Escape') {
         const modal = document.querySelector('.password-reset-modal');

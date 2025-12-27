@@ -2,9 +2,9 @@
  * TeamPortfolio Dashboard - Simplified & Fixed
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Home page initialized');
-    
+
     // Initialize all components
     initUserInfo();
     initThemeToggle();
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initButtons();
     initCurrentYear();
     initLogout();
-    
+
     // Hide loading screen
     setTimeout(() => {
         const loadingScreen = document.getElementById('loadingScreen');
@@ -28,22 +28,44 @@ document.addEventListener('DOMContentLoaded', function() {
 /**
  * Initialize user information display
  */
+/**
+ * Initialize user information display and toggle guest/user view
+ */
 function initUserInfo() {
-    const userName = sessionStorage.getItem('userName') || 'Demo User';
-    const userEmail = sessionStorage.getItem('userEmail') || 'demo@teamportfolio.com';
-    
-    document.getElementById('userName').textContent = userName;
-    document.getElementById('userEmail').textContent = userEmail;
-    
-    // Set avatar initial
-    const userAvatar = document.getElementById('userAvatar');
-    if (userAvatar) {
-        userAvatar.textContent = userName.charAt(0).toUpperCase();
-        
-        // Generate random color based on user name
-        const colors = ['#4361ee', '#7209b7', '#10b981', '#f72585', '#f59e0b'];
-        const colorIndex = userName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
-        userAvatar.style.backgroundColor = colors[colorIndex];
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const guestMenu = document.getElementById('guestMenu');
+    const userMenu = document.getElementById('userMenu');
+
+    if (isLoggedIn) {
+        // User is logged in
+        if (guestMenu) guestMenu.style.display = 'none';
+        if (userMenu) userMenu.style.display = 'flex';
+
+        const userName = sessionStorage.getItem('userName') || 'Abebe Kebede';
+        const userEmail = sessionStorage.getItem('userEmail') || 'abebe.kebede@example.com';
+
+        const nameEl = document.getElementById('userName');
+        if (nameEl) nameEl.textContent = userName;
+
+        const emailEl = document.getElementById('userEmail');
+        if (emailEl) emailEl.textContent = userEmail;
+
+        // Set avatar
+        const userAvatar = document.getElementById('userAvatar');
+        if (userAvatar) {
+            userAvatar.textContent = userName.charAt(0).toUpperCase();
+            // Generate random color
+            const colors = ['#4361ee', '#7209b7', '#10b981', '#f72585', '#f59e0b'];
+            const colorIndex = userName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
+            userAvatar.style.backgroundColor = colors[colorIndex];
+        }
+    } else {
+        // User is guest
+        if (guestMenu) guestMenu.style.display = 'flex';
+        if (userMenu) userMenu.style.display = 'none';
+
+        // Optionally hide "Member" specific sections if you want strictly clean UI
+        // But for now, just the nav toggle is the primary requirement
     }
 }
 
@@ -55,25 +77,26 @@ function initThemeToggle() {
     const mobileThemeToggle = document.getElementById('mobileThemeToggle');
     const footerThemeToggle = document.getElementById('footerThemeToggle');
     const body = document.body;
-    
+
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Set initial theme
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        body.classList.add('dark-mode');
-    } else {
+
+    // Set initial theme - DEFAULT TO DARK
+    if (savedTheme === 'light') {
         body.classList.remove('dark-mode');
+    } else {
+        body.classList.add('dark-mode');
+        if (!savedTheme) localStorage.setItem('theme', 'dark');
     }
-    
+
     // Theme toggle function
     const toggleTheme = () => {
         body.classList.toggle('dark-mode');
         const isDark = body.classList.contains('dark-mode');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     };
-    
+
     // Add event listeners to all theme buttons
     [themeToggle, mobileThemeToggle, footerThemeToggle].forEach(button => {
         if (button) {
@@ -88,12 +111,12 @@ function initThemeToggle() {
 function initNavigation() {
     const mobileToggle = document.getElementById('mobileToggle');
     const navMenu = document.getElementById('navMenu');
-    
+
     if (mobileToggle && navMenu) {
-        mobileToggle.addEventListener('click', function() {
+        mobileToggle.addEventListener('click', function () {
             navMenu.classList.toggle('active');
             const icon = this.querySelector('i');
-            
+
             if (navMenu.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
                 icon.classList.add('fa-times');
@@ -104,11 +127,11 @@ function initNavigation() {
                 document.body.style.overflow = '';
             }
         });
-        
+
         // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (navMenu.classList.contains('active') && 
-                !navMenu.contains(e.target) && 
+        document.addEventListener('click', function (e) {
+            if (navMenu.classList.contains('active') &&
+                !navMenu.contains(e.target) &&
                 !mobileToggle.contains(e.target)) {
                 mobileToggle.click();
             }
@@ -123,7 +146,7 @@ function initButtons() {
     // Explore button
     const exploreBtn = document.getElementById('exploreBtn');
     if (exploreBtn) {
-        exploreBtn.addEventListener('click', function(e) {
+        exploreBtn.addEventListener('click', function (e) {
             // Scroll to dashboard section
             const dashboardSection = document.querySelector('.dashboard');
             if (dashboardSection) {
@@ -134,11 +157,11 @@ function initButtons() {
             }
         });
     }
-    
+
     // Add ripple effect to all buttons
     const buttons = document.querySelectorAll('.btn:not(.btn-icon)');
     buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             createRippleEffect(e, this);
         });
     });
@@ -160,15 +183,15 @@ function initCurrentYear() {
 function initLogout() {
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
+        logoutBtn.addEventListener('click', function () {
             // Clear session storage
             sessionStorage.removeItem('isLoggedIn');
             sessionStorage.removeItem('userName');
             sessionStorage.removeItem('userEmail');
-            
+
             // Show notification
             showNotification('You have been logged out successfully', 'info');
-            
+
             // Redirect to login page after delay
             setTimeout(() => {
                 window.location.href = '../login/login.html';
@@ -186,7 +209,7 @@ function createRippleEffect(event, element) {
     const size = Math.max(rect.width, rect.height);
     const x = event.clientX - rect.left - size / 2;
     const y = event.clientY - rect.top - size / 2;
-    
+
     ripple.style.cssText = `
         position: absolute;
         border-radius: 50%;
@@ -199,11 +222,11 @@ function createRippleEffect(event, element) {
         left: ${x}px;
         pointer-events: none;
     `;
-    
+
     element.style.position = 'relative';
     element.style.overflow = 'hidden';
     element.appendChild(ripple);
-    
+
     // Remove ripple after animation
     setTimeout(() => {
         ripple.remove();
@@ -219,7 +242,7 @@ function showNotification(message, type = 'info') {
     if (existingNotification) {
         existingNotification.remove();
     }
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -230,7 +253,7 @@ function showNotification(message, type = 'info') {
         </div>
         <button class="notification-close">&times;</button>
     `;
-    
+
     // Add notification styles if not already present
     if (!document.querySelector('#notification-styles')) {
         const style = document.createElement('style');
@@ -323,18 +346,18 @@ function showNotification(message, type = 'info') {
         `;
         document.head.appendChild(style);
     }
-    
+
     document.body.appendChild(notification);
-    
+
     // Close notification on button click
     const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', function() {
+    closeBtn.addEventListener('click', function () {
         notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => {
             notification.remove();
         }, 300);
     });
-    
+
     // Auto-remove notification after 5 seconds
     setTimeout(() => {
         if (notification.parentNode) {
@@ -350,7 +373,7 @@ function showNotification(message, type = 'info') {
  * Get appropriate icon for notification type
  */
 function getNotificationIcon(type) {
-    switch(type) {
+    switch (type) {
         case 'success': return 'check-circle';
         case 'error': return 'exclamation-circle';
         case 'warning': return 'exclamation-triangle';
@@ -359,14 +382,14 @@ function getNotificationIcon(type) {
 }
 
 // Add keyboard shortcuts
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     // Toggle theme with Ctrl/Cmd + T
     if ((e.ctrlKey || e.metaKey) && e.key === 't') {
         e.preventDefault();
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) themeToggle.click();
     }
-    
+
     // Escape to close mobile menu
     if (e.key === 'Escape') {
         const mobileToggle = document.getElementById('mobileToggle');
