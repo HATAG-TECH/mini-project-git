@@ -1,51 +1,75 @@
-const toggleBtn = document.getElementById("themeToggle");
-const body = document.body;
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
 
-// Load saved theme
-if (localStorage.getItem("theme") === "dark") {
-    body.classList.add("dark");
-    toggleBtn.textContent = "☀️";
-}
-
-// Toggle theme
-toggleBtn.addEventListener("click", () => {
-    body.classList.toggle("dark");
-    if (body.classList.contains("dark")) {
-        toggleBtn.textContent = "☀️";
-        localStorage.setItem("theme", "dark");
+    // Theme Logic - Default Dark
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.remove('dark-mode');
     } else {
-        toggleBtn.textContent = "🌙";
-        localStorage.setItem("theme", "light");
+        document.body.classList.add('dark-mode');
+        if (!savedTheme) localStorage.setItem('theme', 'dark');
     }
+
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Basic Validation
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+            showNotification('Please fill in all fields.', 'error');
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
+
+        // Simulate Sending
+        const originalBtnContent = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        setTimeout(() => {
+            // Success Feedback
+            // "display your messay is suussfully delivered to the owner or system admin"
+            showNotification('Your message is successfully delivered to the owner or system admin', 'success');
+
+            contactForm.reset();
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnContent;
+        }, 1500);
+    });
 });
 
-// Show success/error messages
-function showMessage(message, isSuccess) {
-    const response = document.getElementById("response");
-    response.innerText = message;
-    response.className = 'response-box ' + (isSuccess ? 'response-success' : 'response-error');
-    response.style.display = 'block';
-    setTimeout(() => response.style.display = 'none', 4000);
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Form validation
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+function showNotification(message, type = 'info') {
+    const container = document.getElementById('notificationContainer');
+    const notif = document.createElement('div');
+    notif.className = `notification ${type}`;
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
+    let icon = 'fa-info-circle';
+    if (type === 'success') icon = 'fa-check-circle';
+    if (type === 'error') icon = 'fa-exclamation-circle';
 
-    if (!name || !email || !message) {
-        showMessage("Please fill all fields.", false);
-        return;
-    }
+    notif.innerHTML = `
+        <i class="fas ${icon}"></i>
+        <p>${message}</p>
+    `;
 
-    if (!email.includes("@") || !email.includes(".")) {
-        showMessage("Invalid email address.", false);
-        return;
-    }
+    container.appendChild(notif);
 
-    showMessage("Message sent successfully! (Demo only)", true);
-    this.reset();
-});
+    setTimeout(() => {
+        notif.style.opacity = '0';
+        notif.style.transform = 'translateX(100%)';
+        setTimeout(() => notif.remove(), 300);
+    }, 4000);
+}

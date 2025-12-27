@@ -4,14 +4,25 @@
  */
 
 // DOM Ready Event
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Register page initialized');
-    
+
     // Initialize all components
     initFormValidation();
     initPasswordToggle();
     initSocialButtons();
+    initTheme();
 });
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.remove('dark-mode');
+    } else {
+        document.body.classList.add('dark-mode');
+        if (!savedTheme) localStorage.setItem('theme', 'dark');
+    }
+}
 
 /**
  * Initialize form validation and submission
@@ -22,22 +33,22 @@ function initFormValidation() {
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const termsCheckbox = document.getElementById('terms');
-    
+
     const usernameError = document.getElementById('usernameError');
     const emailError = document.getElementById('emailError');
     const passwordError = document.getElementById('passwordError');
-    
+
     const registerButton = document.getElementById('registerButton');
     const loadingOverlay = document.getElementById('loadingOverlay');
-    
+
     if (!registerForm) return;
-    
+
     // Real-time validation
-    usernameInput.addEventListener('input', function() {
+    usernameInput.addEventListener('input', function () {
         validateField(this, usernameError, 'Username is required');
     });
-    
-    emailInput.addEventListener('input', function() {
+
+    emailInput.addEventListener('input', function () {
         if (!this.value.trim()) {
             showError(this, emailError, 'Email is required');
         } else if (!isValidEmail(this.value.trim())) {
@@ -46,8 +57,8 @@ function initFormValidation() {
             clearError(this, emailError);
         }
     });
-    
-    passwordInput.addEventListener('input', function() {
+
+    passwordInput.addEventListener('input', function () {
         if (!this.value.trim()) {
             showError(this, passwordError, 'Password is required');
         } else if (this.value.length < 6) {
@@ -56,21 +67,21 @@ function initFormValidation() {
             clearError(this, passwordError);
         }
     });
-    
+
     // Form submission
-    registerForm.addEventListener('submit', function(e) {
+    registerForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         // Reset errors
         clearErrors();
-        
+
         // Validate inputs
         let isValid = true;
-        
+
         if (!validateField(usernameInput, usernameError, 'Username is required')) {
             isValid = false;
         }
-        
+
         if (!emailInput.value.trim()) {
             showError(emailInput, emailError, 'Email is required');
             isValid = false;
@@ -78,7 +89,7 @@ function initFormValidation() {
             showError(emailInput, emailError, 'Please enter a valid email address');
             isValid = false;
         }
-        
+
         if (!passwordInput.value.trim()) {
             showError(passwordInput, passwordError, 'Password is required');
             isValid = false;
@@ -86,16 +97,16 @@ function initFormValidation() {
             showError(passwordInput, passwordError, 'Password must be at least 6 characters');
             isValid = false;
         }
-        
+
         if (!termsCheckbox.checked) {
             showNotification('Please agree to the Terms & Conditions', 'error');
             isValid = false;
         }
-        
+
         if (!isValid) {
             return;
         }
-        
+
         // Simulate registration
         simulateRegistration(
             usernameInput.value.trim(),
@@ -103,47 +114,47 @@ function initFormValidation() {
             passwordInput.value
         );
     });
-    
+
     // Validate email format
     function isValidEmail(email) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
-    
+
     // Validate a single field
     function validateField(input, errorElement, message) {
         const value = input.value.trim();
-        
+
         if (!value) {
             showError(input, errorElement, message);
             return false;
         }
-        
+
         clearError(input, errorElement);
         return true;
     }
-    
+
     // Show error state
     function showError(input, errorElement, message) {
         input.style.borderColor = 'var(--error)';
         errorElement.textContent = message;
         errorElement.style.opacity = '1';
     }
-    
+
     // Clear error state
     function clearError(input, errorElement) {
         input.style.borderColor = '';
         errorElement.textContent = '';
         errorElement.style.opacity = '0';
     }
-    
+
     // Clear all errors
     function clearErrors() {
         clearError(usernameInput, usernameError);
         clearError(emailInput, emailError);
         clearError(passwordInput, passwordError);
     }
-    
+
     /**
      * Simulate registration process
      */
@@ -194,17 +205,17 @@ function initFormValidation() {
 function initPasswordToggle() {
     const passwordToggle = document.getElementById('passwordToggle');
     const passwordInput = document.getElementById('password');
-    
+
     if (!passwordToggle || !passwordInput) return;
-    
-    passwordToggle.addEventListener('click', function() {
+
+    passwordToggle.addEventListener('click', function () {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-        
+
         const icon = this.querySelector('i');
         icon.classList.toggle('fa-eye');
         icon.classList.toggle('fa-eye-slash');
-        
+
         // Add focus back to input
         passwordInput.focus();
     });
@@ -216,15 +227,15 @@ function initPasswordToggle() {
 function initSocialButtons() {
     const googleButton = document.querySelector('.google-button');
     const githubButton = document.querySelector('.github-button');
-    
+
     if (googleButton) {
-        googleButton.addEventListener('click', function() {
+        googleButton.addEventListener('click', function () {
             showNotification('Google registration would open here', 'info');
         });
     }
-    
+
     if (githubButton) {
-        githubButton.addEventListener('click', function() {
+        githubButton.addEventListener('click', function () {
             showNotification('GitHub registration would open here', 'info');
         });
     }
@@ -238,23 +249,23 @@ function initSocialButtons() {
 function showNotification(message, type = 'info') {
     const container = document.getElementById('notificationContainer');
     if (!container) return;
-    
+
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
-    
+
     let icon = 'fa-info-circle';
     if (type === 'success') icon = 'fa-check-circle';
     if (type === 'error') icon = 'fa-exclamation-circle';
-    
+
     notification.innerHTML = `
         <i class="fas ${icon}"></i>
         <div class="notification-content">
             <p>${message}</p>
         </div>
     `;
-    
+
     container.appendChild(notification);
-    
+
     // Auto-remove after 4 seconds
     setTimeout(() => {
         notification.style.opacity = '0';
