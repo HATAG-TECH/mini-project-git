@@ -88,6 +88,11 @@
         // Check if user is logged in
         const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
 
+        // STRICT GUARD: Redirect if not logged in
+        if (!isLoggedIn) {
+            window.location.href = '../login/login.html?error=access_denied';
+        }
+
         // Hide loading screen once page is ready
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {

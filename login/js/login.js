@@ -16,8 +16,28 @@ document.addEventListener('DOMContentLoaded', function () {
     initSocialButtons();
     initNavigation();
     initThemeToggle();
+    initThemeToggle();
     checkRememberedUser();
+    checkUrlErrors();
 });
+
+/**
+ * Check for URL error parameters (e.g. access denied)
+ */
+function checkUrlErrors() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+
+    if (error === 'access_denied') {
+        // Clear the query param to avoid showing it on refresh
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        // Show notification with a slight delay to ensure it's visible
+        setTimeout(() => {
+            showNotification('Access Denied: Please log in to view that page.', 'error');
+        }, 500);
+    }
+}
 
 /**
  * Check if user is already logged in
