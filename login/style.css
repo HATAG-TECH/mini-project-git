@@ -8,11 +8,11 @@
     --primary: #4361ee;
     --primary-dark: #3a56d4;
     --primary-light: #eef2ff;
-    
+
     /* Secondary Colors */
     --secondary: #7209b7;
     --secondary-dark: #5a0892;
-    
+
     /* Neutral Colors */
     --dark: #121826;
     --dark-light: #1f2937;
@@ -21,7 +21,7 @@
     --gray-light: #d1d5db;
     --light: #f8fafc;
     --white: #ffffff;
-    
+
     /* Status Colors */
     --success: #10b981;
     --success-light: #d1fae5;
@@ -31,11 +31,11 @@
     --error-light: #fee2e2;
     --info: #3b82f6;
     --info-light: #dbeafe;
-    
+
     /* Typography */
     --font-primary: 'Inter', sans-serif;
     --font-secondary: 'Poppins', sans-serif;
-    
+
     /* Spacing */
     --space-xs: 0.5rem;
     --space-sm: 0.75rem;
@@ -44,26 +44,44 @@
     --space-xl: 2rem;
     --space-2xl: 3rem;
     --space-3xl: 4rem;
-    
+
     /* Border Radius */
     --radius-sm: 4px;
     --radius: 8px;
     --radius-lg: 12px;
     --radius-xl: 16px;
     --radius-2xl: 24px;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 0 3px 6px -1px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -3px rgba(0, 0, 0, 0.05);
     --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
-    
+
     /* Transitions */
     --transition-fast: 150ms ease;
     --transition: 250ms ease;
     --transition-slow: 350ms ease;
 }
+
+.dark-mode {
+    --light: #121826;
+    --white: #1f2937;
+    --dark: #f9fafb;
+    --gray-dark: #e5e7eb;
+    --gray: #9ca3af;
+    --gray-light: #374151;
+    --primary-light: rgba(67, 97, 238, 0.1);
+    --secondary: #7209b7;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.5), 0 3px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 5px 10px -3px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+}
+
 
 /* Base Reset */
 * {
@@ -72,7 +90,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     font-family: var(--font-primary);
     color: var(--dark);
@@ -404,11 +423,11 @@ html, body {
     transition: all var(--transition);
 }
 
-.checkbox-container:hover input ~ .checkmark {
+.checkbox-container:hover input~.checkmark {
     border-color: var(--primary);
 }
 
-.checkbox-container input:checked ~ .checkmark {
+.checkbox-container input:checked~.checkmark {
     background-color: var(--primary);
     border-color: var(--primary);
 }
@@ -426,7 +445,7 @@ html, body {
     transform: rotate(45deg);
 }
 
-.checkbox-container input:checked ~ .checkmark::after {
+.checkbox-container input:checked~.checkmark::after {
     display: block;
 }
 
@@ -768,6 +787,7 @@ html, body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -779,6 +799,7 @@ html, body {
         opacity: 0;
         transform: translateX(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -786,8 +807,13 @@ html, body {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Responsive Design */
@@ -795,45 +821,47 @@ html, body {
     .login-container {
         flex-direction: column;
     }
-    
+
     .login-left-panel {
         padding: var(--space-2xl);
     }
 
-/* Small overrides to simplify the login visuals for clarity */
-.login-container {
-    background: var(--light);
-}
-.login-left-panel {
-    background: var(--primary);
-    padding: 1.5rem;
-}
-.login-card {
-    padding: 1.5rem;
-    max-width: 420px;
-}
-.features-list { display: none; }
-        text-align: center;
-        min-height: 50vh;
+    /* Small overrides to simplify the login visuals for clarity */
+    .login-container {
+        background: var(--light);
     }
-    
-    .welcome-content {
-        max-width: 100%;
+
+    .login-left-panel {
+        background: var(--primary);
+        padding: 1.5rem;
     }
-    
-    .welcome-title {
-        font-size: 2.5rem;
+
+    .login-card {
+        padding: 1.5rem;
+        max-width: 420px;
     }
-    
+
     .features-list {
-        max-width: 600px;
-        margin: var(--space-2xl) auto 0;
+        display: none;
     }
-    
-    .back-home-mobile {
-        top: var(--space-lg);
-        left: var(--space-lg);
-    }
+}
+
+.welcome-content {
+    max-width: 100%;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+}
+
+.features-list {
+    max-width: 600px;
+    margin: var(--space-2xl) auto 0;
+}
+
+.back-home-mobile {
+    top: var(--space-lg);
+    left: var(--space-lg);
 }
 
 @media (max-width: 768px) {
@@ -841,60 +869,61 @@ html, body {
         padding: var(--space-xl);
         min-height: 40vh;
     }
-    
+
     .login-right-panel {
         padding: var(--space-lg);
     }
-    
+
     .login-card {
         padding: var(--space-xl);
     }
-    
+
     .welcome-title {
         font-size: 2rem;
     }
-    
+
     .social-login {
         grid-template-columns: 1fr;
     }
-    
+
     .features-list {
         gap: var(--space-lg);
     }
-    
+
     .feature-item {
         flex-direction: column;
         text-align: center;
         align-items: center;
     }
-    
+
     .back-home-mobile {
         display: none;
     }
 }
 
 @media (max-width: 480px) {
+
     .login-left-panel,
     .login-right-panel {
         padding: var(--space-lg);
     }
-    
+
     .login-card {
         padding: var(--space-lg);
     }
-    
+
     .welcome-title {
         font-size: 1.75rem;
     }
-    
+
     .welcome-subtitle {
         font-size: 1rem;
     }
-    
+
     .login-header h2 {
         font-size: 1.5rem;
     }
-    
+
     .form-input {
         padding: var(--space-md) var(--space-md) var(--space-md) 3rem;
     }

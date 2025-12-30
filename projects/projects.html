@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="light-mode">
     <!-- Navigation Bar (Exact same as home page) -->
+    <!-- Navigation Bar -->
     <header class="header">
         <div class="container">
             <nav class="navbar">
                 <div class="nav-brand">
-                    <span class="logo-text">TeamPortfolio</span>
-                    <span class="logo-badge">PRO</span>
+                    <a href="../home/index.html" class="logo-link" style="text-decoration: none;">
+                        <span class="logo-text">TeamPortfolio</span>
+                        <span class="logo-badge">PRO</span>
+                    </a>
                 </div>
-                
+
                 <div class="nav-menu" id="navMenu">
                     <div class="nav-links">
                         <a href="../home/index.html" class="nav-link">
@@ -43,7 +50,7 @@
                             <span>Contact</span>
                         </a>
                     </div>
-                    
+
                     <div class="nav-actions">
                         <div class="theme-toggle">
                             <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
@@ -51,20 +58,32 @@
                                 <i class="fas fa-moon"></i>
                             </button>
                         </div>
-                        
-                        <div class="auth-buttons">
-                            <button class="btn btn-ghost" id="loginBtn">
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>Login</span>
-                            </button>
-                            <button class="btn btn-primary" id="signupBtn">
-                                <i class="fas fa-user-plus"></i>
-                                <span>Sign Up</span>
-                            </button>
+
+                        <!-- Guest Menu -->
+                        <div class="guest-menu" id="guestMenu" style="display: none;">
+                            <a href="../login/login.html" class="btn btn-ghost" style="margin-right: 10px;">Login</a>
+                            <a href="../register/register.html" class="btn btn-primary">Sign Up</a>
+                        </div>
+
+                        <!-- User Menu -->
+                        <div class="user-menu" id="userMenu" style="display: none;">
+                            <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+                                <div class="user-avatar" id="userAvatar"
+                                    style="width: 32px; height: 32px; border-radius: 50%; background: #4361ee; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                                    U</div>
+                                <div class="user-details">
+                                    <span class="user-name" id="userName"
+                                        style="font-weight: 500; font-size: 0.9rem;">User</span>
+                                </div>
+                                <button class="logout-btn" id="logoutBtn" title="Logout"
+                                    style="background: none; border: none; cursor: pointer; color: inherit; font-size: 1rem; margin-left: 10px;">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="nav-mobile-actions">
                     <button class="theme-btn mobile" id="mobileThemeToggle" aria-label="Toggle theme">
                         <i class="fas fa-sun"></i>
@@ -89,7 +108,8 @@
                     Showcasing <span class="gradient-text">Innovation</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Explore our portfolio of cutting-edge projects built with modern technologies and collaborative expertise.
+                    Explore our portfolio of cutting-edge projects built with modern technologies and collaborative
+                    expertise.
                 </p>
                 <div class="hero-stats">
                     <div class="stat">
@@ -133,7 +153,7 @@
                         <i class="fas fa-robot"></i> AI/ML
                     </button>
                 </div>
-                
+
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="text" id="projectSearch" placeholder="Search projects...">
@@ -149,7 +169,7 @@
                 <div class="projects-grid" id="projectsGrid">
                     <!-- Projects will be loaded here by JavaScript -->
                 </div>
-                
+
                 <div class="load-more">
                     <button class="btn btn-outline" id="loadMoreBtn">
                         <i class="fas fa-sync-alt"></i> Load More Projects
@@ -166,7 +186,7 @@
                 <h2>Featured <span class="gradient-text">Project</span></h2>
                 <p>Our latest and most innovative work</p>
             </div>
-            
+
             <div class="featured-card" id="featuredProject">
                 <!-- Featured project will be loaded here by JavaScript -->
             </div>
@@ -180,7 +200,7 @@
                 <h2>Technology <span class="gradient-text">Stack</span></h2>
                 <p>Modern tools and frameworks we excel in</p>
             </div>
-            
+
             <div class="tech-grid">
                 <div class="tech-item">
                     <div class="tech-icon">
@@ -270,7 +290,8 @@
                         <span class="logo-text">TeamPortfolio</span>
                         <span class="logo-badge">PRO</span>
                     </div>
-                    <p class="footer-tagline">Professional team collaboration and portfolio platform for modern development teams.</p>
+                    <p class="footer-tagline">Professional team collaboration and portfolio platform for modern
+                        development teams.</p>
                     <div class="footer-social">
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -278,7 +299,7 @@
                         <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="footer-links">
                     <div class="footer-column">
                         <h4>Projects</h4>
@@ -303,9 +324,10 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p class="copyright">&copy; <span id="currentYear"></span> TeamPortfolio Platform. All rights reserved.</p>
+                <p class="copyright">&copy; <span id="currentYear"></span> TeamPortfolio Platform. All rights reserved.
+                </p>
                 <div class="footer-actions">
                     <button class="theme-btn small" id="footerThemeToggle" aria-label="Toggle theme">
                         <i class="fas fa-sun"></i>
@@ -327,4 +349,5 @@
         document.head.appendChild(link);
     </script>
 </body>
+
 </html>

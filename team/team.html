@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Team | Project Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <!-- Animated Background Elements -->
     <div class="background-animation">
@@ -28,20 +32,104 @@
 
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress" id="scrollProgress"></div>
-    
+
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <div class="container">
+        <!-- Navigation Bar -->
+        <header class="header" style="background: transparent; border-bottom: none; position: relative; z-index: 100;">
+            <div class="container" style="padding: 0;">
+                <nav class="navbar">
+                    <div class="nav-brand">
+                        <a href="../home/index.html" class="logo-link" style="text-decoration: none;">
+                            <span class="logo-text">TeamPortfolio</span>
+                            <span class="logo-badge">PRO</span>
+                        </a>
+                    </div>
+
+                    <div class="nav-menu" id="navMenu">
+                        <div class="nav-links">
+                            <a href="../home/index.html" class="nav-link">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                            <a href="../about/about.html" class="nav-link">
+                                <i class="fas fa-info-circle"></i>
+                                <span>About</span>
+                            </a>
+                            <a href="../projects/projects.html" class="nav-link">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Projects</span>
+                            </a>
+                            <a href="team.html" class="nav-link active">
+                                <i class="fas fa-users"></i>
+                                <span>Team</span>
+                            </a>
+                            <a href="../contact/contact.html" class="nav-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>Contact</span>
+                            </a>
+                        </div>
+
+                        <div class="nav-actions">
+                            <div class="theme-toggle">
+                                <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
+                                    <i class="fas fa-sun"></i>
+                                    <i class="fas fa-moon"></i>
+                                </button>
+                            </div>
+
+                            <!-- Guest Menu -->
+                            <div class="guest-menu" id="guestMenu" style="display: none;">
+                                <a href="../login/login.html" class="btn btn-ghost"
+                                    style="margin-right: 10px; color: inherit; text-decoration: none;">Login</a>
+                                <a href="../register/register.html" class="btn btn-primary"
+                                    style="padding: 8px 16px; border-radius: 8px; background: var(--primary); color: white; text-decoration: none;">Sign
+                                    Up</a>
+                            </div>
+
+                            <!-- User Menu -->
+                            <div class="user-menu" id="userMenu" style="display: none;">
+                                <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="user-avatar" id="userAvatar"
+                                        style="width: 32px; height: 32px; border-radius: 50%; background: #4361ee; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                                        U</div>
+                                    <div class="user-details">
+                                        <span class="user-name" id="userName"
+                                            style="font-weight: 500; font-size: 0.9rem;">User</span>
+                                    </div>
+                                    <button class="logout-btn" id="logoutBtn" title="Logout"
+                                        style="background: none; border: none; cursor: pointer; color: inherit; font-size: 1rem; margin-left: 10px;">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-mobile-actions">
+                        <button class="theme-btn mobile" id="mobileThemeToggle" aria-label="Toggle theme">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="mobile-toggle" id="mobileToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
         <!-- Page Header with Parallax Effect -->
         <header class="page-header" id="pageHeader">
             <div class="header-content">
                 <h1 class="page-title">
                     <span class="title-word title-word-1">Our</span>
                     <div>
-                    <span class="title-word title-word-2">Team</span>
+                        <span class="title-word title-word-2">Team</span>
                     </div>
                 </h1>
                 <!-- Animated Tagline: cycles short team-spirited words -->
@@ -51,7 +139,8 @@
                     <span>Create</span>
                     <span>Deliver</span>
                 </div>
-                <p class="page-subtitle">A collaborative force of passionate developers and designers dedicated to creating innovative solutions through teamwork and shared expertise.</p>
+                <p class="page-subtitle">A collaborative force of passionate developers and designers dedicated to
+                    creating innovative solutions through teamwork and shared expertise.</p>
                 <div class="header-decoration">
                     <span class="decoration-circle"></span>
                     <span class="decoration-circle"></span>
@@ -60,7 +149,7 @@
                     <span class="decoration-circle"></span>
                 </div>
             </div>
-            
+
             <div class="scroll-indicator">
                 <span class="scroll-text">Scroll to explore</span>
                 <div class="mouse">
@@ -84,7 +173,7 @@
             <div class="team-grid" id="teamGrid">
                 <!-- Team member cards will be dynamically generated by team.js -->
             </div>
-            
+
             <!-- Animated Stats Section -->
             <div class="team-stats" id="teamStats">
                 <div class="stat-item">
@@ -116,12 +205,14 @@
                     <span class="stat-label">Projects</span>
                 </div>
             </div>
-            
+
             <!-- Mission Section with Parallax -->
             <div class="team-mission" id="teamMission">
                 <div class="mission-content">
                     <h2><i class="fas fa-bullseye"></i> Our Mission</h2>
-                    <p>We believe that exceptional software is built through collaboration, diverse perspectives, and a shared commitment to excellence. Each team member brings unique skills that contribute to our collective success.</p>
+                    <p>We believe that exceptional software is built through collaboration, diverse perspectives, and a
+                        shared commitment to excellence. Each team member brings unique skills that contribute to our
+                        collective success.</p>
                     <div class="mission-highlights">
                         <div class="highlight">
                             <i class="fas fa-lightbulb"></i>
@@ -213,4 +304,5 @@
 
     <script src="team.js"></script>
 </body>
+
 </html>

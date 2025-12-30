@@ -1,6 +1,6 @@
 // Enhanced Team Page JavaScript with Advanced Animations
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize variables
     const loader = document.getElementById('loader');
     const scrollProgress = document.getElementById('scrollProgress');
@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalClose = document.getElementById('modalClose');
     const modalBody = document.getElementById('modalBody');
     const currentYearSpan = document.getElementById('currentYear');
-    
+
     // Set current year in footer
     currentYearSpan.textContent = new Date().getFullYear();
-    
+
     // Team members data with enhanced information
     const teamMembers = [
         {
@@ -108,7 +108,18 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
 
     // Initialize the page
+    function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const body = document.body;
+        // Default is dark (no class needed as body defaults to dark styles)
+        // If savedTheme is 'light', add light-mode class
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+        }
+    }
+
     function initPage() {
+        initTheme();
         // Hide loader after page loads
         setTimeout(() => {
             loader.classList.add('loaded');
@@ -116,11 +127,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 loader.style.display = 'none';
             }, 500);
         }, 1500);
-        
+
         generateTeamCards();
         setupScrollAnimations();
         setupEventListeners();
-        
+
         // Initialize skills animation
         setTimeout(animateSkills, 1000);
     }
@@ -128,13 +139,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Generate team cards with enhanced hover effects
     function generateTeamCards() {
         teamGrid.innerHTML = '';
-        
+
         teamMembers.forEach((member, index) => {
             const card = document.createElement('div');
             card.className = 'team-card';
             card.setAttribute('data-member-id', member.id);
             card.style.animationDelay = `${index * 0.1 + 0.5}s`;
-            
+
             // Create skills HTML
             let skillsHTML = '';
             if (member.skills && member.skills.length > 0) {
@@ -144,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 skillsHTML += `</div>`;
             }
-            
+
             card.innerHTML = `
                 <div class="card-header">
                     <div class="member-avatar" style="background-color: ${member.avatarColor}">
@@ -162,10 +173,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
-            
+
             teamGrid.appendChild(card);
         });
-        
+
         // Add event listeners to cards
         addCardInteractions();
     }
@@ -173,17 +184,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Enhanced card interactions
     function addCardInteractions() {
         const cards = document.querySelectorAll('.team-card');
-        
+
         cards.forEach(card => {
             // Mouse enter effect
-            card.addEventListener('mouseenter', function(e) {
+            card.addEventListener('mouseenter', function (e) {
                 this.style.zIndex = '100';
-                
+
                 // Create a glow effect
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+
                 const glow = document.createElement('div');
                 glow.className = 'card-glow';
                 glow.style.cssText = `
@@ -197,9 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     z-index: -1;
                     border-radius: 50%;
                 `;
-                
+
                 this.appendChild(glow);
-                
+
                 // Add floating animation to skills
                 const skills = this.querySelectorAll('.skill-tag');
                 skills.forEach((skill, i) => {
@@ -207,15 +218,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     skill.style.transitionDelay = `${i * 0.05}s`;
                 });
             });
-            
+
             // Mouse leave effect
-            card.addEventListener('mouseleave', function() {
+            card.addEventListener('mouseleave', function () {
                 this.style.zIndex = '';
-                
+
                 // Remove glow effect
                 const glow = this.querySelector('.card-glow');
                 if (glow) glow.remove();
-                
+
                 // Reset skills position
                 const skills = this.querySelectorAll('.skill-tag');
                 skills.forEach(skill => {
@@ -223,15 +234,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     skill.style.transitionDelay = '';
                 });
             });
-            
+
             // Click to show modal with member details
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function () {
                 const memberId = this.getAttribute('data-member-id');
                 const member = teamMembers.find(m => m.id === parseInt(memberId));
-                
+
                 if (member) {
                     showMemberModal(member);
-                    
+
                     // Add click animation
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
@@ -239,14 +250,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 300);
                 }
             });
-            
+
             // Add touch support for mobile
-            card.addEventListener('touchstart', function(e) {
+            card.addEventListener('touchstart', function (e) {
                 this.classList.add('touched');
                 e.preventDefault();
             }, { passive: false });
-            
-            card.addEventListener('touchend', function() {
+
+            card.addEventListener('touchend', function () {
                 this.classList.remove('touched');
             });
         });
@@ -261,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 skillsHTML += `<span class="modal-skill">${skill}</span>`;
             });
         }
-        
+
         modalBody.innerHTML = `
             <div class="modal-header" style="background-color: ${member.avatarColor}">
                 <div class="modal-avatar">${member.avatarInitials}</div>
@@ -285,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         `;
-        
+
         // Show modal
         memberModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -300,30 +311,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup scroll animations
     function setupScrollAnimations() {
         // Scroll progress indicator
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             // Update scroll progress
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             scrollProgress.style.width = scrolled + "%";
-            
+
             // Show/hide back to top button
             if (winScroll > 300) {
                 backToTop.classList.add('visible');
             } else {
                 backToTop.classList.remove('visible');
             }
-            
+
             // Parallax effect for header
             const parallaxValue = winScroll * 0.5;
             pageHeader.style.setProperty('--scroll-parallax', `${parallaxValue}px`);
-            
+
             // Trigger animations when elements come into view
             checkScrollAnimations();
         });
-        
+
         // Back to top button
-        backToTop.addEventListener('click', function() {
+        backToTop.addEventListener('click', function () {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -339,25 +350,25 @@ document.addEventListener('DOMContentLoaded', function() {
             { element: teamMission, offset: 100 },
             { element: skillsSection, offset: 100 }
         ];
-        
+
         elements.forEach(item => {
             if (item.element && !item.element.classList.contains('animated')) {
                 const rect = item.element.getBoundingClientRect();
                 const isVisible = rect.top <= window.innerHeight - item.offset;
-                
+
                 if (isVisible) {
                     item.element.classList.add('animated');
                 }
             }
         });
-        
+
         // Animate skill bars
         const skillBars = document.querySelectorAll('.skill-bar');
         skillBars.forEach(bar => {
             if (!bar.classList.contains('animated')) {
                 const rect = bar.getBoundingClientRect();
                 const isVisible = rect.top <= window.innerHeight - 100;
-                
+
                 if (isVisible) {
                     bar.classList.add('animated');
                     const level = bar.getAttribute('data-level');
@@ -374,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
         skillBars.forEach(bar => {
             const rect = bar.getBoundingClientRect();
             const isVisible = rect.top <= window.innerHeight - 100;
-            
+
             if (isVisible) {
                 bar.classList.add('animated');
                 const level = bar.getAttribute('data-level');
@@ -388,28 +399,28 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupEventListeners() {
         // Modal close button
         modalClose.addEventListener('click', closeModal);
-        
+
         // Close modal when clicking outside
-        memberModal.addEventListener('click', function(e) {
+        memberModal.addEventListener('click', function (e) {
             if (e.target === this) {
                 closeModal();
             }
         });
-        
+
         // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && memberModal.classList.contains('active')) {
                 closeModal();
             }
         });
-        
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
+
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     targetElement.scrollIntoView({
@@ -423,10 +434,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize the page
     initPage();
-    
+
     // Add some dynamic CSS for additional effects
     addDynamicStyles();
-    
+
     // Initialize animations on load
     setTimeout(() => {
         teamTitle.classList.add('animated');
@@ -441,7 +452,7 @@ function addDynamicStyles() {
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #3498db;
+            color: var(--primary);
             font-weight: 600;
             margin-top: 20px;
             opacity: 0;
@@ -530,7 +541,7 @@ function addDynamicStyles() {
         }
         
         .modal-details h3 {
-            color: #2c3e50;
+            color: var(--heading-color);
             margin: 25px 0 15px;
             font-size: 1.4rem;
             border-bottom: 2px solid #f1f1f1;
@@ -543,7 +554,7 @@ function addDynamicStyles() {
         
         .modal-description {
             line-height: 1.7;
-            color: #5a6c7d;
+            color: var(--text-muted);
         }
         
         .modal-skills {
@@ -573,7 +584,7 @@ function addDynamicStyles() {
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #5a6c7d;
+            color: var(--text-muted);
             font-size: 1.1rem;
         }
         
@@ -617,7 +628,7 @@ function addDynamicStyles() {
         }
         
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: var(--dark-light);
         }
         
         ::-webkit-scrollbar-thumb {
@@ -629,6 +640,6 @@ function addDynamicStyles() {
             background: linear-gradient(135deg, #2980b9, #27ae60);
         }
     `;
-    
+
     document.head.appendChild(style);
 }

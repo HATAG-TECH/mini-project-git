@@ -2,19 +2,64 @@
  * TeamPortfolio Projects Page
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('Projects page initialized');
-    
+
     // Initialize components
+    initTheme();
+    updateAuthUI();
     initProjects();
     initFilters();
     initSearch();
     initButtons();
     initCurrentYear();
-    
+
     // Load projects
     loadProjects();
 });
+
+// Authentication UI
+function updateAuthUI() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const userMenu = document.getElementById('userMenu');
+    const guestMenu = document.getElementById('guestMenu');
+    const userNameDisplay = document.getElementById('userName');
+    const userAvatarDisplay = document.getElementById('userAvatar');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (isLoggedIn) {
+        if (userMenu) userMenu.style.display = 'block';
+        if (guestMenu) guestMenu.style.display = 'none';
+
+        const name = sessionStorage.getItem('userName') || 'User';
+        if (userNameDisplay) userNameDisplay.textContent = name;
+        if (userAvatarDisplay) userAvatarDisplay.textContent = name.charAt(0).toUpperCase();
+    } else {
+        if (userMenu) userMenu.style.display = 'none';
+        if (guestMenu) guestMenu.style.display = 'block';
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('userEmail');
+            sessionStorage.removeItem('userName');
+            window.location.href = '../login/login.html';
+        });
+    }
+}
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const body = document.body;
+    // Default to dark mode
+    if (savedTheme === 'light') {
+        body.classList.remove('dark-mode');
+    } else {
+        body.classList.add('dark-mode');
+        if (!savedTheme) localStorage.setItem('theme', 'dark');
+    }
+}
 
 /**
  * Initialize project data and display
@@ -150,26 +195,26 @@ function initProjects() {
 function loadProjects() {
     const grid = document.getElementById('projectsGrid');
     const featuredContainer = document.getElementById('featuredProject');
-    
+
     if (!grid) return;
-    
+
     // Clear existing projects
     grid.innerHTML = '';
-    
+
     // Filter projects
     const filteredProjects = filterProjects();
-    
+
     // Update project counts
     updateProjectCounts(filteredProjects);
-    
+
     // Display projects
     filteredProjects.slice(0, window.filterState.displayedProjects).forEach(project => {
         grid.appendChild(createProjectCard(project));
     });
-    
+
     // Load featured project
     loadFeaturedProject(featuredContainer);
-    
+
     // Animate projects
     animateProjects();
 }
@@ -182,7 +227,7 @@ function createProjectCard(project) {
     card.className = `project-card ${project.featured ? 'featured' : ''}`;
     card.setAttribute('data-category', project.category);
     card.setAttribute('data-id', project.id);
-    
+
     const categoryIcons = {
         web: 'fas fa-globe',
         mobile: 'fas fa-mobile-alt',
@@ -190,19 +235,19 @@ function createProjectCard(project) {
         design: 'fas fa-palette',
         ai: 'fas fa-robot'
     };
-    
+
     const statusColors = {
         active: 'success',
         completed: 'primary',
         'in-progress': 'warning'
     };
-    
+
     const statusLabels = {
         active: 'Active',
         completed: 'Completed',
         'in-progress': 'In Progress'
     };
-    
+
     card.innerHTML = `
         ${project.featured ? '<span class="project-badge">Featured</span>' : ''}
         
@@ -242,28 +287,28 @@ function createProjectCard(project) {
             </div>
         </div>
     `;
-    
+
     // Add event listeners
     const viewBtn = card.querySelector('.view-project');
     const likeBtn = card.querySelector('.like-project');
-    
-    viewBtn.addEventListener('click', function() {
+
+    viewBtn.addEventListener('click', function () {
         viewProjectDetails(project.id);
     });
-    
-    likeBtn.addEventListener('click', function() {
+
+    likeBtn.addEventListener('click', function () {
         likeProject(project.id);
     });
-    
+
     // Add hover effect
-    card.addEventListener('mouseenter', function() {
+    card.addEventListener('mouseenter', function () {
         this.style.transform = 'translateY(-8px)';
     });
-    
-    card.addEventListener('mouseleave', function() {
+
+    card.addEventListener('mouseleave', function () {
         this.style.transform = 'translateY(0)';
     });
-    
+
     return card;
 }
 
@@ -272,10 +317,10 @@ function createProjectCard(project) {
  */
 function loadFeaturedProject(container) {
     if (!container) return;
-    
+
     const featured = window.projectsData.find(p => p.featured);
     if (!featured) return;
-    
+
     container.innerHTML = `
         <div class="featured-content">
             <div class="featured-image">
@@ -322,11 +367,11 @@ function loadFeaturedProject(container) {
             </div>
         </div>
     `;
-    
+
     // Add event listener to featured project button
     const viewBtn = container.querySelector('#viewFeaturedBtn');
     if (viewBtn) {
-        viewBtn.addEventListener('click', function() {
+        viewBtn.addEventListener('click', function () {
             viewProjectDetails(featured.id);
         });
     }
@@ -337,22 +382,22 @@ function loadFeaturedProject(container) {
  */
 function initFilters() {
     const filterTags = document.querySelectorAll('.filter-tag');
-    
+
     filterTags.forEach(tag => {
-        tag.addEventListener('click', function() {
+        tag.addEventListener('click', function () {
             // Remove active class from all tags
             filterTags.forEach(t => t.classList.remove('active'));
-            
+
             // Add active class to clicked tag
             this.classList.add('active');
-            
+
             // Update filter state
             window.filterState.currentFilter = this.getAttribute('data-filter');
             window.filterState.displayedProjects = 6;
-            
+
             // Reload projects
             loadProjects();
-            
+
             // Show notification
             if (window.filterState.currentFilter !== 'all') {
                 showNotification(`Filtering ${window.filterState.currentFilter} projects`, 'info');
@@ -366,18 +411,18 @@ function initFilters() {
  */
 function initSearch() {
     const searchInput = document.getElementById('projectSearch');
-    
+
     if (searchInput) {
         let searchTimeout;
-        
-        searchInput.addEventListener('input', function() {
+
+        searchInput.addEventListener('input', function () {
             clearTimeout(searchTimeout);
-            
+
             searchTimeout = setTimeout(() => {
                 window.filterState.searchQuery = this.value.toLowerCase();
                 window.filterState.displayedProjects = 6;
                 loadProjects();
-                
+
                 if (window.filterState.searchQuery) {
                     showNotification(`Searching for "${this.value}"`, 'info');
                 }
@@ -393,10 +438,10 @@ function initButtons() {
     // Load More button
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function() {
+        loadMoreBtn.addEventListener('click', function () {
             window.filterState.displayedProjects += 3;
             loadProjects();
-            
+
             // Disable button if all projects are displayed
             const filteredProjects = filterProjects();
             if (window.filterState.displayedProjects >= filteredProjects.length) {
@@ -405,19 +450,19 @@ function initButtons() {
             }
         });
     }
-    
+
     // Contact button
     const contactBtn = document.getElementById('contactBtn');
     if (contactBtn) {
-        contactBtn.addEventListener('click', function() {
+        contactBtn.addEventListener('click', function () {
             window.location.href = '../contact/contact.html';
         });
     }
-    
+
     // View Demo button
     const viewDemoBtn = document.getElementById('viewDemoBtn');
     if (viewDemoBtn) {
-        viewDemoBtn.addEventListener('click', function() {
+        viewDemoBtn.addEventListener('click', function () {
             showNotification('Loading case studies...', 'info');
             // Scroll to featured project
             const featuredSection = document.querySelector('.featured-project');
@@ -437,11 +482,11 @@ function initButtons() {
 function filterProjects() {
     return window.projectsData.filter(project => {
         // Apply category filter
-        if (window.filterState.currentFilter !== 'all' && 
+        if (window.filterState.currentFilter !== 'all' &&
             project.category !== window.filterState.currentFilter) {
             return false;
         }
-        
+
         // Apply search filter
         if (window.filterState.searchQuery) {
             const searchText = window.filterState.searchQuery;
@@ -451,12 +496,12 @@ function filterProjects() {
                 ${project.tech.join(' ')} 
                 ${project.category}
             `.toLowerCase();
-            
+
             if (!projectText.includes(searchText)) {
                 return false;
             }
         }
-        
+
         return true;
     });
 }
@@ -468,16 +513,16 @@ function updateProjectCounts(filteredProjects) {
     const totalProjects = document.getElementById('totalProjects');
     const activeProjects = document.getElementById('activeProjects');
     const techStack = document.getElementById('techStack');
-    
+
     if (totalProjects) {
         totalProjects.textContent = filteredProjects.length;
     }
-    
+
     if (activeProjects) {
         const activeCount = filteredProjects.filter(p => p.status === 'active').length;
         activeProjects.textContent = activeCount;
     }
-    
+
     if (techStack) {
         // Count unique technologies across all projects
         const allTech = filteredProjects.flatMap(p => p.tech);
@@ -492,12 +537,12 @@ function updateProjectCounts(filteredProjects) {
 function viewProjectDetails(projectId) {
     const project = window.projectsData.find(p => p.id === projectId);
     if (!project) return;
-    
+
     showNotification(`Opening ${project.title} details...`, 'info');
-    
+
     // In a real app, this would open a modal or navigate to a details page
     console.log('Viewing project:', project);
-    
+
     // For now, scroll to featured section and highlight
     const featuredSection = document.querySelector('.featured-project');
     if (featuredSection) {
@@ -505,7 +550,7 @@ function viewProjectDetails(projectId) {
             top: featuredSection.offsetTop - 100,
             behavior: 'smooth'
         });
-        
+
         // Highlight project
         const projectCard = document.querySelector(`.project-card[data-id="${projectId}"]`);
         if (projectCard) {
@@ -525,9 +570,9 @@ function likeProject(projectId) {
     if (likeBtn) {
         likeBtn.innerHTML = '<i class="fas fa-heart" style="color: var(--accent);"></i>';
         likeBtn.disabled = true;
-        
+
         showNotification('Project added to favorites!', 'success');
-        
+
         // In a real app, this would save to localStorage or send to server
         console.log('Liked project:', projectId);
     }
@@ -538,7 +583,7 @@ function likeProject(projectId) {
  */
 function animateProjects() {
     const projectCards = document.querySelectorAll('.project-card');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -550,7 +595,7 @@ function animateProjects() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     });
-    
+
     projectCards.forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
@@ -590,7 +635,7 @@ function showNotification(message, type = 'info') {
         `;
         notification.textContent = message;
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.style.animation = 'slideOut 0.3s ease';
             setTimeout(() => notification.remove(), 300);
@@ -607,20 +652,20 @@ if (typeof initThemeToggle === 'undefined') {
         const mobileThemeToggle = document.getElementById('mobileThemeToggle');
         const footerThemeToggle = document.getElementById('footerThemeToggle');
         const body = document.body;
-        
+
         const toggleTheme = () => {
             body.classList.toggle('dark-mode');
             const isDark = body.classList.contains('dark-mode');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         };
-        
+
         [themeToggle, mobileThemeToggle, footerThemeToggle].forEach(button => {
             if (button) {
                 button.addEventListener('click', toggleTheme);
             }
         });
     }
-    
+
     // Call it if needed
     initThemeToggle();
 }

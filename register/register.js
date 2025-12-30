@@ -61,10 +61,13 @@ function initFormValidation() {
     passwordInput.addEventListener('input', function () {
         if (!this.value.trim()) {
             showError(this, passwordError, 'Password is required');
-        } else if (this.value.length < 6) {
-            showError(this, passwordError, 'Password must be at least 6 characters');
         } else {
-            clearError(this, passwordError);
+            const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!strongPasswordRegex.test(this.value)) {
+                showError(this, passwordError, 'Password must be 8+ chars, include Upper, Lower, Number, and Special character');
+            } else {
+                clearError(this, passwordError);
+            }
         }
     });
 
@@ -93,9 +96,12 @@ function initFormValidation() {
         if (!passwordInput.value.trim()) {
             showError(passwordInput, passwordError, 'Password is required');
             isValid = false;
-        } else if (passwordInput.value.length < 6) {
-            showError(passwordInput, passwordError, 'Password must be at least 6 characters');
-            isValid = false;
+        } else {
+            const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!strongPasswordRegex.test(passwordInput.value)) {
+                showError(passwordInput, passwordError, 'Password must be 8+ chars, include Upper, Lower, Number, and Special character');
+                isValid = false;
+            }
         }
 
         if (!termsCheckbox.checked) {

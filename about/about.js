@@ -12,27 +12,76 @@ const valueCards = document.querySelectorAll('.value-card');
 // Initialize AOS (Animate on Scroll) if available
 let aosInitialized = false;
 
+// UI Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    updateAuthUI();
+});
+
+// Authentication UI
+function updateAuthUI() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const userMenu = document.getElementById('userMenu');
+    const guestMenu = document.getElementById('guestMenu');
+    const userNameDisplay = document.getElementById('userName');
+    const userAvatarDisplay = document.getElementById('userAvatar');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (isLoggedIn) {
+        if (userMenu) userMenu.style.display = 'block';
+        if (guestMenu) guestMenu.style.display = 'none';
+
+        const name = sessionStorage.getItem('userName') || 'User';
+        if (userNameDisplay) userNameDisplay.textContent = name;
+        if (userAvatarDisplay) userAvatarDisplay.textContent = name.charAt(0).toUpperCase();
+    } else {
+        if (userMenu) userMenu.style.display = 'none';
+        if (guestMenu) guestMenu.style.display = 'block';
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('userEmail');
+            sessionStorage.removeItem('userName');
+            window.location.href = '../login/login.html';
+        });
+    }
+}
+
 // Theme Management
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'light-mode';
-    document.body.className = savedTheme;
-    updateThemeIcons(savedTheme);
+    const savedTheme = localStorage.getItem('theme');
+    const body = document.body;
+
+    // Default to dark mode is preferred if not set, or if set to 'dark'
+    if (savedTheme === 'light' || savedTheme === 'light-mode') {
+        body.classList.remove('dark-mode');
+        updateThemeIcons('light');
+    } else {
+        body.classList.add('dark-mode');
+        // Ensure consistent storage value
+        if (savedTheme !== 'dark') localStorage.setItem('theme', 'dark');
+        updateThemeIcons('dark');
+    }
 }
 
 function toggleTheme() {
-    const currentTheme = document.body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
-    const newTheme = currentTheme === 'dark-mode' ? 'light-mode' : 'dark-mode';
-    
-    document.body.className = newTheme;
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcons(newTheme);
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    const theme = isDark ? 'dark' : 'light';
+
+    localStorage.setItem('theme', theme);
+    updateThemeIcons(theme);
 }
 
 function updateThemeIcons(theme) {
     const sunIcons = document.querySelectorAll('.fa-sun');
     const moonIcons = document.querySelectorAll('.fa-moon');
-    
-    if (theme === 'dark-mode') {
+    const isDark = (theme === 'dark' || theme === 'dark-mode');
+
+    if (isDark) {
         sunIcons.forEach(icon => icon.style.display = 'none');
         moonIcons.forEach(icon => icon.style.display = 'inline-block');
     } else {
@@ -45,7 +94,7 @@ function updateThemeIcons(theme) {
 function toggleMobileMenu() {
     navMenu.classList.toggle('active');
     mobileToggle.classList.toggle('active');
-    
+
     const icon = mobileToggle.querySelector('i');
     if (icon.classList.contains('fa-bars')) {
         icon.classList.remove('fa-bars');
@@ -71,7 +120,7 @@ function initAOS() {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            
+
             setTimeout(() => {
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
@@ -97,7 +146,7 @@ function handleSignup() {
 function handleGetStarted() {
     const ctaBtn = document.querySelector('.cta-actions .btn-primary');
     ctaBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Redirecting...</span>';
-    
+
     setTimeout(() => {
         alert('Redirecting to signup page...');
         // window.location.href = '/signup'; // Uncomment for actual redirection
@@ -108,7 +157,7 @@ function handleGetStarted() {
 function handleScheduleDemo() {
     const demoBtn = document.querySelector('.cta-actions .btn-outline');
     demoBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Scheduling...</span>';
-    
+
     setTimeout(() => {
         alert('Opening demo scheduler...');
         // window.location.href = '/demo'; // Uncomment for actual redirection
@@ -180,42 +229,42 @@ function initEventListeners() {
     themeToggle.addEventListener('click', toggleTheme);
     mobileThemeToggle.addEventListener('click', toggleTheme);
     footerThemeToggle.addEventListener('click', toggleTheme);
-    
+
     // Mobile menu
     mobileToggle.addEventListener('click', toggleMobileMenu);
-    
+
     // Auth buttons
     if (loginBtn) loginBtn.addEventListener('click', handleLogin);
     if (signupBtn) signupBtn.addEventListener('click', handleSignup);
-    
+
     // CTA buttons
     const getStartedBtn = document.querySelector('.cta-actions .btn-primary');
     const scheduleDemoBtn = document.querySelector('.cta-actions .btn-outline');
-    
+
     if (getStartedBtn) getStartedBtn.addEventListener('click', handleGetStarted);
     if (scheduleDemoBtn) scheduleDemoBtn.addEventListener('click', handleScheduleDemo);
-    
+
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target) && navMenu.classList.contains('active')) {
             toggleMobileMenu();
         }
     });
-    
+
     // Close mobile menu on escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navMenu.classList.contains('active')) {
             toggleMobileMenu();
         }
     });
-    
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 window.scrollTo({
@@ -235,11 +284,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initAOS();
     animateStats();
     initTimelineAnimation();
-    
+
     // Add loading animation for better UX
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 0.3s ease';
-    
+
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);

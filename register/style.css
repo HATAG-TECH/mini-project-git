@@ -43,13 +43,31 @@
     --transition-slow: 350ms ease;
 }
 
+.dark-mode {
+    --light: #121826;
+    --white: #1f2937;
+    --dark: #f9fafb;
+    --gray-dark: #e5e7eb;
+    --gray: #9ca3af;
+    --gray-light: #374151;
+    --primary-light: rgba(67, 97, 238, 0.1);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.5), 0 3px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 5px 10px -3px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+}
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     font-family: var(--font-primary);
     color: var(--dark);
@@ -125,8 +143,13 @@ html, body {
     animation: slideIn 0.6s ease forwards;
 }
 
-.feature-item:nth-child(2) { animation-delay: 0.1s; }
-.feature-item:nth-child(3) { animation-delay: 0.2s; }
+.feature-item:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.feature-item:nth-child(3) {
+    animation-delay: 0.2s;
+}
 
 .feature-item i {
     font-size: 1.5rem;
@@ -248,30 +271,54 @@ html, body {
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @media (max-width: 768px) {
-    .register-container { flex-direction: column; }
-    .welcome-title { font-size: 2rem; }
+    .register-container {
+        flex-direction: column;
+    }
+
+    .welcome-title {
+        font-size: 2rem;
+    }
 }
 
 /* Simple visual overrides to keep registration layout clear and minimal */
 .register-container {
     background: var(--light);
 }
+
 .register-left-panel {
     background: var(--primary);
     padding: 2rem;
 }
+
 .register-card {
     padding: 1.5rem;
     max-width: 420px;
 }
-.features-list { display: none; }
+
+.features-list {
+    display: none;
+}
