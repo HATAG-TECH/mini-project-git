@@ -12,6 +12,43 @@ const valueCards = document.querySelectorAll('.value-card');
 // Initialize AOS (Animate on Scroll) if available
 let aosInitialized = false;
 
+// UI Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    updateAuthUI();
+});
+
+// Authentication UI
+function updateAuthUI() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const userMenu = document.getElementById('userMenu');
+    const guestMenu = document.getElementById('guestMenu');
+    const userNameDisplay = document.getElementById('userName');
+    const userAvatarDisplay = document.getElementById('userAvatar');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (isLoggedIn) {
+        if (userMenu) userMenu.style.display = 'block';
+        if (guestMenu) guestMenu.style.display = 'none';
+
+        const name = sessionStorage.getItem('userName') || 'User';
+        if (userNameDisplay) userNameDisplay.textContent = name;
+        if (userAvatarDisplay) userAvatarDisplay.textContent = name.charAt(0).toUpperCase();
+    } else {
+        if (userMenu) userMenu.style.display = 'none';
+        if (guestMenu) guestMenu.style.display = 'block';
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('userEmail');
+            sessionStorage.removeItem('userName');
+            window.location.href = '../login/login.html';
+        });
+    }
+}
+
 // Theme Management
 function initTheme() {
     const savedTheme = localStorage.getItem('theme');

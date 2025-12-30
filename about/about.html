@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,25 +9,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="light-mode">
+    <!-- Navigation Bar -->
     <!-- Navigation Bar -->
     <header class="header">
         <div class="container">
             <nav class="navbar">
                 <div class="nav-brand">
-                    <span class="logo-text">TeamPortfolio</span>
-                    <span class="logo-badge">PRO</span>
+                    <a href="../home/index.html" class="logo-link" style="text-decoration: none;">
+                        <span class="logo-text">TeamPortfolio</span>
+                        <span class="logo-badge">PRO</span>
+                    </a>
                 </div>
-                
+
                 <div class="nav-menu" id="navMenu">
                     <div class="nav-links">
                         <a href="../home/index.html" class="nav-link">
                             <i class="fas fa-home"></i>
                             <span>Home</span>
                         </a>
-                        <a href="#" class="nav-link active">
+                        <a href="about.html" class="nav-link active">
                             <i class="fas fa-info-circle"></i>
                             <span>About</span>
                         </a>
@@ -43,7 +50,7 @@
                             <span>Contact</span>
                         </a>
                     </div>
-                    
+
                     <div class="nav-actions">
                         <div class="theme-toggle">
                             <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
@@ -51,20 +58,32 @@
                                 <i class="fas fa-moon"></i>
                             </button>
                         </div>
-                        
-                        <div class="auth-buttons">
-                            <button class="btn btn-ghost" id="loginBtn">
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>Login</span>
-                            </button>
-                            <button class="btn btn-primary" id="signupBtn">
-                                <i class="fas fa-user-plus"></i>
-                                <span>Sign Up</span>
-                            </button>
+
+                        <!-- Guest Menu -->
+                        <div class="guest-menu" id="guestMenu" style="display: none;">
+                            <a href="../login/login.html" class="btn btn-ghost" style="margin-right: 10px;">Login</a>
+                            <a href="../register/register.html" class="btn btn-primary">Sign Up</a>
+                        </div>
+
+                        <!-- User Menu -->
+                        <div class="user-menu" id="userMenu" style="display: none;">
+                            <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+                                <div class="user-avatar" id="userAvatar"
+                                    style="width: 32px; height: 32px; border-radius: 50%; background: #4361ee; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                                    U</div>
+                                <div class="user-details">
+                                    <span class="user-name" id="userName"
+                                        style="font-weight: 500; font-size: 0.9rem;">User</span>
+                                </div>
+                                <button class="logout-btn" id="logoutBtn" title="Logout"
+                                    style="background: none; border: none; cursor: pointer; color: inherit; font-size: 1rem; margin-left: 10px;">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="nav-mobile-actions">
                     <button class="theme-btn mobile" id="mobileThemeToggle" aria-label="Toggle theme">
                         <i class="fas fa-sun"></i>
@@ -90,7 +109,8 @@
                     <span class="gradient-text">Amazing Things</span>
                 </h1>
                 <p class="hero-subtitle">
-                    We're on a mission to revolutionize how development teams collaborate, manage projects, and showcase their work. Join thousands of teams who trust TeamPortfolio to bring their ideas to life.
+                    We're on a mission to revolutionize how development teams collaborate, manage projects, and showcase
+                    their work. Join thousands of teams who trust TeamPortfolio to bring their ideas to life.
                 </p>
                 <div class="hero-stats">
                     <div class="stat-item">
@@ -134,7 +154,8 @@
                         <i class="fas fa-bullseye"></i>
                     </div>
                     <h2>Our Mission</h2>
-                    <p>To provide development teams with powerful, intuitive tools that streamline collaboration, enhance productivity, and enable them to create exceptional digital experiences.</p>
+                    <p>To provide development teams with powerful, intuitive tools that streamline collaboration,
+                        enhance productivity, and enable them to create exceptional digital experiences.</p>
                     <div class="mv-features">
                         <div class="mv-feature">
                             <i class="fas fa-check-circle"></i>
@@ -150,13 +171,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mv-card vision-card">
                     <div class="mv-icon">
                         <i class="fas fa-eye"></i>
                     </div>
                     <h2>Our Vision</h2>
-                    <p>To become the world's most trusted platform for development teams, fostering innovation and enabling creators to build the future of technology together.</p>
+                    <p>To become the world's most trusted platform for development teams, fostering innovation and
+                        enabling creators to build the future of technology together.</p>
                     <div class="mv-features">
                         <div class="mv-feature">
                             <i class="fas fa-check-circle"></i>
@@ -183,7 +205,7 @@
                 <h2>Our Core <span class="gradient-text">Values</span></h2>
                 <p>The principles that guide everything we do</p>
             </div>
-            
+
             <div class="values-grid">
                 <div class="value-card" data-aos="fade-up" data-aos-delay="0">
                     <div class="value-icon">
@@ -192,7 +214,7 @@
                     <h3>Innovation</h3>
                     <p>We constantly push boundaries and embrace new technologies to deliver cutting-edge solutions.</p>
                 </div>
-                
+
                 <div class="value-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="value-icon">
                         <i class="fas fa-handshake"></i>
@@ -200,7 +222,7 @@
                     <h3>Collaboration</h3>
                     <p>We believe in the power of teamwork and create tools that bring people together.</p>
                 </div>
-                
+
                 <div class="value-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="value-icon">
                         <i class="fas fa-shield-alt"></i>
@@ -208,7 +230,7 @@
                     <h3>Trust</h3>
                     <p>Security and privacy are paramount. We protect your data with enterprise-grade security.</p>
                 </div>
-                
+
                 <div class="value-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="value-icon">
                         <i class="fas fa-rocket"></i>
@@ -216,7 +238,7 @@
                     <h3>Excellence</h3>
                     <p>We strive for perfection in every detail, delivering quality that exceeds expectations.</p>
                 </div>
-                
+
                 <div class="value-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="value-icon">
                         <i class="fas fa-heart"></i>
@@ -224,7 +246,7 @@
                     <h3>Passion</h3>
                     <p>We love what we do and are committed to helping teams achieve their goals.</p>
                 </div>
-                
+
                 <div class="value-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="value-icon">
                         <i class="fas fa-users-cog"></i>
@@ -243,17 +265,18 @@
                 <h2>Our <span class="gradient-text">Journey</span></h2>
                 <p>Milestones that shaped our story</p>
             </div>
-            
+
             <div class="timeline-container">
                 <div class="timeline-item left">
                     <div class="timeline-content">
                         <div class="timeline-year">2020</div>
                         <h3>The Beginning</h3>
-                        <p>TeamPortfolio was founded with a vision to transform team collaboration in the digital age.</p>
+                        <p>TeamPortfolio was founded with a vision to transform team collaboration in the digital age.
+                        </p>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-                
+
                 <div class="timeline-item right">
                     <div class="timeline-content">
                         <div class="timeline-year">2021</div>
@@ -262,7 +285,7 @@
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-                
+
                 <div class="timeline-item left">
                     <div class="timeline-content">
                         <div class="timeline-year">2022</div>
@@ -271,7 +294,7 @@
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-                
+
                 <div class="timeline-item right">
                     <div class="timeline-content">
                         <div class="timeline-year">2023</div>
@@ -280,7 +303,7 @@
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
-                
+
                 <div class="timeline-item left">
                     <div class="timeline-content">
                         <div class="timeline-year">2024</div>
@@ -293,7 +316,7 @@
         </div>
     </section>
 
-    
+
 
     <!-- Achievements Section -->
     <section class="achievements">
@@ -302,7 +325,7 @@
                 <h2>Awards & <span class="gradient-text">Recognition</span></h2>
                 <p>Honored to be recognized by industry leaders</p>
             </div>
-            
+
             <div class="achievements-grid">
                 <div class="achievement-card">
                     <div class="achievement-icon">
@@ -311,7 +334,7 @@
                     <h3>Best SaaS Product 2024</h3>
                     <p>TechCrunch Awards</p>
                 </div>
-                
+
                 <div class="achievement-card">
                     <div class="achievement-icon">
                         <i class="fas fa-medal"></i>
@@ -319,7 +342,7 @@
                     <h3>Innovation Leader</h3>
                     <p>Forbes Technology Council</p>
                 </div>
-                
+
                 <div class="achievement-card">
                     <div class="achievement-icon">
                         <i class="fas fa-star"></i>
@@ -327,7 +350,7 @@
                     <h3>Top 10 Collaboration Tools</h3>
                     <p>G2 Crowd</p>
                 </div>
-                
+
                 <div class="achievement-card">
                     <div class="achievement-icon">
                         <i class="fas fa-crown"></i>
@@ -345,7 +368,8 @@
             <div class="cta-card">
                 <div class="cta-content">
                     <h2>Ready to Transform Your Team's Workflow?</h2>
-                    <p>Join thousands of teams who trust TeamPortfolio for their project management and collaboration needs.</p>
+                    <p>Join thousands of teams who trust TeamPortfolio for their project management and collaboration
+                        needs.</p>
                     <div class="cta-actions">
                         <button class="btn btn-primary btn-large">
                             <i class="fas fa-rocket"></i>
@@ -375,7 +399,8 @@
                         <span class="logo-text">TeamPortfolio</span>
                         <span class="logo-badge">PRO</span>
                     </div>
-                    <p class="footer-tagline">Professional team collaboration and portfolio platform for modern development teams.</p>
+                    <p class="footer-tagline">Professional team collaboration and portfolio platform for modern
+                        development teams.</p>
                     <div class="footer-social">
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
@@ -383,7 +408,7 @@
                         <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="footer-links">
                     <div class="footer-column">
                         <h4>Product</h4>
@@ -408,9 +433,10 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p class="copyright">&copy; <span id="currentYear"></span> TeamPortfolio Platform. All rights reserved.</p>
+                <p class="copyright">&copy; <span id="currentYear"></span> TeamPortfolio Platform. All rights reserved.
+                </p>
                 <div class="footer-actions">
                     <button class="theme-btn small" id="footerThemeToggle" aria-label="Toggle theme">
                         <i class="fas fa-sun"></i>
@@ -425,4 +451,5 @@
 
     <script src="about.js"></script>
 </body>
+
 </html>
