@@ -14,25 +14,37 @@ let aosInitialized = false;
 
 // Theme Management
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'dark-mode';
-    document.body.className = savedTheme;
-    updateThemeIcons(savedTheme);
+    const savedTheme = localStorage.getItem('theme');
+    const body = document.body;
+
+    // Default to dark mode is preferred if not set, or if set to 'dark'
+    if (savedTheme === 'light' || savedTheme === 'light-mode') {
+        body.classList.remove('dark-mode');
+        updateThemeIcons('light');
+    } else {
+        body.classList.add('dark-mode');
+        // Ensure consistent storage value
+        if (savedTheme !== 'dark') localStorage.setItem('theme', 'dark');
+        updateThemeIcons('dark');
+    }
 }
 
 function toggleTheme() {
-    const currentTheme = document.body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
-    const newTheme = currentTheme === 'dark-mode' ? 'light-mode' : 'dark-mode';
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    const theme = isDark ? 'dark' : 'light';
 
-    document.body.className = newTheme;
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcons(newTheme);
+    localStorage.setItem('theme', theme);
+    updateThemeIcons(theme);
 }
 
 function updateThemeIcons(theme) {
     const sunIcons = document.querySelectorAll('.fa-sun');
     const moonIcons = document.querySelectorAll('.fa-moon');
+    const isDark = (theme === 'dark' || theme === 'dark-mode');
 
-    if (theme === 'dark-mode') {
+    if (isDark) {
         sunIcons.forEach(icon => icon.style.display = 'none');
         moonIcons.forEach(icon => icon.style.display = 'inline-block');
     } else {
