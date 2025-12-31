@@ -5,9 +5,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Projects page initialized');
 
+    // Initialize Navigation
+    if (typeof Navbar !== 'undefined') {
+        Navbar.init('Projects');
+    }
+
     // Initialize components
-    initTheme();
-    updateAuthUI();
     initProjects();
     initFilters();
     initSearch();
@@ -17,49 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Load projects
     loadProjects();
 });
-
-// Authentication UI
-function updateAuthUI() {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-    const userMenu = document.getElementById('userMenu');
-    const guestMenu = document.getElementById('guestMenu');
-    const userNameDisplay = document.getElementById('userName');
-    const userAvatarDisplay = document.getElementById('userAvatar');
-    const logoutBtn = document.getElementById('logoutBtn');
-
-    if (isLoggedIn) {
-        if (userMenu) userMenu.style.display = 'block';
-        if (guestMenu) guestMenu.style.display = 'none';
-
-        const name = sessionStorage.getItem('userName') || 'User';
-        if (userNameDisplay) userNameDisplay.textContent = name;
-        if (userAvatarDisplay) userAvatarDisplay.textContent = name.charAt(0).toUpperCase();
-    } else {
-        if (userMenu) userMenu.style.display = 'none';
-        if (guestMenu) guestMenu.style.display = 'block';
-    }
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function () {
-            sessionStorage.removeItem('isLoggedIn');
-            sessionStorage.removeItem('userEmail');
-            sessionStorage.removeItem('userName');
-            window.location.href = '../login/login.html';
-        });
-    }
-}
-
-function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const body = document.body;
-    // Default to dark mode
-    if (savedTheme === 'light') {
-        body.classList.remove('dark-mode');
-    } else {
-        body.classList.add('dark-mode');
-        if (!savedTheme) localStorage.setItem('theme', 'dark');
-    }
-}
 
 /**
  * Initialize project data and display

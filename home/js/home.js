@@ -5,13 +5,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Home page initialized');
 
+    // Initialize Navigation
+    if (typeof Navbar !== 'undefined') {
+        Navbar.init('Home');
+    }
+
     // Initialize all components
-    initUserInfo();
-    initThemeToggle();
-    initNavigation();
     initButtons();
     initCurrentYear();
-    initLogout();
 
     // Hide loading screen
     setTimeout(() => {
@@ -24,124 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }, 500);
 });
-
-/**
- * Initialize user information display
- */
-/**
- * Initialize user information display and toggle guest/user view
- */
-function initUserInfo() {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-    const guestMenu = document.getElementById('guestMenu');
-    const userMenu = document.getElementById('userMenu');
-
-    if (isLoggedIn) {
-        // User is logged in
-        if (guestMenu) guestMenu.style.display = 'none';
-        if (userMenu) userMenu.style.display = 'flex';
-
-        const userName = sessionStorage.getItem('userName') || 'Abebe Kebede';
-        const userEmail = sessionStorage.getItem('userEmail') || 'abebe.kebede@example.com';
-
-        const nameEl = document.getElementById('userName');
-        if (nameEl) nameEl.textContent = userName;
-
-        const emailEl = document.getElementById('userEmail');
-        if (emailEl) emailEl.textContent = userEmail;
-
-        // Set avatar
-        const userAvatar = document.getElementById('userAvatar');
-        if (userAvatar) {
-            userAvatar.textContent = userName.charAt(0).toUpperCase();
-            // Generate random color
-            const colors = ['#4361ee', '#7209b7', '#10b981', '#f72585', '#f59e0b'];
-            const colorIndex = userName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
-            userAvatar.style.backgroundColor = colors[colorIndex];
-        }
-    } else {
-        // User is guest
-        if (guestMenu) guestMenu.style.display = 'flex';
-        if (userMenu) userMenu.style.display = 'none';
-
-        // Optionally hide "Member" specific sections if you want strictly clean UI
-        // But for now, just the nav toggle is the primary requirement
-    }
-}
-
-/**
- * Initialize theme toggle functionality
- */
-function initThemeToggle() {
-    const themeToggle = document.getElementById('themeToggle');
-    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
-    const footerThemeToggle = document.getElementById('footerThemeToggle');
-    const body = document.body;
-
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Set initial theme - DEFAULT TO DARK
-    if (savedTheme === 'light') {
-        body.classList.remove('dark-mode');
-    } else {
-        body.classList.add('dark-mode');
-        if (!savedTheme) localStorage.setItem('theme', 'dark');
-    }
-
-    // Theme toggle function
-    const toggleTheme = () => {
-        body.classList.toggle('dark-mode');
-        const isDark = body.classList.contains('dark-mode');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    };
-
-    // Add event listeners to all theme buttons
-    [themeToggle, mobileThemeToggle, footerThemeToggle].forEach(button => {
-        if (button) {
-            button.addEventListener('click', toggleTheme);
-        }
-    });
-}
-
-/**
- * Initialize navigation functionality
- */
-function initNavigation() {
-    const mobileToggle = document.getElementById('mobileToggle');
-    const navMenu = document.getElementById('navMenu');
-
-    if (mobileToggle && navMenu) {
-        mobileToggle.addEventListener('click', function () {
-            navMenu.classList.toggle('active');
-            const icon = this.querySelector('i');
-
-            if (navMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-                document.body.style.overflow = 'hidden';
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-                document.body.style.overflow = '';
-            }
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function (e) {
-            if (navMenu.classList.contains('active') &&
-                !navMenu.contains(e.target) &&
-                !mobileToggle.contains(e.target)) {
-                mobileToggle.click();
-            }
-        });
-    }
-}
-
-/**
- * Initialize button interactions
- */
 function initButtons() {
     // Explore button
     const exploreBtn = document.getElementById('exploreBtn');

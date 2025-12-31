@@ -1,15 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Navigation
+    if (typeof Navbar !== 'undefined') {
+        Navbar.init('Contact');
+    }
+
     const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
-
-    // Theme Logic - Default Dark
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.remove('dark-mode');
-    } else {
-        document.body.classList.add('dark-mode');
-        if (!savedTheme) localStorage.setItem('theme', 'dark');
-    }
 
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
