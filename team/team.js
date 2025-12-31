@@ -23,98 +23,100 @@ document.addEventListener('DOMContentLoaded', function () {
     const teamMembers = [
         {
             id: 1,
-            name: "habtamu shewamen",
+            name: "Habtamu Shewamene",
             role: "Frontend Developer & Project Lead",
             description: "Specializes in creating responsive, user-friendly interfaces with modern JavaScript frameworks.",
-            fullDescription: "With over 5 years of experience in frontend development, Alex excels at creating intuitive user interfaces using React, Vue.js, and modern CSS frameworks. As Project Lead, they coordinate team efforts, manage timelines, and ensure seamless communication.",
+            fullDescription: "With over 5 years of experience in frontend development, Habtamu excels at creating intuitive user interfaces using React, Vue.js, and modern CSS frameworks. As Project Lead, he coordinates team efforts, manages timelines, and ensures seamless communication.",
             skills: ["React", "Vue.js", "TypeScript", "UI/UX", "Project Management"],
             experience: "5+ years",
-            email: "habtamushewamen12gmail.com",
+            email: "habtamushewamen@gmail.com",
             avatarColor: "#3498db",
-            avatarInitials: "AM"
+            avatarInitials: "HS"
         },
         {
             id: 2,
-            name: "estifanos shambel ",
+            name: "Estifanos Shambel",
             role: "UI/UX Designer",
             description: "Creates intuitive and aesthetically pleasing user interfaces. Focuses on user research.",
-            fullDescription: "Samantha is a passionate UI/UX designer with a background in psychology and design. She creates user-centered designs that are both beautiful and functional. Her process includes user research, wireframing, prototyping, and usability testing.",
+            fullDescription: "Estifanos is a passionate UI/UX designer with a background in psychology and design. He creates user-centered designs that are both beautiful and functional. His process includes user research, wireframing, prototyping, and usability testing.",
             skills: ["Figma", "Adobe XD", "Prototyping", "User Research", "Wireframing"],
             experience: "4 years",
-            email: "estifanosshambel295gmail.com",
+            email: "estifanosshambel@gmail.com",
             avatarColor: "#2ecc71",
-            avatarInitials: "SC"
+            avatarInitials: "ES"
         },
         {
             id: 3,
-            name: "habtamu befikadu",
+            name: "Habtamu Befekadu",
             role: "Backend Developer",
             description: "Builds robust server-side logic and database architecture. Ensures system security.",
-            fullDescription: "David is a backend specialist with expertise in Node.js, Python, and database design. He builds secure, scalable APIs and ensures system reliability. His focus is on creating efficient server-side logic that can handle high loads.",
+            fullDescription: "Habtamu B. is a backend specialist with expertise in Node.js, Python, and database design. He builds secure, scalable APIs and ensures system reliability. His focus is on creating efficient server-side logic that can handle high loads.",
             skills: ["Node.js", "Python", "Database Design", "API Development", "Security"],
             experience: "6 years",
-            email: "habtamubefekadu19gamil.com",
+            email: "habtamubefekadu@gmail.com",
             avatarColor: "#9b59b6",
-            avatarInitials: "DR"
+            avatarInitials: "HB"
         },
         {
             id: 4,
-            name: "biniyam agegnewu",
+            name: "Biniam Agegnehu",
             role: "Full Stack Developer",
             description: "Works across both frontend and backend development. Implements features end-to-end.",
-            fullDescription: "Jessica is a versatile full stack developer who enjoys working on both client-side and server-side code. She has experience with the MERN stack and enjoys solving complex problems that span the entire application stack.",
+            fullDescription: "Biniam is a versatile full stack developer who enjoys working on both client-side and server-side code. He has experience with the MERN stack and enjoys solving complex problems that span the entire application stack.",
             skills: ["JavaScript", "Express.js", "MongoDB", "React", "Full Stack"],
             experience: "4 years",
-            email: "biniyamagegnehu2gmail.com",
+            email: "biniamagegnehu@gmail.com",
             avatarColor: "#e74c3c",
-            avatarInitials: "JW"
+            avatarInitials: "BA"
         },
         {
             id: 5,
-            name: "henok kebede",
+            name: "Henok Kebede",
             role: "Quality Assurance Engineer",
             description: "Designs and executes test plans to ensure software quality. Implements automated testing.",
-            fullDescription: "Michael is a meticulous QA engineer who ensures our software meets the highest quality standards. He develops comprehensive test plans, implements automated testing, and works closely with developers to identify and resolve issues.",
+            fullDescription: "Henok is a meticulous QA engineer who ensures our software meets the highest quality standards. He develops comprehensive test plans, implements automated testing, and works closely with developers to identify and resolve issues.",
             skills: ["Testing", "Automation", "Debugging", "Performance", "CI/CD"],
             experience: "5 years",
-            email: "henokkebede410@gmail.com",
+            email: "henokkebede@gmail.com",
             avatarColor: "#f39c12",
-            avatarInitials: "MT"
+            avatarInitials: "HK"
         },
         {
             id: 6,
-            name: "melat kassa",
+            name: "Melat Kassahun",
             role: "DevOps Specialist",
             description: "Manages deployment pipelines, cloud infrastructure, and CI/CD processes.",
-            fullDescription: "Emily is a DevOps specialist who manages our cloud infrastructure and CI/CD pipelines. She ensures smooth deployments, monitors system performance, and optimizes development workflows for maximum efficiency.",
+            fullDescription: "Melat is a DevOps specialist who manages our cloud infrastructure and CI/CD pipelines. She ensures smooth deployments, monitors system performance, and optimizes development workflows for maximum efficiency.",
             skills: ["Docker", "AWS", "CI/CD", "Infrastructure", "Kubernetes"],
             experience: "4 years",
-            email: "kassamelat234.gmail.com",
+            email: "melatkassahun@gmail.com",
             avatarColor: "#1abc9c",
-            avatarInitials: "EZ"
+            avatarInitials: "MK"
         },
         {
             id: 7,
-            name: "icon girma",
+            name: "Icon Girma",
             role: "Technical Documentation & Support",
             description: "Creates comprehensive documentation and provides technical support.",
-            fullDescription: "Ryan is responsible for creating clear, comprehensive technical documentation and providing support to both the team and end-users. He ensures knowledge is properly documented and transferred.",
+            fullDescription: "Icon is responsible for creating clear, comprehensive technical documentation and providing support to both the team and end-users. He ensures knowledge is properly documented and transferred.",
             skills: ["Documentation", "Technical Writing", "Support", "Communication", "Training"],
             experience: "3 years",
-            email: "icongirma129gmail.com",
+            email: "icongirma@gmail.com",
             avatarColor: "#34495e",
-            avatarInitials: "RC"
+            avatarInitials: "IG"
         }
     ];
 
     // Initialize the page
+    initPage();
+
     function initPage() {
         // Initialize Navigation
         if (typeof Navbar !== 'undefined') {
             Navbar.init('Team');
         }
 
-        // Hide loader after page loads
+        // Hide loader after page loads (Fail-safe)
         setTimeout(() => {
             if (loader) {
                 loader.classList.add('loaded');
@@ -122,14 +124,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     loader.style.display = 'none';
                 }, 500);
             }
-        }, 1500);
+        }, 800);
 
         generateTeamCards();
         setupScrollAnimations();
         setupEventListeners();
 
-        // Initialize skills animation
-        setTimeout(animateSkills, 1000);
+        // Initialize skills animation safely
+        setTimeout(() => {
+            animateSkills();
+        }, 1000);
+
+        // Add dynamic CSS
+        addDynamicStyles();
+
+        setTimeout(() => {
+            if (teamTitle) teamTitle.classList.add('animated');
+        }, 300);
     }
 
     // Generate team cards
@@ -226,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Touch support
             card.addEventListener('touchstart', function (e) {
                 this.classList.add('touched');
-            }, { passive: true }); // passive true for better scroll performance check
+            }, { passive: true });
 
             card.addEventListener('touchend', function () {
                 this.classList.remove('touched');
@@ -265,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="modal-contact-form">
                     <h4>Contact ${member.name}</h4>
                     <div class="form-feedback" id="formFeedback"></div>
-                    <form id="contactForm">
+                    <form id="contactForm" data-member-name="${member.name}">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="fullName">Full Name *</label>
@@ -323,6 +334,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function handleContactFormSubmit(e) {
         e.preventDefault();
 
+        const form = e.target;
+        const memberName = form.getAttribute('data-member-name'); // retrieve member name
+
         const feedback = document.getElementById('formFeedback');
         const fullName = document.getElementById('fullName').value;
         const gender = document.getElementById('gender').value;
@@ -346,7 +360,8 @@ document.addEventListener('DOMContentLoaded', function () {
         submitBtn.disabled = true;
 
         setTimeout(() => {
-            feedback.textContent = `Message sent successfully! Thank you, ${fullName}.`;
+            // Update feedback message to include member name
+            feedback.textContent = `Your message to ${memberName} has been sent successfully.`;
             feedback.className = "form-feedback success";
             feedback.style.display = 'block';
             submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent';
