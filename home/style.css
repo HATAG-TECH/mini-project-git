@@ -3,20 +3,23 @@
    =========================================== */
 
 /* CSS Variables - Light Mode Default */
+/* CSS Variables - Dark Mode Default */
+/* CSS Variables - Dark Mode Default (Midnight Slate) */
 :root {
     /* Primary Colors */
     --primary: #4361ee;
     --primary-dark: #3a56d4;
-    --primary-light: #eef2ff;
-    
+    --primary-light: rgba(67, 97, 238, 0.15);
+    /* Transparent for dark mode overlay */
+
     /* Secondary Colors */
     --secondary: #7209b7;
     --secondary-dark: #5a0892;
-    
+
     /* Accent Colors */
     --accent: #f72585;
     --accent-dark: #e11575;
-    
+
     /* Status Colors */
     --success: #10b981;
     --success-dark: #0da271;
@@ -26,33 +29,43 @@
     --danger-dark: #dc2626;
     --info: #3b82f6;
     --info-dark: #2563eb;
-    
-    /* Light Mode Colors */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
-    --bg-tertiary: #f1f5f9;
-    
-    --text-primary: #121826;
-    --text-secondary: #374151;
-    --text-tertiary: #6b7280;
-    
-    --border-light: #e5e7eb;
-    --border-medium: #d1d5db;
-    
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 0 3px 6px -1px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -3px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
-    
+
+    /* Dark Mode Core Colors (Default) - Deep Midnight Slate */
+    --bg-primary: #020617;
+    /* Slate 950 - Main Background */
+    --bg-secondary: #0f172a;
+    /* Slate 900 - Section Background */
+    --bg-tertiary: #1e293b;
+    /* Slate 800 - Cards/Interactive Elements */
+
+    /* Text Colors - High Contrast for Dark Mode */
+    --text-primary: #f8fafc;
+    /* Slate 50 - Main Text */
+    --text-secondary: #cbd5e1;
+    /* Slate 300 - Secondary Text */
+    --text-tertiary: #94a3b8;
+    /* Slate 400 - Muted Text */
+
+    /* Borders - Subtle for Dark Mode */
+    --border-light: #1e293b;
+    /* Slate 800 */
+    --border-medium: #334155;
+    /* Slate 700 */
+
+    /* Shadows - Deep & Soft */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.6), 0 3px 6px -1px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 5px 10px -3px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 10px 20px -5px rgba(0, 0, 0, 0.5);
+
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
-    
+
     /* Typography */
     --font-primary: 'Inter', sans-serif;
     --font-secondary: 'Poppins', sans-serif;
-    
+
     /* Spacing */
     --space-xs: 0.5rem;
     --space-sm: 0.75rem;
@@ -62,7 +75,7 @@
     --space-2xl: 3rem;
     --space-3xl: 4rem;
     --space-4xl: 6rem;
-    
+
     /* Border Radius */
     --radius-sm: 4px;
     --radius: 8px;
@@ -70,35 +83,38 @@
     --radius-xl: 16px;
     --radius-2xl: 24px;
     --radius-full: 9999px;
-    
+
     /* Transitions */
     --transition-fast: 150ms ease;
     --transition: 250ms ease;
     --transition-slow: 350ms ease;
 }
 
-/* Dark Mode Variables */
-.dark-mode {
-    /* Dark Mode Colors */
-    --bg-primary: #121826;
-    --bg-secondary: #1f2937;
-    --bg-tertiary: #374151;
-    
-    --text-primary: #f9fafb;
-    --text-secondary: #e5e7eb;
-    --text-tertiary: #9ca3af;
-    
-    --border-light: #374151;
-    --border-medium: #4b5563;
-    
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.5), 0 3px 6px -1px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 5px 10px -3px rgba(0, 0, 0, 0.3);
-    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 10px 20px -5px rgba(0, 0, 0, 0.4);
-    
-    /* Adjust primary colors for dark mode */
-    --primary-light: rgba(67, 97, 238, 0.1);
+/* Light Mode Variables (Overrides) */
+.light-mode {
+    /* Backgrounds */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+
+    /* Text */
+    --text-primary: #121826;
+    --text-secondary: #374151;
+    --text-tertiary: #6b7280;
+
+    /* Borders */
+    --border-light: #e5e7eb;
+    --border-medium: #d1d5db;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 0 3px 6px -1px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 5px 10px -3px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+
+    /* Primary Light (Not transparent in light mode) */
+    --primary-light: #eef2ff;
 }
 
 /* Base Reset */
@@ -119,6 +135,8 @@ body {
     line-height: 1.6;
     transition: background-color var(--transition-slow), color var(--transition-slow);
     overflow-x: hidden;
+    padding-top: 80px;
+    /* Space for fixed navbar */
 }
 
 /* Container */
@@ -130,7 +148,10 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: var(--font-secondary);
     font-weight: 700;
     line-height: 1.2;
@@ -262,9 +283,11 @@ a {
 
 /* Header & Navigation */
 .header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 100;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
     background-color: var(--bg-primary);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-light);
@@ -625,7 +648,7 @@ a {
 }
 
 .preview-widget {
-    background: var(--bg-primary);
+    background: var(--bg-tertiary);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
     border: 1px solid var(--border-light);
@@ -659,10 +682,21 @@ a {
     font-weight: 500;
 }
 
-.widget-1 i { color: #10b981; }
-.widget-2 i { color: #3b82f6; }
-.widget-3 i { color: #f59e0b; }
-.widget-4 i { color: #f72585; }
+.widget-1 i {
+    color: #10b981;
+}
+
+.widget-2 i {
+    color: #3b82f6;
+}
+
+.widget-3 i {
+    color: #f59e0b;
+}
+
+.widget-4 i {
+    color: #f72585;
+}
 
 /* Features Section */
 .features {
@@ -693,7 +727,7 @@ a {
 }
 
 .feature-card {
-    background: var(--bg-primary);
+    background: var(--bg-tertiary);
     border-radius: var(--radius-xl);
     padding: var(--space-2xl);
     border: 1px solid var(--border-light);
@@ -771,7 +805,7 @@ a {
 }
 
 .dashboard-panel {
-    background: var(--bg-primary);
+    background: var(--bg-tertiary);
     border-radius: var(--radius-xl);
     border: 1px solid var(--border-light);
     overflow: hidden;
@@ -905,7 +939,7 @@ a {
 }
 
 .stat-card {
-    background: var(--bg-secondary);
+    background: var(--bg-primary);
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
     border: 1px solid var(--border-light);
@@ -1045,7 +1079,7 @@ a {
 }
 
 .deadline-card {
-    background: var(--bg-primary);
+    background: var(--bg-tertiary);
     border-radius: var(--radius-xl);
     padding: var(--space-xl);
     border: 1px solid var(--border-light);
@@ -1220,24 +1254,24 @@ a {
     h1 {
         font-size: 2.5rem;
     }
-    
+
     h2 {
         font-size: 2rem;
     }
-    
+
     .hero-grid {
         grid-template-columns: 1fr;
         gap: var(--space-3xl);
     }
-    
+
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .footer-content {
         grid-template-columns: 1fr;
         gap: var(--space-2xl);
@@ -1258,67 +1292,67 @@ a {
         gap: var(--space-xl);
         border-top: 1px solid var(--border-light);
     }
-    
+
     .nav-menu.active {
         display: flex;
     }
-    
+
     .nav-links {
         flex-direction: column;
         width: 100%;
         gap: var(--space-md);
     }
-    
+
     .nav-actions {
         flex-direction: column;
         width: 100%;
         gap: var(--space-md);
     }
-    
+
     .theme-btn.mobile {
         display: flex;
     }
-    
+
     .nav-mobile-actions {
         display: flex;
     }
-    
+
     .mobile-toggle {
         display: flex;
     }
-    
+
     .hero-actions {
         flex-direction: column;
     }
-    
+
     .hero-stats {
         flex-direction: column;
         gap: var(--space-lg);
     }
-    
+
     .preview-content {
         grid-template-columns: 1fr;
     }
-    
+
     .features-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .footer-links {
         grid-template-columns: 1fr;
         gap: var(--space-xl);
     }
-    
+
     .footer-bottom {
         flex-direction: column;
         gap: var(--space-lg);
         text-align: center;
     }
-    
+
     .footer-actions {
         flex-direction: column;
         gap: var(--space-md);
@@ -1329,29 +1363,29 @@ a {
     .container {
         padding: 0 var(--space-lg);
     }
-    
+
     h1 {
         font-size: 2rem;
     }
-    
+
     h2 {
         font-size: 1.75rem;
     }
-    
+
     .hero-title {
         font-size: 2.25rem;
     }
-    
+
     .section-header h2 {
         font-size: 1.75rem;
     }
-    
+
     .user-info {
         flex-direction: column;
         text-align: center;
         gap: var(--space-sm);
     }
-    
+
     .user-details {
         align-items: center;
     }

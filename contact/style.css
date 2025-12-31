@@ -1,34 +1,45 @@
 /* Modern Contact Page Styles */
+/* CSS Variables - Dark Mode Default (Consistent with Home) */
 :root {
+    /* Primary Colors */
     --primary: #4361ee;
     --primary-dark: #3a56d4;
-    --primary-light: #eef2ff;
-    --secondary: #7209b7;
-    --dark: #121826;
-    --gray: #6b7280;
-    --light-gray: #f3f4f6;
-    --white: #ffffff;
-    --success: #10b981;
-    --error: #ef4444;
-    --font-main: 'Inter', sans-serif;
-    --font-heading: 'Poppins', sans-serif;
-    --radius: 12px;
-    --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-
-    /* Theme Vars */
-    --body-bg: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
-    --input-bg: #f9f9f9;
-}
-
-.dark-mode {
     --primary-light: rgba(67, 97, 238, 0.1);
-    --dark: #f9fafb;
+
+    /* Secondary Colors */
+    --secondary: #7209b7;
+
+    /* Base Colors - Dark Mode Default */
+    --dark: #121826;
     --gray: #9ca3af;
     --light-gray: #374151;
     --white: #1f2937;
+    /* Card background in dark mode */
+    --body-bg: #121826;
+    --input-bg: #121826;
+
+    /* Status Colors */
+    --success: #10b981;
+    --error: #ef4444;
+
+    /* Fonts & Radius */
+    --font-main: 'Inter', sans-serif;
+    --font-heading: 'Poppins', sans-serif;
+    --radius: 12px;
     --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-    --body-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    --input-bg: #0f172a;
+}
+
+.light-mode {
+    /* Theme Vars (Light Mode) */
+    --primary-light: #eef2ff;
+    --dark: #121826;
+    /* Text color in light mode */
+    --gray: #6b7280;
+    --light-gray: #f3f4f6;
+    --white: #ffffff;
+    --body-bg: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+    --input-bg: #f9f9f9;
+    --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -40,10 +51,23 @@
 
 body {
     background: var(--body-bg);
-    color: var(--dark);
+    color: var(--gray);
+    /* Check if this is correct for text, usually dark or light depending on theme */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    padding-top: 80px;
+    /* Space for fixed navbar */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ensure text color is correct in dark mode */
+body {
+    color: #f9fafb;
+}
+
+.light-mode body {
+    color: #121826;
 }
 
 /* Navbar */
