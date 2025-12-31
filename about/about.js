@@ -1,11 +1,4 @@
 // DOM Elements
-const themeToggle = document.getElementById('themeToggle');
-const mobileThemeToggle = document.getElementById('mobileThemeToggle');
-const footerThemeToggle = document.getElementById('footerThemeToggle');
-const mobileToggle = document.getElementById('mobileToggle');
-const navMenu = document.getElementById('navMenu');
-const loginBtn = document.getElementById('loginBtn');
-const signupBtn = document.getElementById('signupBtn');
 const currentYear = document.getElementById('currentYear');
 const valueCards = document.querySelectorAll('.value-card');
 
@@ -14,96 +7,25 @@ let aosInitialized = false;
 
 // UI Initialization
 document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
-    updateAuthUI();
+    // Initialize Navigation
+    if (typeof Navbar !== 'undefined') {
+        Navbar.init('About');
+    }
+
+    initEventListeners();
+    setCurrentYear();
+    initAOS();
+    animateStats();
+    initTimelineAnimation();
+
+    // Add loading animation for better UX
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.3s ease';
+
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
 });
-
-// Authentication UI
-function updateAuthUI() {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-    const userMenu = document.getElementById('userMenu');
-    const guestMenu = document.getElementById('guestMenu');
-    const userNameDisplay = document.getElementById('userName');
-    const userAvatarDisplay = document.getElementById('userAvatar');
-    const logoutBtn = document.getElementById('logoutBtn');
-
-    if (isLoggedIn) {
-        if (userMenu) userMenu.style.display = 'block';
-        if (guestMenu) guestMenu.style.display = 'none';
-
-        const name = sessionStorage.getItem('userName') || 'User';
-        if (userNameDisplay) userNameDisplay.textContent = name;
-        if (userAvatarDisplay) userAvatarDisplay.textContent = name.charAt(0).toUpperCase();
-    } else {
-        if (userMenu) userMenu.style.display = 'none';
-        if (guestMenu) guestMenu.style.display = 'block';
-    }
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function () {
-            sessionStorage.removeItem('isLoggedIn');
-            sessionStorage.removeItem('userEmail');
-            sessionStorage.removeItem('userName');
-            window.location.href = '../login/login.html';
-        });
-    }
-}
-
-// Theme Management
-function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const body = document.body;
-
-    // Default to dark mode is preferred if not set, or if set to 'dark'
-    if (savedTheme === 'light' || savedTheme === 'light-mode') {
-        body.classList.remove('dark-mode');
-        updateThemeIcons('light');
-    } else {
-        body.classList.add('dark-mode');
-        // Ensure consistent storage value
-        if (savedTheme !== 'dark') localStorage.setItem('theme', 'dark');
-        updateThemeIcons('dark');
-    }
-}
-
-function toggleTheme() {
-    const body = document.body;
-    body.classList.toggle('dark-mode');
-    const isDark = body.classList.contains('dark-mode');
-    const theme = isDark ? 'dark' : 'light';
-
-    localStorage.setItem('theme', theme);
-    updateThemeIcons(theme);
-}
-
-function updateThemeIcons(theme) {
-    const sunIcons = document.querySelectorAll('.fa-sun');
-    const moonIcons = document.querySelectorAll('.fa-moon');
-    const isDark = (theme === 'dark' || theme === 'dark-mode');
-
-    if (isDark) {
-        sunIcons.forEach(icon => icon.style.display = 'none');
-        moonIcons.forEach(icon => icon.style.display = 'inline-block');
-    } else {
-        sunIcons.forEach(icon => icon.style.display = 'inline-block');
-        moonIcons.forEach(icon => icon.style.display = 'none');
-    }
-}
-
-// Mobile Menu Toggle
-function toggleMobileMenu() {
-    navMenu.classList.toggle('active');
-    mobileToggle.classList.toggle('active');
-
-    const icon = mobileToggle.querySelector('i');
-    if (icon.classList.contains('fa-bars')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-    } else {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-    }
-}
 
 // Initialize AOS (Animate on Scroll) - Simulated version
 function initAOS() {
@@ -127,19 +49,6 @@ function initAOS() {
             }, 100 * index);
         });
     }
-}
-
-// Auth Button Handlers
-function handleLogin() {
-    // In a real application, this would redirect to login page
-    alert('Login feature would open a login modal or redirect to login page.');
-    console.log('Login button clicked');
-}
-
-function handleSignup() {
-    // In a real application, this would redirect to signup page
-    alert('Sign up feature would open a signup modal or redirect to signup page.');
-    console.log('Signup button clicked');
 }
 
 // CTA Button Handlers
@@ -225,38 +134,12 @@ function initTimelineAnimation() {
 
 // Event Listeners
 function initEventListeners() {
-    // Theme toggles
-    themeToggle.addEventListener('click', toggleTheme);
-    mobileThemeToggle.addEventListener('click', toggleTheme);
-    footerThemeToggle.addEventListener('click', toggleTheme);
-
-    // Mobile menu
-    mobileToggle.addEventListener('click', toggleMobileMenu);
-
-    // Auth buttons
-    if (loginBtn) loginBtn.addEventListener('click', handleLogin);
-    if (signupBtn) signupBtn.addEventListener('click', handleSignup);
-
     // CTA buttons
     const getStartedBtn = document.querySelector('.cta-actions .btn-primary');
     const scheduleDemoBtn = document.querySelector('.cta-actions .btn-outline');
 
     if (getStartedBtn) getStartedBtn.addEventListener('click', handleGetStarted);
     if (scheduleDemoBtn) scheduleDemoBtn.addEventListener('click', handleScheduleDemo);
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target) && navMenu.classList.contains('active')) {
-            toggleMobileMenu();
-        }
-    });
-
-    // Close mobile menu on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-            toggleMobileMenu();
-        }
-    });
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

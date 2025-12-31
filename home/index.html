@@ -108,84 +108,8 @@
     </script>
 
     <!-- Navigation Bar -->
-    <header class="header">
-        <div class="container">
-            <nav class="navbar">
-                <div class="nav-brand">
-                    <a href="index.html" class="logo-link">
-                        <span class="logo-text">TeamPortfolio</span>
-                        <span class="logo-badge">PRO</span>
-                    </a>
-                </div>
-
-                <div class="nav-menu" id="navMenu">
-                    <div class="nav-links">
-                        <a href="index.html" class="nav-link active">
-                            <i class="fas fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                        <a href="../about/about.html" class="nav-link">
-                            <i class="fas fa-info-circle"></i>
-                            <span>About</span>
-                        </a>
-                        <a href="../projects/projects.html" class="nav-link">
-                            <i class="fas fa-project-diagram"></i>
-                            <span>Projects</span>
-                        </a>
-                        <a href="../team/team.html" class="nav-link">
-                            <i class="fas fa-users"></i>
-                            <span>Team</span>
-                        </a>
-                        <a href="../contact/contact.html" class="nav-link">
-                            <i class="fas fa-envelope"></i>
-                            <span>Contact</span>
-                        </a>
-                    </div>
-
-                    <div class="nav-actions">
-                        <div class="theme-toggle">
-                            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
-                                <i class="fas fa-sun"></i>
-                                <i class="fas fa-moon"></i>
-                            </button>
-                        </div>
-
-                        <!-- Guest Menu -->
-                        <div class="guest-menu" id="guestMenu" style="display: none;">
-                            <a href="../login/login.html" class="btn btn-text"
-                                style="color: inherit; text-decoration: none; font-weight: 500; margin-right: 15px;">Login</a>
-                            <a href="../register/register.html" class="btn btn-primary btn-sm"
-                                style="padding: 8px 16px; border-radius: 6px; background-color: #4361ee; color: white; text-decoration: none;">Sign
-                                Up</a>
-                        </div>
-
-                        <!-- User Menu -->
-                        <div class="user-menu" id="userMenu" style="display: none;">
-                            <div class="user-info">
-                                <div class="user-avatar" id="userAvatar"></div>
-                                <div class="user-details">
-                                    <span class="user-name" id="userName">User</span>
-                                </div>
-                                <button class="logout-btn" id="logoutBtn" title="Logout">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="nav-mobile-actions">
-                    <button class="theme-btn mobile" id="mobileThemeToggle" aria-label="Toggle theme">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <button class="mobile-toggle" id="mobileToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <!-- Navigation Bar -->
+    <div id="global-header"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -650,6 +574,7 @@
         </div>
     </footer>
 
+    <script src="../shared/navbar.js"></script>
     <script src="JS/home.js"></script>
 </body>
 

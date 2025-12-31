@@ -11,91 +11,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="../home/style.css">
 </head>
 
 <body class="light-mode">
     <!-- Navigation Bar -->
     <!-- Navigation Bar -->
-    <header class="header">
-        <div class="container">
-            <nav class="navbar">
-                <div class="nav-brand">
-                    <a href="../home/index.html" class="logo-link" style="text-decoration: none;">
-                        <span class="logo-text">TeamPortfolio</span>
-                        <span class="logo-badge">PRO</span>
-                    </a>
-                </div>
-
-                <div class="nav-menu" id="navMenu">
-                    <div class="nav-links">
-                        <a href="../home/index.html" class="nav-link">
-                            <i class="fas fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                        <a href="about.html" class="nav-link active">
-                            <i class="fas fa-info-circle"></i>
-                            <span>About</span>
-                        </a>
-                        <a href="../projects/projects.html" class="nav-link">
-                            <i class="fas fa-project-diagram"></i>
-                            <span>Projects</span>
-                        </a>
-                        <a href="../team/team.html" class="nav-link">
-                            <i class="fas fa-users"></i>
-                            <span>Team</span>
-                        </a>
-                        <a href="../contact/contact.html" class="nav-link">
-                            <i class="fas fa-envelope"></i>
-                            <span>Contact</span>
-                        </a>
-                    </div>
-
-                    <div class="nav-actions">
-                        <div class="theme-toggle">
-                            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
-                                <i class="fas fa-sun"></i>
-                                <i class="fas fa-moon"></i>
-                            </button>
-                        </div>
-
-                        <!-- Guest Menu -->
-                        <div class="guest-menu" id="guestMenu" style="display: none;">
-                            <a href="../login/login.html" class="btn btn-ghost" style="margin-right: 10px;">Login</a>
-                            <a href="../register/register.html" class="btn btn-primary">Sign Up</a>
-                        </div>
-
-                        <!-- User Menu -->
-                        <div class="user-menu" id="userMenu" style="display: none;">
-                            <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
-                                <div class="user-avatar" id="userAvatar"
-                                    style="width: 32px; height: 32px; border-radius: 50%; background: #4361ee; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
-                                    U</div>
-                                <div class="user-details">
-                                    <span class="user-name" id="userName"
-                                        style="font-weight: 500; font-size: 0.9rem;">User</span>
-                                </div>
-                                <button class="logout-btn" id="logoutBtn" title="Logout"
-                                    style="background: none; border: none; cursor: pointer; color: inherit; font-size: 1rem; margin-left: 10px;">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="nav-mobile-actions">
-                    <button class="theme-btn mobile" id="mobileThemeToggle" aria-label="Toggle theme">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <button class="mobile-toggle" id="mobileToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <!-- Navigation Bar -->
+    <div id="global-header"></div>
 
     <!-- Hero Section -->
     <section class="about-hero">
@@ -449,6 +374,7 @@
         </div>
     </footer>
 
+    <script src="../shared/navbar.js"></script>
     <script src="about.js"></script>
 </body>
 

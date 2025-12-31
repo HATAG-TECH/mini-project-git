@@ -108,18 +108,12 @@ document.addEventListener('DOMContentLoaded', function () {
     ];
 
     // Initialize the page
-    function initTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        const body = document.body;
-        // Default is dark (no class needed as body defaults to dark styles)
-        // If savedTheme is 'light', add light-mode class
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-mode');
-        }
-    }
-
     function initPage() {
-        initTheme();
+        // Initialize Navigation
+        if (typeof Navbar !== 'undefined') {
+            Navbar.init('Team');
+        }
+
         // Hide loader after page loads
         setTimeout(() => {
             loader.classList.add('loaded');
