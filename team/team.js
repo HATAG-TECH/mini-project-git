@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h2>${member.name}</h2>
                 <p class="modal-role">${member.role}</p>
                 <p class="modal-experience"><i class="fas fa-briefcase"></i> ${member.experience} experience</p>
-                <button class="modal-close-btn" onclick="document.getElementById('memberModal').classList.remove('active'); document.body.style.overflow='auto';">&times;</button>
+                <button class="modal-close-btn" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-details">
                 <h3>About</h3>
@@ -462,21 +462,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Setup event listeners
-    function setupEventListeners() {
-        if (modalClose) modalClose.addEventListener('click', closeModal);
 
+    function setupEventListeners() {
+        // Attach modal close handlers so the 'X' and overlay work as expected.
         if (memberModal) {
+            // Close when clicking the overlay background (outside modal content)
             memberModal.addEventListener('click', function (e) {
-                if (e.target === this) {
-                    closeModal();
-                }
+                if (e.target === memberModal) closeModal();
+            });
+
+            // Close when clicking any close button inside the modal header
+            memberModal.addEventListener('click', function (e) {
+                const btn = e.target.closest('.modal-close-btn');
+                if (btn) closeModal();
             });
         }
 
+        // Close modal with Escape key
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && memberModal && memberModal.classList.contains('active')) {
-                closeModal();
-            }
+            if (e.key === 'Escape') closeModal();
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
