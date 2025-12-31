@@ -15,7 +15,7 @@ const Navbar = {
             return;
         }
 
-        // Ensure the header has the correct class
+        // Ensure the header has the correct classes and layout
         if (!headerElement.classList.contains('header')) {
             headerElement.classList.add('header');
         }
@@ -158,13 +158,14 @@ const Navbar = {
         const savedTheme = localStorage.getItem('theme');
         const body = document.body;
 
-        // Apply saved theme
+        // Default is dark (CSS :root has dark variables).
+        // If savedTheme is 'light', add light-mode class to override.
         if (savedTheme === 'light') {
-            body.classList.remove('dark-mode');
             body.classList.add('light-mode');
         } else {
-            body.classList.add('dark-mode');
             body.classList.remove('light-mode');
+            // Ensure consistent storage value (optional, but good for clarity)
+            if (!savedTheme) localStorage.setItem('theme', 'dark');
         }
 
         // Setup theme toggles
@@ -175,10 +176,8 @@ const Navbar = {
         const toggleTheme = () => {
             if (body.classList.contains('light-mode')) {
                 body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
                 localStorage.setItem('theme', 'dark');
             } else {
-                body.classList.remove('dark-mode');
                 body.classList.add('light-mode');
                 localStorage.setItem('theme', 'light');
             }
