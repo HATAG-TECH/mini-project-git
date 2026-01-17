@@ -1,29 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Contact Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | TeamPortfolio</title>
+    <!-- Use the same fonts as other pages -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../home/style.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="contact-container">
-        <h2>Contact Us</h2>
-        <form id="contactForm">
-            <label>Name</label>
-            <input type="text" id="name" placeholder="Enter your name">
+    <!-- Main Container -->
+    <div class="page-container">
 
-            <label>Email</label>
-            <input type="email" id="email" placeholder="Enter your email">
+        <!-- Navbar / Back Link -->
+        <!-- Navigation Bar -->
+        <!-- Navigation Bar -->
+        <div id="global-header"></div>
 
-            <label>Message</label>
-            <textarea id="message" placeholder="Write your message"></textarea>
+        <div class="contact-wrapper">
+            <!-- Left Info Panel -->
+            <div class="contact-info">
+                <h1>Get in Touch</h1>
+                <p>We'd love to hear from you. Fill out the form or reach out via other channels.</p>
 
-            <button type="submit">Submit</button>
-            <p id="response"></p>
-        </form>
+                <div class="info-items">
+                    <div class="item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>support@teamportfolio.com</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Office</h3>
+                            <p>123 Innovation Dr, Tech City</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Right Form Panel -->
+            <div class="contact-form-card">
+                <h2>Send a Message</h2>
+                <form id="contactForm">
+                    <!-- Name & Email Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="name" placeholder="Abebe Kebede" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" id="email" placeholder="abebe.kebede@example.com" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-tag input-icon"></i>
+                            <select id="subject" required>
+                                <option value="" disabled selected>Select a topic</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="support">Technical Support</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="business">Business Proposal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <div class="input-wrapper textarea-wrapper">
+                            <i class="fas fa-comment-alt input-icon textarea-icon"></i>
+                            <textarea id="message" placeholder="How can we help you?" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <script src="../shared/navbar.js"></script>
     <script src="contact.js"></script>
 </body>
+
 </html>

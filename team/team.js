@@ -1,6 +1,6 @@
 // Enhanced Team Page JavaScript with Advanced Animations
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize variables
     const loader = document.getElementById('loader');
     const scrollProgress = document.getElementById('scrollProgress');
@@ -15,126 +15,145 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalClose = document.getElementById('modalClose');
     const modalBody = document.getElementById('modalBody');
     const currentYearSpan = document.getElementById('currentYear');
-    
+
     // Set current year in footer
-    currentYearSpan.textContent = new Date().getFullYear();
-    
-    // Team members data with enhanced information
+    if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+
+    // Team members data
     const teamMembers = [
         {
             id: 1,
-            name: "habtamu shewamen",
+            name: "Habtamu Shewamene",
             role: "Frontend Developer & Project Lead",
-            description: "Specializes in creating responsive, user-friendly interfaces with modern JavaScript frameworks. Leads team coordination and ensures project milestones are met.",
-            fullDescription: "With over 5 years of experience in frontend development, Alex excels at creating intuitive user interfaces using React, Vue.js, and modern CSS frameworks. As Project Lead, they coordinate team efforts, manage timelines, and ensure seamless communication between all team members.",
+            description: "Specializes in creating responsive, user-friendly interfaces with modern JavaScript frameworks.",
+            fullDescription: "With over 5 years of experience in frontend development, Habtamu excels at creating intuitive user interfaces using React, Vue.js, and modern CSS frameworks. As Project Lead, he coordinates team efforts, manages timelines, and ensures seamless communication.",
             skills: ["React", "Vue.js", "TypeScript", "UI/UX", "Project Management"],
             experience: "5+ years",
-            email: "habtamushewamen12gmail.com",
+            email: "habtamushewamen@gmail.com",
             avatarColor: "#3498db",
-            avatarInitials: "AM"
+            avatarInitials: "HS"
         },
         {
             id: 2,
-            name: "estifanos shambel ",
+            name: "Estifanos Shambel",
             role: "UI/UX Designer",
-            description: "Creates intuitive and aesthetically pleasing user interfaces. Focuses on user research, wireframing, and prototyping to optimize user experience.",
-            fullDescription: "Samantha is a passionate UI/UX designer with a background in psychology and design. She creates user-centered designs that are both beautiful and functional. Her process includes user research, wireframing, prototyping, and usability testing to ensure optimal user experiences.",
+            description: "Creates intuitive and aesthetically pleasing user interfaces. Focuses on user research.",
+            fullDescription: "Estifanos is a passionate UI/UX designer with a background in psychology and design. He creates user-centered designs that are both beautiful and functional. His process includes user research, wireframing, prototyping, and usability testing.",
             skills: ["Figma", "Adobe XD", "Prototyping", "User Research", "Wireframing"],
             experience: "4 years",
-            email: "estifanosshambel295gmail.com",
+            email: "estifanosshambel@gmail.com",
             avatarColor: "#2ecc71",
-            avatarInitials: "SC"
+            avatarInitials: "ES"
         },
         {
             id: 3,
-            name: "habtamu befikadu",
+            name: "Habtamu Befekadu",
             role: "Backend Developer",
-            description: "Builds robust server-side logic and database architecture. Ensures system security, performance, and scalability of applications.",
-            fullDescription: "David is a backend specialist with expertise in Node.js, Python, and database design. He builds secure, scalable APIs and ensures system reliability. His focus is on creating efficient server-side logic that can handle high loads while maintaining data integrity.",
+            description: "Builds robust server-side logic and database architecture. Ensures system security.",
+            fullDescription: "Habtamu B. is a backend specialist with expertise in Node.js, Python, and database design. He builds secure, scalable APIs and ensures system reliability. His focus is on creating efficient server-side logic that can handle high loads.",
             skills: ["Node.js", "Python", "Database Design", "API Development", "Security"],
             experience: "6 years",
-            email: "habtamubefekadu19gamil.com",
+            email: "habtamubefekadu@gmail.com",
             avatarColor: "#9b59b6",
-            avatarInitials: "DR"
+            avatarInitials: "HB"
         },
         {
             id: 4,
-            name: "biniyam agegnewu",
+            name: "Biniam Agegnehu",
             role: "Full Stack Developer",
-            description: "Works across both frontend and backend development. Implements features end-to-end and ensures seamless integration between components.",
-            fullDescription: "Jessica is a versatile full stack developer who enjoys working on both client-side and server-side code. She has experience with the MERN stack and enjoys solving complex problems that span the entire application stack.",
+            description: "Works across both frontend and backend development. Implements features end-to-end.",
+            fullDescription: "Biniam is a versatile full stack developer who enjoys working on both client-side and server-side code. He has experience with the MERN stack and enjoys solving complex problems that span the entire application stack.",
             skills: ["JavaScript", "Express.js", "MongoDB", "React", "Full Stack"],
             experience: "4 years",
-            email: "biniyamagegnehu2gmail.com",
+            email: "biniamagegnehu@gmail.com",
             avatarColor: "#e74c3c",
-            avatarInitials: "JW"
+            avatarInitials: "BA"
         },
         {
             id: 5,
-            name: "henok kebede",
+            name: "Henok Kebede",
             role: "Quality Assurance Engineer",
-            description: "Designs and executes test plans to ensure software quality. Implements automated testing and monitors for bugs and performance issues.",
-            fullDescription: "Michael is a meticulous QA engineer who ensures our software meets the highest quality standards. He develops comprehensive test plans, implements automated testing, and works closely with developers to identify and resolve issues early in the development cycle.",
+            description: "Designs and executes test plans to ensure software quality. Implements automated testing.",
+            fullDescription: "Henok is a meticulous QA engineer who ensures our software meets the highest quality standards. He develops comprehensive test plans, implements automated testing, and works closely with developers to identify and resolve issues.",
             skills: ["Testing", "Automation", "Debugging", "Performance", "CI/CD"],
             experience: "5 years",
-            email: "henokkebede410@gmail.com",
+            email: "henokkebede@gmail.com",
             avatarColor: "#f39c12",
-            avatarInitials: "MT"
+            avatarInitials: "HK"
         },
         {
             id: 6,
-            name: "melat kassa",
+            name: "Melat Kassahun",
             role: "DevOps Specialist",
-            description: "Manages deployment pipelines, cloud infrastructure, and CI/CD processes. Ensures reliable and efficient development workflows.",
-            fullDescription: "Emily is a DevOps specialist who manages our cloud infrastructure and CI/CD pipelines. She ensures smooth deployments, monitors system performance, and optimizes development workflows for maximum efficiency.",
+            description: "Manages deployment pipelines, cloud infrastructure, and CI/CD processes.",
+            fullDescription: "Melat is a DevOps specialist who manages our cloud infrastructure and CI/CD pipelines. She ensures smooth deployments, monitors system performance, and optimizes development workflows for maximum efficiency.",
             skills: ["Docker", "AWS", "CI/CD", "Infrastructure", "Kubernetes"],
             experience: "4 years",
-            email: "kassamelat234.gmail.com",
+            email: "melatkassahun@gmail.com",
             avatarColor: "#1abc9c",
-            avatarInitials: "EZ"
+            avatarInitials: "MK"
         },
         {
             id: 7,
-            name: "icon girma",
+            name: "Icon Girma",
             role: "Technical Documentation & Support",
-            description: "Creates comprehensive documentation and provides technical support. Ensures knowledge transfer and assists with project communication.",
-            fullDescription: "Ryan is responsible for creating clear, comprehensive technical documentation and providing support to both the team and end-users. He ensures knowledge is properly documented and transferred, and assists with project communication and coordination.",
+            description: "Creates comprehensive documentation and provides technical support.",
+            fullDescription: "Icon is responsible for creating clear, comprehensive technical documentation and providing support to both the team and end-users. He ensures knowledge is properly documented and transferred.",
             skills: ["Documentation", "Technical Writing", "Support", "Communication", "Training"],
             experience: "3 years",
-            email: "icongirma129gmail.com",
+            email: "icongirma@gmail.com",
             avatarColor: "#34495e",
-            avatarInitials: "RC"
+            avatarInitials: "IG"
         }
     ];
 
     // Initialize the page
+    initPage();
+
     function initPage() {
-        // Hide loader after page loads
+        // Initialize Navigation
+        if (typeof Navbar !== 'undefined') {
+            Navbar.init('Team');
+        }
+
+        // Hide loader after page loads (Fail-safe)
         setTimeout(() => {
-            loader.classList.add('loaded');
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
-        }, 1500);
-        
+            if (loader) {
+                loader.classList.add('loaded');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }
+        }, 800);
+
         generateTeamCards();
         setupScrollAnimations();
         setupEventListeners();
-        
-        // Initialize skills animation
-        setTimeout(animateSkills, 1000);
+
+        // Initialize skills animation safely
+        setTimeout(() => {
+            animateSkills();
+        }, 1000);
+
+        // Add dynamic CSS
+        addDynamicStyles();
+
+        setTimeout(() => {
+            if (teamTitle) teamTitle.classList.add('animated');
+        }, 300);
     }
 
-    // Generate team cards with enhanced hover effects
+    // Generate team cards
     function generateTeamCards() {
+        if (!teamGrid) return;
         teamGrid.innerHTML = '';
-        
+
         teamMembers.forEach((member, index) => {
             const card = document.createElement('div');
             card.className = 'team-card';
             card.setAttribute('data-member-id', member.id);
             card.style.animationDelay = `${index * 0.1 + 0.5}s`;
-            
+
             // Create skills HTML
             let skillsHTML = '';
             if (member.skills && member.skills.length > 0) {
@@ -144,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 skillsHTML += `</div>`;
             }
-            
+
             card.innerHTML = `
                 <div class="card-header">
                     <div class="member-avatar" style="background-color: ${member.avatarColor}">
@@ -157,15 +176,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p class="member-description">${member.description}</p>
                     ${skillsHTML}
                     <div class="view-details">
-                        <span class="view-text">Click for details</span>
-                        <i class="fas fa-arrow-right"></i>
+                        <span class="view-text">Contact / Details</span>
+                        <i class="fas fa-envelope"></i>
                     </div>
                 </div>
             `;
-            
+
             teamGrid.appendChild(card);
         });
-        
+
         // Add event listeners to cards
         addCardInteractions();
     }
@@ -173,33 +192,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Enhanced card interactions
     function addCardInteractions() {
         const cards = document.querySelectorAll('.team-card');
-        
+
         cards.forEach(card => {
             // Mouse enter effect
-            card.addEventListener('mouseenter', function(e) {
+            card.addEventListener('mouseenter', function (e) {
                 this.style.zIndex = '100';
-                
-                // Create a glow effect
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const glow = document.createElement('div');
-                glow.className = 'card-glow';
-                glow.style.cssText = `
-                    position: absolute;
-                    width: 300px;
-                    height: 300px;
-                    background: radial-gradient(circle at ${x}px ${y}px, rgba(52, 152, 219, 0.2), transparent);
-                    top: -100px;
-                    left: -100px;
-                    pointer-events: none;
-                    z-index: -1;
-                    border-radius: 50%;
-                `;
-                
-                this.appendChild(glow);
-                
+
                 // Add floating animation to skills
                 const skills = this.querySelectorAll('.skill-tag');
                 skills.forEach((skill, i) => {
@@ -207,15 +205,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     skill.style.transitionDelay = `${i * 0.05}s`;
                 });
             });
-            
+
             // Mouse leave effect
-            card.addEventListener('mouseleave', function() {
+            card.addEventListener('mouseleave', function () {
                 this.style.zIndex = '';
-                
-                // Remove glow effect
-                const glow = this.querySelector('.card-glow');
-                if (glow) glow.remove();
-                
+
                 // Reset skills position
                 const skills = this.querySelectorAll('.skill-tag');
                 skills.forEach(skill => {
@@ -223,15 +217,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     skill.style.transitionDelay = '';
                 });
             });
-            
+
             // Click to show modal with member details
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function () {
                 const memberId = this.getAttribute('data-member-id');
                 const member = teamMembers.find(m => m.id === parseInt(memberId));
-                
+
                 if (member) {
                     showMemberModal(member);
-                    
+
                     // Add click animation
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
@@ -239,14 +233,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, 300);
                 }
             });
-            
-            // Add touch support for mobile
-            card.addEventListener('touchstart', function(e) {
+
+            // Touch support
+            card.addEventListener('touchstart', function (e) {
                 this.classList.add('touched');
-                e.preventDefault();
-            }, { passive: false });
-            
-            card.addEventListener('touchend', function() {
+            }, { passive: true });
+
+            card.addEventListener('touchend', function () {
                 this.classList.remove('touched');
             });
         });
@@ -261,13 +254,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 skillsHTML += `<span class="modal-skill">${skill}</span>`;
             });
         }
-        
+
         modalBody.innerHTML = `
             <div class="modal-header" style="background-color: ${member.avatarColor}">
                 <div class="modal-avatar">${member.avatarInitials}</div>
                 <h2>${member.name}</h2>
                 <p class="modal-role">${member.role}</p>
                 <p class="modal-experience"><i class="fas fa-briefcase"></i> ${member.experience} experience</p>
+                <button class="modal-close-btn" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-details">
                 <h3>About</h3>
@@ -278,56 +272,141 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${skillsHTML}
                 </div>
                 
-                <h3>Contact</h3>
-                <div class="modal-contact">
-                    <p><i class="fas fa-envelope"></i> ${member.email}</p>
-                    <button class="contact-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                <!-- Contact Form Section -->
+                <div class="modal-contact-form">
+                    <h4>Contact ${member.name}</h4>
+                    <div class="form-feedback" id="formFeedback"></div>
+                    <form id="contactForm" data-member-name="${member.name}">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" required placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="gender">Gender *</label>
+                                <select id="gender" required>
+                                    <option value="" disabled selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="age">Age *</label>
+                                <input type="number" id="age" required placeholder="Age" min="18" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="role">Role *</label>
+                                <select id="role" required>
+                                    <option value="" disabled selected>Select Role</option>
+                                    <option value="Owner">Owner</option>
+                                    <option value="Employer">Employer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="purpose">Purpose of Contact *</label>
+                            <input type="text" id="purpose" required placeholder="e.g. Job Offer, Collaboration">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" required placeholder="Write your message here..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
         `;
-        
+
         // Show modal
         memberModal.classList.add('active');
         document.body.style.overflow = 'hidden';
+
+        // Add Form Listener
+        document.getElementById('contactForm').addEventListener('submit', handleContactFormSubmit);
+    }
+
+    // Handle Contact Form Submit
+    function handleContactFormSubmit(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const memberName = form.getAttribute('data-member-name'); // retrieve member name
+
+        const feedback = document.getElementById('formFeedback');
+        const fullName = document.getElementById('fullName').value;
+        const gender = document.getElementById('gender').value;
+        const age = document.getElementById('age').value;
+        const role = document.getElementById('role').value;
+        const purpose = document.getElementById('purpose').value;
+        const message = document.getElementById('message').value;
+
+        // Basic Validation
+        if (!fullName || !gender || !age || !role || !purpose || !message) {
+            feedback.textContent = "Please fill in all mandatory fields.";
+            feedback.className = "form-feedback error";
+            feedback.style.display = 'block';
+            return;
+        }
+
+        // Simulate API call/Success
+        const submitBtn = e.target.querySelector('.submit-btn');
+        const originalContent = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+            // Update feedback message to include member name
+            feedback.textContent = `Your message to ${memberName} has been sent successfully.`;
+            feedback.className = "form-feedback success";
+            feedback.style.display = 'block';
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent';
+
+            // Clear form
+            e.target.reset();
+
+            // Reset button after delay
+            setTimeout(() => {
+                submitBtn.innerHTML = originalContent;
+                submitBtn.disabled = false;
+            }, 3000);
+        }, 1500);
     }
 
     // Close modal
     function closeModal() {
-        memberModal.classList.remove('active');
+        if (memberModal) memberModal.classList.remove('active');
         document.body.style.overflow = 'auto';
     }
 
     // Setup scroll animations
     function setupScrollAnimations() {
-        // Scroll progress indicator
-        window.addEventListener('scroll', function() {
-            // Update scroll progress
+        if (!scrollProgress || !backToTop || !pageHeader) return;
+
+        window.addEventListener('scroll', function () {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             scrollProgress.style.width = scrolled + "%";
-            
-            // Show/hide back to top button
+
             if (winScroll > 300) {
                 backToTop.classList.add('visible');
             } else {
                 backToTop.classList.remove('visible');
             }
-            
-            // Parallax effect for header
+
             const parallaxValue = winScroll * 0.5;
             pageHeader.style.setProperty('--scroll-parallax', `${parallaxValue}px`);
-            
-            // Trigger animations when elements come into view
+
             checkScrollAnimations();
         });
-        
-        // Back to top button
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+
+        backToTop.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
@@ -339,109 +418,102 @@ document.addEventListener('DOMContentLoaded', function() {
             { element: teamMission, offset: 100 },
             { element: skillsSection, offset: 100 }
         ];
-        
+
         elements.forEach(item => {
             if (item.element && !item.element.classList.contains('animated')) {
                 const rect = item.element.getBoundingClientRect();
                 const isVisible = rect.top <= window.innerHeight - item.offset;
-                
+
                 if (isVisible) {
                     item.element.classList.add('animated');
                 }
             }
         });
-        
-        // Animate skill bars
+
         const skillBars = document.querySelectorAll('.skill-bar');
         skillBars.forEach(bar => {
             if (!bar.classList.contains('animated')) {
                 const rect = bar.getBoundingClientRect();
                 const isVisible = rect.top <= window.innerHeight - 100;
-                
+
                 if (isVisible) {
                     bar.classList.add('animated');
                     const level = bar.getAttribute('data-level');
                     const fill = bar.querySelector('.skill-fill');
-                    fill.style.width = level + '%';
+                    if (fill) fill.style.width = level + '%';
                 }
             }
         });
     }
 
-    // Animate skill bars
     function animateSkills() {
         const skillBars = document.querySelectorAll('.skill-bar');
         skillBars.forEach(bar => {
             const rect = bar.getBoundingClientRect();
             const isVisible = rect.top <= window.innerHeight - 100;
-            
+
             if (isVisible) {
                 bar.classList.add('animated');
                 const level = bar.getAttribute('data-level');
                 const fill = bar.querySelector('.skill-fill');
-                fill.style.width = level + '%';
+                if (fill) fill.style.width = level + '%';
             }
         });
     }
 
     // Setup event listeners
+
     function setupEventListeners() {
-        // Modal close button
-        modalClose.addEventListener('click', closeModal);
-        
-        // Close modal when clicking outside
-        memberModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-        
+        // Attach modal close handlers so the 'X' and overlay work as expected.
+        if (memberModal) {
+            // Close when clicking the overlay background (outside modal content)
+            memberModal.addEventListener('click', function (e) {
+                if (e.target === memberModal) closeModal();
+            });
+
+            // Close when clicking any close button inside the modal header
+            memberModal.addEventListener('click', function (e) {
+                const btn = e.target.closest('.modal-close-btn');
+                if (btn) closeModal();
+            });
+        }
+
         // Close modal with Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && memberModal.classList.contains('active')) {
-                closeModal();
-            }
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
         });
-        
-        // Smooth scroll for anchor links
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
+                const targetElement = document.querySelector(href);
                 if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
     }
 
-    // Initialize the page
-    initPage();
-    
-    // Add some dynamic CSS for additional effects
+    // Add some dynamic CSS for additional CARD effects (removed modal/form hardcode)
     addDynamicStyles();
-    
-    // Initialize animations on load
+
     setTimeout(() => {
-        teamTitle.classList.add('animated');
+        if (teamTitle) teamTitle.classList.add('animated');
     }, 500);
 });
 
-// Add dynamic CSS for additional effects
+// Add dynamic CSS for additional effects (kept only card touches, moved modal/msg styles to team/style.css where possible)
 function addDynamicStyles() {
     const style = document.createElement('style');
     style.textContent = `
+        /* Dynamic Styles Injected by JS (minimal) */
         .view-details {
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #3498db;
+            color: var(--primary);
             font-weight: 600;
             margin-top: 20px;
             opacity: 0;
@@ -454,23 +526,15 @@ function addDynamicStyles() {
             transform: translateX(0);
         }
         
-        .view-text {
-            font-size: 0.9rem;
-        }
-        
-        .view-details i {
-            transition: transform 0.3s ease;
-        }
-        
         .team-card:hover .view-details i {
             transform: translateX(5px);
         }
-        
-        /* Modal styles */
+
+        /* Modal Header Custom for JS injection */
         .modal-header {
             padding: 40px;
             text-align: center;
-            color: white;
+            color: white; /* Always white text on colored bg */
             border-radius: 20px 20px 0 0;
             position: relative;
             overflow: hidden;
@@ -484,6 +548,7 @@ function addDynamicStyles() {
             right: 0;
             bottom: 0;
             background: linear-gradient(45deg, rgba(0,0,0,0.2), transparent);
+            pointer-events: none;
         }
         
         .modal-avatar {
@@ -498,104 +563,33 @@ function addDynamicStyles() {
             font-weight: bold;
             margin: 0 auto 20px;
             border: 3px solid white;
-        }
-        
-        .modal-header h2 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
             position: relative;
             z-index: 2;
         }
-        
-        .modal-role {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .modal-experience {
+
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0,0,0,0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 1rem;
-            position: relative;
-            z-index: 2;
+            transition: background 0.3s;
+            z-index: 10;
         }
         
-        .modal-details {
-            padding: 30px;
+        .modal-close-btn:hover {
+            background: rgba(0,0,0,0.4);
         }
-        
-        .modal-details h3 {
-            color: #2c3e50;
-            margin: 25px 0 15px;
-            font-size: 1.4rem;
-            border-bottom: 2px solid #f1f1f1;
-            padding-bottom: 8px;
-        }
-        
-        .modal-details h3:first-child {
-            margin-top: 0;
-        }
-        
-        .modal-description {
-            line-height: 1.7;
-            color: #5a6c7d;
-        }
-        
-        .modal-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .modal-skill {
-            background: #f1f8ff;
-            color: #0366d6;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        
-        .modal-contact {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .modal-contact p {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #5a6c7d;
-            font-size: 1.1rem;
-        }
-        
-        .contact-btn {
-            background: linear-gradient(135deg, #3498db, #2c3e50);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-        }
-        
+
         /* Card glow effect */
         .card-glow {
             animation: glowPulse 3s infinite;
@@ -606,29 +600,20 @@ function addDynamicStyles() {
             50% { opacity: 0.8; }
         }
         
-        /* Team card touch effect */
-        .team-card.touched {
-            transform: scale(0.98);
-        }
-        
         /* Scrollbar styling */
         ::-webkit-scrollbar {
             width: 10px;
         }
         
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: var(--dark-light);
         }
         
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #3498db, #2ecc71);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 5px;
         }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #2980b9, #27ae60);
-        }
     `;
-    
+
     document.head.appendChild(style);
 }

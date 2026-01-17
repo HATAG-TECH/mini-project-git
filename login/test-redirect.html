@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Redirect</title>
+</head>
+<body>
+    <h1>Testing Redirect Paths</h1>
+    
+    <button onclick="testRedirect()">Test Redirect to Home</button>
+    <button onclick="checkSession()">Check Session Storage</button>
+    <button onclick="clearSession()">Clear Session</button>
+    
+    <div id="output" style="margin-top: 20px; padding: 20px; background: #f0f0f0;"></div>
+    
+    <script>
+        function testRedirect() {
+            const output = document.getElementById('output');
+            output.innerHTML = `
+                <h3>Testing Redirect:</h3>
+                <p>Trying to redirect to: ../home/index.html</p>
+                <p>Current location: ${window.location.href}</p>
+                <p>Current path: ${window.location.pathname}</p>
+            `;
+            
+            setTimeout(() => {
+                window.location.href = '../home/index.html';
+            }, 1000);
+        }
+        
+        function checkSession() {
+            const output = document.getElementById('output');
+            output.innerHTML = `
+                <h3>Session Storage:</h3>
+                <pre>${JSON.stringify({
+                    isLoggedIn: sessionStorage.getItem('isLoggedIn'),
+                    userEmail: sessionStorage.getItem('userEmail'),
+                    userName: sessionStorage.getItem('userName')
+                }, null, 2)}</pre>
+            `;
+        }
+        
+        function clearSession() {
+            sessionStorage.clear();
+            localStorage.removeItem('rememberedUser');
+            document.getElementById('output').innerHTML = '<p>Session cleared!</p>';
+        }
+        
+        // Check current session on load
+        checkSession();
+    </script>
+</body>
+</html>
